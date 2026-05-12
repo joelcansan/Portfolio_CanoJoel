@@ -6,39 +6,178 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			.hero {
+				padding: 3em 0 2em;
+			}
+
+			.greeting {
+				font-family: var(--font-mono);
+				font-size: 0.9em;
+				color: var(--accent);
+				margin-bottom: 0.5em;
+				letter-spacing: 0.05em;
+			}
+
+			.hero h1 {
+				font-size: 3em;
+				margin-bottom: 0.3em;
+				line-height: 1.1;
+			}
+
+			.hero-sub {
+				color: var(--text-secondary);
+				font-size: 1.1em;
+				max-width: 600px;
+				margin-bottom: 2em;
+			}
+
+			.cta-links {
+				display: flex;
+				gap: 1em;
+				flex-wrap: wrap;
+				margin-bottom: 3em;
+			}
+
+			.btn {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.4em;
+				padding: 0.6em 1.2em;
+				border-radius: 6px;
+				font-family: var(--font-mono);
+				font-size: 0.9em;
+				text-decoration: none;
+				transition: all 0.2s;
+				cursor: pointer;
+			}
+
+			.btn-primary {
+				background: var(--accent);
+				color: #0a0e0f;
+				border: 1px solid var(--accent);
+				font-weight: 600;
+			}
+
+			.btn-primary:hover {
+				background: var(--accent-dim);
+				border-color: var(--accent-dim);
+				box-shadow: var(--shadow-glow);
+				text-shadow: none;
+				color: #0a0e0f;
+			}
+
+			.btn-outline {
+				background: transparent;
+				color: var(--text-secondary);
+				border: 1px solid var(--border);
+			}
+
+			.btn-outline:hover {
+				color: var(--accent);
+				border-color: var(--border-hover);
+				background: var(--accent-glow);
+				text-shadow: none;
+			}
+
+			.divider {
+				height: 1px;
+				background: var(--border);
+				margin: 2.5em 0;
+			}
+
+			.about-block {
+				padding: 1.5em;
+				background: var(--bg-card);
+				border: 1px solid var(--border);
+				border-radius: 10px;
+				margin-bottom: 1.5em;
+			}
+
+			.about-block h2 {
+				font-size: 1em;
+				margin-bottom: 0.8em;
+				color: var(--accent);
+				letter-spacing: 0.05em;
+			}
+
+			.about-block h2::before {
+				content: none;
+			}
+
+			.about-block p {
+				margin: 0;
+				font-size: 0.95em;
+			}
+
+			.stack-list {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5em;
+				list-style: none;
+				padding: 0;
+				margin: 0;
+			}
+
+			.stack-list li {
+				padding: 0.3em 0.8em;
+				background: var(--bg-elevated);
+				border: 1px solid var(--border);
+				border-radius: 4px;
+				font-family: var(--font-mono);
+				font-size: 0.8em;
+				color: var(--text-secondary);
+			}
+
+			.stack-list li::marker {
+				content: none;
+			}
+		</style>
 	</head>
 	<body>
 		<Header />
 		<main>
-			<h1>¡Bienvenido a mi Portfolio!</h1>
-			<p>
-				Soy desarrollador fullstack apasionado por construir aplicaciones web robustas y escalables.
-				Aquí encontrarás una selección de mis proyectos personales, donde experimento con nuevas
-				tecnologías y resuelvo problemas reales.
-			</p>
-			<p>
-				Me especializo en el desarrollo backend, trabajando con tecnologías como Node.js, bases de
-				datos SQL y NoSQL, APIs REST y arquitecturas modernas. También me defiendo bien en el
-				frontend cuando el proyecto lo requiere.
-			</p>
-			<p>¿Qué puedes encontrar aquí?</p>
-			<ul>
-				<li>Proyectos personales desarrollados desde cero</li>
-				<li>Experimentos con nuevas tecnologías y frameworks</li>
-				<li>Soluciones a problemas reales que me he encontrado por el camino</li>
-				<li>Mi proceso de aprendizaje continuo como desarrollador</li>
-			</ul>
-			<p>
-				Si quieres saber más sobre algún proyecto o simplemente charlar sobre tecnología,
-				no dudes en <a href="mailto:tuemail@email.com">contactarme</a>.
-			</p>
-			<p>
-				También puedes seguir mi actividad en <a href="https://github.com/joelcansan">GitHub</a>
-				o conectar conmigo en <a href="https://www.linkedin.com/in/joel-cano-sanchez-95198b2b4/">LinkedIn</a>.
-			</p>
+			<section class="hero">
+				<p class="greeting">// Bienvenido a mi portfolio</p>
+				<h1>Joel Cano Sanchez</h1>
+				<p class="hero-sub">
+					Desarrollador fullstack apasionado por construir aplicaciones web robustas y escalables.
+					Especializado en backend: Node.js, SQL/NoSQL, APIs REST y arquitecturas modernas.
+				</p>
+				<div class="cta-links">
+					<a href="/projects" class="btn btn-primary">Ver proyectos &rarr;</a>
+					<a href="https://github.com/joelcansan" target="_blank" class="btn btn-outline">GitHub</a>
+					<a href="mailto:tuemail@email.com" class="btn btn-outline">Contacto</a>
+				</div>
+			</section>
+
+			<div class="divider"></div>
+
+			<div class="about-block">
+				<h2>// Stack principal</h2>
+				<ul class="stack-list">
+					<li>Node.js</li>
+					<li>TypeScript</li>
+					<li>SQL / NoSQL</li>
+					<li>REST APIs</li>
+					<li>Astro</li>
+					<li>React</li>
+					<li>Git</li>
+					<li>Docker</li>
+				</ul>
+			</div>
+
+			<div class="about-block">
+				<h2>// &iquest;Qu&eacute; encontrar&aacute;s aqu&iacute;?</h2>
+				<p>
+					Proyectos personales desarrollados desde cero, experimentos con nuevas tecnolog&iacute;as
+					y soluciones a problemas reales. Todo documentado como parte de mi proceso de
+					aprendizaje continuo.
+				</p>
+			</div>
 		</main>
 		<Footer />
 	</body>

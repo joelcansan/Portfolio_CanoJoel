@@ -55,3 +55,13 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
+
+<!-- Mouse spotlight effect -->
+<script is:inline>
+	if (typeof window !== 'undefined') {
+		document.addEventListener('mousemove', (e) => {
+			document.body.style.setProperty('--mouse-x', e.clientX + 'px');
+			document.body.style.setProperty('--mouse-y', e.clientY + 'px');
+		});
+	}
+</script>

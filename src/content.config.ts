@@ -18,13 +18,18 @@ const blog = defineCollection({
 });
 
 const project = defineCollection({
-	// Load Markdown and MDX files in the `src/content/blog/` directory.
+	// Load Markdown and MDX files in the `src/content/projects/` directory.
 	loader: glob({ base: './src/content/projects', pattern: '**/*.{md,mdx}' }),
 	// Type-check frontmatter using a schema
-	schema: () =>
+	schema: ({ image }) =>
 		z.object({
 			name: z.string(),
 			description: z.string(),
+			heroImage: z.optional(image()),
+			techs: z.array(z.string()).optional().default([]),
+			github: z.string().optional(),
+			demo: z.string().optional(),
+			pubDate: z.coerce.date().optional(),
 		}),
 });
 
