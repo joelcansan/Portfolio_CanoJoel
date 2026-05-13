@@ -2,13 +2,14 @@
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { SITE_DESCRIPTION} from '../consts';
+import { titulo } from '../components/BaseHead.astro';
 ---
 
 <!doctype html>
 <html lang="es">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={`${titulo} | Home`} description={SITE_DESCRIPTION} />
 		<style>
 			.hero {
 				padding: 3em 0 2em;
@@ -135,22 +136,75 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 			.stack-list li::marker {
 				content: none;
 			}
+
+			.hero-content {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 3em;
+			}
+
+			.hero-text {
+				flex: 1;
+			}
+
+			.hero-photo {
+				flex: 0 0 260px;
+				display: flex;
+				justify-content: center;
+			}
+
+			.hero-photo img {
+				width: 260px;
+				height: 260px;
+				object-fit: cover;
+				border-radius: 12px;
+				border: 2px solid var(--border);
+				box-shadow: var(--shadow-glow);
+				background: var(--bg-card);
+			}
+
+			/* Responsive */
+			@media (max-width: 900px) {
+				.hero-content {
+					flex-direction: column;
+					text-align: center;
+				}
+
+				.hero-photo {
+					margin-top: 1.5em;
+				}
+
+				.hero-text {
+					text-align: center;
+				}
+			}
+
 		</style>
 	</head>
 	<body>
 		<Header />
 		<main>
 			<section class="hero">
-				<p class="greeting">// Bienvenido a mi portfolio</p>
-				<h1>Joel Cano Sanchez</h1>
-				<p class="hero-sub">
-					Desarrollador fullstack apasionado por construir aplicaciones web robustas y escalables.
-					Especializado en backend: Node.js, SQL/NoSQL, APIs REST y arquitecturas modernas.
-				</p>
-				<div class="cta-links">
-					<a href="/projects" class="btn btn-primary">Ver proyectos &rarr;</a>
-					<a href="https://github.com/joelcansan" target="_blank" class="btn btn-outline">GitHub</a>
-					<a href="mailto:tuemail@email.com" class="btn btn-outline">Contacto</a>
+				<div class="hero-content">
+					<div class="hero-text">
+						<p class="greeting">// Bienvenido a mi portfolio</p>
+						<h1>Joel Cano Sánchez</h1>
+						<p class="hero-sub">
+							Desarrollador fullstack apasionado por construir aplicaciones web robustas y escalables.
+							Especializado en backend: Node.js, SQL/NoSQL, APIs REST con Laravel o Express y arquitecturas modernas.
+						</p>
+
+						<div class="cta-links">
+							<a href="/projects" class="btn btn-primary">Ver proyectos →</a>
+							<a href="https://github.com/joelcansan" target="_blank" class="btn btn-outline">GitHub</a>
+							<a href="https://mail.google.com/mail/u/0/#inbox?compose=DmwnWrRqhSDmLLzgvbLNwCpqvlxgScVFtWCklrDknzJcHhQnzxLrKwThxTMWqbKqbwXVmmpmDcvB" target="_blank" class="btn btn-outline">Contacto</a>
+						</div>
+					</div>
+
+					<div class="hero-photo">
+						<img src="/images/joelcano.png" alt="Foto de Joel Cano Sánchez" />
+					</div>
 				</div>
 			</section>
 
@@ -160,11 +214,12 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 				<h2>// Stack principal</h2>
 				<ul class="stack-list">
 					<li>Node.js</li>
-					<li>TypeScript</li>
+					<li>JavaScript</li>
 					<li>SQL / NoSQL</li>
 					<li>REST APIs</li>
 					<li>Astro</li>
 					<li>React</li>
+					<li>Next.js</li>
 					<li>Git</li>
 					<li>Docker</li>
 				</ul>

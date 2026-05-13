@@ -4,8 +4,8 @@
 import '../styles/global.css';
 import type { ImageMetadata } from 'astro';
 import FallbackImage from '../assets/blog-placeholder-1.jpg';
-import { SITE_TITLE } from '../consts';
 import { Font } from 'astro:assets';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
 interface Props {
 	title: string;
@@ -13,9 +13,15 @@ interface Props {
 	image?: ImageMetadata;
 }
 
+export const titulo = 'DevJoel';
+
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
+//definimos valores personalizados para los metadatos
 const { title, description, image = FallbackImage } = Astro.props;
+
+
+
 ---
 
 <!-- Global Metadata -->
