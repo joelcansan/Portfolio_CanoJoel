@@ -1,0 +1,175 @@
+---
+// Fireflies.astro — Partículas ambient tech-vibe
+// Sutiles, de fondo, verde neón muy tenue #00ff88
+---
+
+<canvas id="fireflies-canvas"></canvas>
+
+<style>
+  #fireflies-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+</style>
+
+<script is:inline>
+(function () {
+  const canvas = document.getElementById('fireflies-canvas');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+
+  // Verde neón del tema
+  const R = 0, G = 255, B = 136;
+
+  let W = window.innerWidth;
+  let H = window.innerHeight;
+  canvas.width = W;
+  canvas.height = H;
+
+  // Menos partículas, más esparcidas — vibe ambient
+  const COUNT = Math.min(22, Math.floor((W * H) / 52000));
+
+  function rand(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  function createFirefly() {
+    return {
+      x: rand(0, W),
+      y: rand(0, H),
+      // Caída muy lenta
+      vy: rand(0.06, 0.22),
+      vx: rand(-0.08, 0.08),
+      blinkPhase: rand(0, Math.PI * 2),
+      // Parpadeo muy lento
+      blinkSpeed: rand(0.004, 0.012),
+      // Núcleo diminuto
+      radius: rand(0.8, 1.6),
+      // Halo pequeño y tenue
+      glowRadius: rand(8, 18),
+      // Opacidad muy baja — son de fondo
+      maxAlpha: rand(0.18, 0.38),
+      blinkTimer: rand(0, 500),
+      blinkInterval: rand(200, 600),
+      state: 'on',
+      fadeDuration: rand(40, 100),
+      fadeProgress: 0,
+      offDuration: rand(60, 200),
+      offTimer: 0,
+    };
+  }
+
+  let fireflies = Array.from({ length: COUNT }, createFirefly);
+
+  function updateFirefly(f) {
+    f.y += f.vy;
+    f.x += f.vx + Math.sin(f.blinkPhase * 0.2) * 0.04;
+
+    if (f.y > H + 20) { f.y = -10; f.x = rand(0, W); }
+    if (f.x < -20) f.x = W + 10;
+    if (f.x > W + 20) f.x = -10;
+
+    f.blinkTimer++;
+    f.blinkPhase += f.blinkSpeed;
+
+    switch (f.state) {
+      case 'on':
+        if (f.blinkTimer >= f.blinkInterval) {
+          f.state = 'fading_out';
+          f.fadeProgress = 0;
+          f.blinkTimer = 0;
+        }
+        break;
+      case 'fading_out':
+        f.fadeProgress++;
+        if (f.fadeProgress >= f.fadeDuration) {
+          f.state = 'off';
+          f.offTimer = 0;
+        }
+        break;
+      case 'off':
+        f.offTimer++;
+        if (f.offTimer >= f.offDuration) {
+          f.state = 'fading_in';
+          f.fadeProgress = 0;
+        }
+        break;
+      case 'fading_in':
+        f.fadeProgress++;
+        if (f.fadeProgress >= f.fadeDuration) {
+          f.state = 'on';
+          f.blinkTimer = 0;
+          f.blinkInterval = rand(200, 600);
+        }
+        break;
+    }
+  }
+
+  function getAlpha(f) {
+    // Respiración muy suave
+    const breathe = 0.08 * Math.sin(f.blinkPhase) + 0.92;
+
+    let stateAlpha = 1;
+    switch (f.state) {
+      case 'on':        stateAlpha = 1; break;
+      case 'fading_out': stateAlpha = 1 - f.fadeProgress / f.fadeDuration; break;
+      case 'off':       stateAlpha = 0; break;
+      case 'fading_in': stateAlpha = f.fadeProgress / f.fadeDuration; break;
+    }
+
+    return f.maxAlpha * breathe * stateAlpha;
+  }
+
+  function drawFirefly(f) {
+    const alpha = getAlpha(f);
+    if (alpha <= 0.005) return;
+
+    // Un único halo difuso y tenue — sin núcleo sólido
+    const glow = ctx.createRadialGradient(f.x, f.y, 0, f.x, f.y, f.glowRadius);
+    glow.addColorStop(0,   `rgba(${R},${G},${B},${(alpha * 0.55).toFixed(3)})`);
+    glow.addColorStop(0.35,`rgba(${R},${G},${B},${(alpha * 0.20).toFixed(3)})`);
+    glow.addColorStop(0.7, `rgba(${R},${G},${B},${(alpha * 0.06).toFixed(3)})`);
+    glow.addColorStop(1,   `rgba(${R},${G},${B},0)`);
+
+    ctx.beginPath();
+    ctx.arc(f.x, f.y, f.glowRadius, 0, Math.PI * 2);
+    ctx.fillStyle = glow;
+    ctx.fill();
+
+    // Punto central apenas visible — un píxel de presencia
+    const dot = ctx.createRadialGradient(f.x, f.y, 0, f.x, f.y, f.radius);
+    dot.addColorStop(0, `rgba(${R},${G},${B},${(alpha * 0.65).toFixed(3)})`);
+    dot.addColorStop(1, `rgba(${R},${G},${B},0)`);
+
+    ctx.beginPath();
+    ctx.arc(f.x, f.y, f.radius, 0, Math.PI * 2);
+    ctx.fillStyle = dot;
+    ctx.fill();
+  }
+
+  function loop() {
+    ctx.clearRect(0, 0, W, H);
+    for (const f of fireflies) {
+      updateFirefly(f);
+      drawFirefly(f);
+    }
+    requestAnimationFrame(loop);
+  }
+
+  loop();
+
+  window.addEventListener('resize', () => {
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = W;
+    canvas.height = H;
+  });
+})();
+</script>

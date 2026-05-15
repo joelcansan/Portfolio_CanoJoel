@@ -258,7 +258,11 @@ const { name, description, heroImage, techs = [], github, demo, pubDate } = Astr
 				font-size: 0.88em;
 			}
 
-			@media (max-width: 720px) {
+			@media (max-width: 768px) {
+				.project-content {
+					padding: 2em 1em 3em;
+				}
+
 				.project-header h1 {
 					font-size: 1.8em;
 				}
@@ -267,6 +271,25 @@ const { name, description, heroImage, techs = [], github, demo, pubDate } = Astr
 				.hero-image img {
 					max-height: 240px;
 					height: 240px;
+				}
+
+				.project-links {
+					flex-direction: column;
+					align-items: stretch;
+				}
+
+				.btn-link {
+					justify-content: center;
+				}
+			}
+
+			@media (max-width: 480px) {
+				.project-header h1 {
+					font-size: 1.55em;
+				}
+
+				.breadcrumb {
+					flex-wrap: wrap;
 				}
 			}
 		</style>
