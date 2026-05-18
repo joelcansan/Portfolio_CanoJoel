@@ -1,0 +1,185 @@
+---
+/**
+ * CursorBubble.astro
+ * ──────────────────────────────────────────────────────────────
+ * Burbuja decorativa que sigue al cursor del ratón por toda la web.
+ *
+ * CÓMO FUNCIONA:
+ * 1. Se crea un <div> fijo (#cursor-bubble) con un degradado radial
+ *    verde neón que hace de "burbuja".
+ * 2. Un script escucha el evento "mousemove" y actualiza la posición
+ *    de la burbuja usando transform (translateX/Y) para que sea fluido.
+ * 3. Se usa requestAnimationFrame + interpolación (lerp) para que
+ *    la burbuja NO salte al cursor, sino que lo SIGA con suavidad,
+ *    creando un efecto de "retraso elástico".
+ * 4. pointer-events: none → la burbuja no interfiere con clicks ni hovers.
+ * 5. En móvil (pantallas táctiles) se oculta porque no tiene sentido.
+ *
+ * PERSONALIZACIÓN:
+ * - Tamaño de la burbuja → cambiar width/height en el CSS
+ * - Color → cambiar los valores rgba() del radial-gradient
+ * - Velocidad de seguimiento → cambiar LERP_SPEED (0.08 = lento, 0.2 = rápido)
+ * - Opacidad → cambiar opacity en el CSS
+ * ──────────────────────────────────────────────────────────────
+ */
+---
+
+<!-- Elemento de la burbuja — se posiciona con JS -->
+<div id="cursor-bubble" aria-hidden="true"></div>
+
+<style>
+	/* ════════════════════════════════════════════
+	   BURBUJA DEL CURSOR
+	   ════════════════════════════════════════════ */
+
+	#cursor-bubble {
+		/* Posición fija para que no scrollee con la página */
+		position: fixed;
+		top: 0;
+		left: 0;
+
+		/* Tamaño de la burbuja (ancho x alto) */
+		width: 28px;
+		height: 28px;
+
+		/* Forma circular */
+		border-radius: 50%;
+
+		/* Degradado radial: núcleo verde más opaco → borde transparente
+		   Esto crea el efecto de "burbuja brillante" */
+		background: radial-gradient(
+			circle at center,
+			rgba(0, 255, 136, 0.35) 0%,    /* Centro: verde con 35% opacidad */
+			rgba(0, 255, 136, 0.12) 40%,    /* Mitad: verde más tenue */
+			rgba(0, 255, 136, 0.0) 100%     /* Borde: totalmente transparente */
+		);
+
+		/* Sombra verde sutil para darle "glow" */
+		box-shadow: 0 0 12px rgba(0, 255, 136, 0.2);
+
+		/* IMPORTANTE: que no bloquee clicks ni hovers en otros elementos */
+		pointer-events: none;
+
+		/* Por encima de todo el contenido (menos modales/menús) */
+		z-index: 9999;
+
+		/* Empieza invisible hasta que el ratón se mueva */
+		opacity: 0;
+
+		/* Transición suave de la opacidad al aparecer/desaparecer */
+		transition: opacity 0.3s ease;
+
+		/* Centrar la burbuja en el cursor (offset -50% de su tamaño) */
+		transform: translate(-50%, -50%);
+
+		/* Optimización: le decimos al navegador que va a moverse mucho */
+		will-change: transform;
+	}
+
+	/* Cuando el ratón se mueve, el JS le añade esta clase para mostrarla */
+	#cursor-bubble.visible {
+		opacity: 1;
+	}
+
+	/* ── En móvil/tablets no se muestra (no hay cursor) ── */
+	@media (hover: none), (pointer: coarse) {
+		#cursor-bubble {
+			display: none;
+		}
+	}
+</style>
+
+<script is:inline>
+/**
+ * SCRIPT DE LA BURBUJA DEL CURSOR
+ * ────────────────────────────────
+ * Usa interpolación lineal (lerp) para que la burbuja
+ * siga al cursor con un retraso suave y orgánico.
+ */
+(function () {
+	// ── Obtener el elemento de la burbuja ──
+	var bubble = document.getElementById('cursor-bubble');
+	if (!bubble) return;
+
+	// ── Posición actual del ratón (se actualiza en mousemove) ──
+	var mouseX = 0;
+	var mouseY = 0;
+
+	// ── Posición actual de la burbuja (se interpola hacia el ratón) ──
+	var bubbleX = 0;
+	var bubbleY = 0;
+
+	// ── Control de si el ratón ha entrado en la ventana ──
+	var hasMouseMoved = false;
+
+	/**
+	 * LERP_SPEED controla la velocidad de seguimiento:
+	 * - 0.05 = muy lento, la burbuja va con mucho retraso
+	 * - 0.1  = suave y natural (valor actual)
+	 * - 0.2  = rápido, casi pegada al cursor
+	 * - 1.0  = sin interpolación, salto directo
+	 * 
+	 * Ajusta este valor a tu gusto.
+	 */
+	var LERP_SPEED = 0.1;
+
+	// ── Escuchar movimiento del ratón ──
+	document.addEventListener('mousemove', function (e) {
+		// Guardar la posición real del ratón
+		mouseX = e.clientX;
+		mouseY = e.clientY;
+
+		// La primera vez que se mueve el ratón:
+		// colocar la burbuja directamente (sin lerp) y hacerla visible
+		if (!hasMouseMoved) {
+			hasMouseMoved = true;
+			bubbleX = mouseX;
+			bubbleY = mouseY;
+			bubble.classList.add('visible');
+		}
+	});
+
+	// ── Ocultar la burbuja cuando el ratón sale de la ventana ──
+	document.addEventListener('mouseleave', function () {
+		bubble.classList.remove('visible');
+	});
+
+	// ── Mostrar la burbuja cuando el ratón vuelve a entrar ──
+	document.addEventListener('mouseenter', function () {
+		if (hasMouseMoved) {
+			bubble.classList.add('visible');
+		}
+	});
+
+	/**
+	 * BUCLE DE ANIMACIÓN (requestAnimationFrame)
+	 * ───────────────────────────────────────────
+	 * En cada frame (~60fps):
+	 * 1. Calculamos la diferencia entre la posición del ratón y la burbuja
+	 * 2. Movemos la burbuja un % de esa diferencia (interpolación lineal)
+	 * 3. Aplicamos la nueva posición con transform (GPU-accelerated)
+	 *
+	 * El resultado: la burbuja "persigue" al cursor suavemente,
+	 * más lenta cuanto más lejos está, creando un efecto elástico.
+	 */
+	function animate() {
+		// Interpolación lineal: mover la burbuja un 10% hacia el ratón en cada frame
+		// bubbleX += (destino - actual) * velocidad
+		bubbleX += (mouseX - bubbleX) * LERP_SPEED;
+		bubbleY += (mouseY - bubbleY) * LERP_SPEED;
+
+		// Aplicar la posición con transform (más eficiente que top/left)
+		// translate(-50%, -50%) centra la burbuja en el punto
+		bubble.style.transform =
+			'translate(' +
+			(bubbleX - 14) + 'px, ' +  // 14 = mitad del ancho (28px / 2)
+			(bubbleY - 14) + 'px)';     // 14 = mitad del alto (28px / 2)
+
+		// Repetir en el siguiente frame
+		requestAnimationFrame(animate);
+	}
+
+	// ── Arrancar el bucle de animación ──
+	animate();
+})();
+</script>

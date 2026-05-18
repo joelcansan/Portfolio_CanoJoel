@@ -4,45 +4,39 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { titulo } from '../components/BaseHead.astro';
 
+/**
+ * Stack técnico organizado por categoría.
+ * Cada tech tiene: name, icon (Devicon CDN), color (color de la marca).
+ * Se usa el mismo formato de cards que en la Home.
+ */
 const stack = {
-	frontend: ['JavaScript', 'React', 'Next.js', 'Astro', 'HTML', 'CSS', 'Tailwind'],
-	backend: ['Node.js', 'Express', 'PHP', 'Laravel'],
-	database: ['MySQL', 'MariaDB', 'MongoDB', 'Supabase'],
-	tools: ['Git', 'SCRUM', 'REST APIs', 'WordPress', 'Docker'],
+	frontend: [
+		{ name: 'JavaScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg', color: '#F7DF1E' },
+		{ name: 'React', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg', color: '#61DAFB' },
+		{ name: 'Next.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg', color: '#ffffff' },
+		{ name: 'Astro', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/astro/astro-original.svg', color: '#FF5D01' },
+		{ name: 'HTML', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg', color: '#E34F26' },
+		{ name: 'CSS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg', color: '#1572B6' },
+		{ name: 'Tailwind', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg', color: '#06B6D4' },
+	],
+	backend: [
+		{ name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg', color: '#339933' },
+		{ name: 'Express', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg', color: '#ffffff' },
+		{ name: 'PHP', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg', color: '#777BB4' },
+		{ name: 'Laravel', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg', color: '#FF2D20' },
+	],
+	database: [
+		{ name: 'MySQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg', color: '#4479A1' },
+		{ name: 'MariaDB', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mariadb/mariadb-original.svg', color: '#003545' },
+		{ name: 'MongoDB', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg', color: '#47A248' },
+		{ name: 'Supabase', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/supabase/supabase-original.svg', color: '#3ECF8E' },
+	],
+	tools: [
+		{ name: 'Git', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg', color: '#F05032' },
+		{ name: 'Docker', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg', color: '#2496ED' },
+		{ name: 'WordPress', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/wordpress/wordpress-plain.svg', color: '#21759B' },
+	],
 };
-
-const timeline = [
-	{
-		period: '2022 — 2024',
-		title: 'SMR',
-		subtitle: 'Sistemas Microinformáticos y Redes',
-		desc: 'Base sólida en hardware, redes y sistemas operativos.',
-	},
-	{
-		period: '2024 — Actualidad',
-		title: 'DAW',
-		subtitle: 'Desarrollo de Aplicaciones Web',
-		desc: 'Segundo curso. Full-stack, APIs, bases de datos y despliegue.',
-	},
-	{
-		period: 'Becario',
-		title: 'e-Corp Sistemas',
-		subtitle: 'Montaje y sistemas',
-		desc: 'Montaje de ordenadores, instalación y configuración de sistemas operativos.',
-	},
-	{
-		period: 'Becario',
-		title: 'Reactivació Badalona',
-		subtitle: 'Desarrollo web',
-		desc: 'WordPress, MariaDB, y stack moderno con React, Next.js, Tailwind, Laravel y Express.',
-	},
-];
-
-const workCards = [
-	{ tag: '// metodología', title: 'SCRUM', desc: 'Trabajo en equipo con sprints y entregas iterativas.' },
-	{ tag: '// versionado', title: 'Git', desc: 'Control de versiones en todos mis proyectos personales y académicos.' },
-	{ tag: '// deploy', title: 'En producción', desc: 'Vercel, Render, Railway y GitHub Pages.' },
-];
 
 const profile = {
 	nombre: 'Joel Cano Sánchez',
@@ -77,430 +71,179 @@ ${experiencia}
 		<BaseHead title={`About | ${titulo}`} description="Conóceme: formación, experiencia y stack como desarrollador full-stack junior." />
 		<style>
 			/* ── Hero ── */
-			.about-hero {
-				padding: 1rem 0 0.5rem;
-			}
+			.about-hero { padding: 1rem 0 0.5rem; }
+			.hero-content { display: flex; align-items: center; gap: 3em; }
+			.hero-photo { flex: 0 0 220px; }
+			.hero-photo img { width: 220px; height: 220px; object-fit: cover; border-radius: 12px; border: 2px solid var(--border); box-shadow: var(--shadow-glow); background: var(--bg-card); }
+			.hero-text { flex: 1; }
+			.greeting { font-family: var(--font-mono); font-size: 0.9em; color: var(--accent); margin-bottom: 0.75em; letter-spacing: 0.05em; }
+			.about-hero h1 { font-size: 2.6em; margin-bottom: 0.45em; line-height: 1.15; }
+			.hero-sub { color: var(--text-secondary); font-size: 1.05em; max-width: 520px; margin-bottom: 2em; line-height: 1.8; }
+			.cta-links { display: flex; gap: 0.8em; flex-wrap: wrap; }
+			.btn { display: inline-flex; align-items: center; gap: 0.4em; padding: 0.55em 1.1em; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85em; text-decoration: none; transition: all 0.2s; }
+			.btn-primary { background: var(--accent); color: #0a0e0f; border: 1px solid var(--accent); font-weight: 600; }
+			.btn-primary:hover { background: var(--accent-dim); border-color: var(--accent-dim); box-shadow: var(--shadow-glow); text-shadow: none; color: #0a0e0f; }
+			.btn-outline { background: transparent; color: var(--text-secondary); border: 1px solid var(--border); }
+			.btn-outline:hover { color: var(--accent); border-color: var(--border-hover); background: var(--accent-glow); text-shadow: none; }
+			.divider { height: 1px; background: var(--border); margin: var(--section-gap) 0; }
 
-			.hero-content {
-				display: flex;
-				align-items: center;
-				gap: 3em;
-			}
-
-			.hero-photo {
-				flex: 0 0 220px;
-			}
-
-			.hero-photo img {
-				width: 220px;
-				height: 220px;
-				object-fit: cover;
-				border-radius: 12px;
-				border: 2px solid var(--border);
-				box-shadow: var(--shadow-glow);
-				background: var(--bg-card);
-			}
-
-			.hero-text {
-				flex: 1;
-			}
-
-			.greeting {
-				font-family: var(--font-mono);
-				font-size: 0.9em;
-				color: var(--accent);
-				margin-bottom: 0.75em;
-				letter-spacing: 0.05em;
-			}
-
-			.about-hero h1 {
-				font-size: 2.6em;
-				margin-bottom: 0.45em;
-				line-height: 1.15;
-			}
-
-			.hero-sub {
-				color: var(--text-secondary);
-				font-size: 1.05em;
-				max-width: 520px;
-				margin-bottom: 2em;
-				line-height: 1.8;
-			}
-
-			.cta-links {
-				display: flex;
-				gap: 0.8em;
-				flex-wrap: wrap;
-			}
-
-			.btn {
-				display: inline-flex;
-				align-items: center;
-				gap: 0.4em;
-				padding: 0.55em 1.1em;
-				border-radius: 6px;
-				font-family: var(--font-mono);
-				font-size: 0.85em;
-				text-decoration: none;
-				transition: all 0.2s;
-			}
-
-			.btn-primary {
-				background: var(--accent);
-				color: #0a0e0f;
-				border: 1px solid var(--accent);
-				font-weight: 600;
-			}
-
-			.btn-primary:hover {
-				background: var(--accent-dim);
-				border-color: var(--accent-dim);
-				box-shadow: var(--shadow-glow);
-				text-shadow: none;
-				color: #0a0e0f;
-			}
-
-			.btn-outline {
-				background: transparent;
-				color: var(--text-secondary);
-				border: 1px solid var(--border);
-			}
-
-			.btn-outline:hover {
-				color: var(--accent);
-				border-color: var(--border-hover);
-				background: var(--accent-glow);
-				text-shadow: none;
-			}
-
-			.divider {
-				height: 1px;
-				background: var(--border);
-				margin: var(--section-gap) 0;
-			}
-
-			/* ── Stats bento ── */
-			.stats-grid {
-				display: grid;
-				grid-template-columns: repeat(4, 1fr);
-				gap: 1.25em;
-			}
-
-			.stat-card {
-				padding: 1.2em 1.4em;
-				background: var(--bg-card);
-				border: 1px solid var(--border);
-				border-radius: 10px;
-				transition: all 0.2s;
-			}
-
-			.stat-card:hover {
-				border-color: var(--border-hover);
-				box-shadow: var(--shadow-glow);
-				transform: translateY(-2px);
-			}
-
-			.stat-value {
-				font-family: var(--font-mono);
-				font-size: 1.5em;
-				font-weight: 700;
-				color: var(--accent);
-				margin-bottom: 0.2em;
-			}
-
-			.stat-label {
-				font-family: var(--font-mono);
-				font-size: 0.75em;
-				color: var(--text-muted);
-				text-transform: uppercase;
-				letter-spacing: 0.06em;
-			}
+			/* ── Stats ── */
+			.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25em; }
+			.stat-card { padding: 1.2em 1.4em; background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; transition: all 0.2s; }
+			.stat-card:hover { border-color: var(--border-hover); box-shadow: var(--shadow-glow); transform: translateY(-2px); }
+			.stat-value { font-family: var(--font-mono); font-size: 1.5em; font-weight: 700; color: var(--accent); margin-bottom: 0.2em; }
+			.stat-label { font-family: var(--font-mono); font-size: 0.75em; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
 
 			/* ── Two columns: timeline + terminal ── */
-			.content-grid {
-				display: grid;
-				grid-template-columns: 1fr 1fr;
-				gap: 2rem;
-				align-items: start;
-			}
-
-			.section-block .section-label {
-				margin-bottom: 1.35rem;
-			}
+			.content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+			.section-block .section-label { margin-bottom: 1.35rem; }
 
 			/* Timeline */
-			.timeline {
-				list-style: none;
-				padding: 0;
-				margin: 0;
-				position: relative;
-			}
+			.timeline { list-style: none; padding: 0; margin: 0; position: relative; }
+			.timeline::before { content: ''; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 2px; background: var(--border); }
+			.timeline li { position: relative; padding-left: 2em; padding-bottom: 1.75em; }
+			.timeline li:last-child { padding-bottom: 0; }
+			.timeline li::before { content: ''; position: absolute; left: 0; top: 6px; width: 16px; height: 16px; border-radius: 50%; background: var(--bg-base); border: 2px solid var(--accent); box-shadow: 0 0 8px rgba(0,255,136,0.3); }
+			.timeline-period { font-family: var(--font-mono); font-size: 0.72em; color: var(--accent); letter-spacing: 0.05em; margin-bottom: 0.3em; }
+			.timeline-title { font-family: var(--font-mono); font-size: 1em; font-weight: 600; color: var(--text-primary); margin: 0 0 0.15em; }
+			.timeline-subtitle { font-size: 0.85em; color: var(--text-muted); margin: 0 0 0.4em; }
+			.timeline-desc { font-size: 0.9em; color: var(--text-secondary); margin: 0; line-height: 1.6; }
 
-			.timeline::before {
-				content: '';
-				position: absolute;
-				left: 7px;
-				top: 8px;
-				bottom: 8px;
-				width: 2px;
-				background: var(--border);
-			}
-
-			.timeline li {
-				position: relative;
-				padding-left: 2em;
-				padding-bottom: 1.75em;
-			}
-
-			.timeline li:last-child {
-				padding-bottom: 0;
-			}
-
-			.timeline li::before {
-				content: '';
-				position: absolute;
-				left: 0;
-				top: 6px;
-				width: 16px;
-				height: 16px;
-				border-radius: 50%;
-				background: var(--bg-base);
-				border: 2px solid var(--accent);
-				box-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
-			}
-
-			.timeline-period {
-				font-family: var(--font-mono);
-				font-size: 0.72em;
-				color: var(--accent);
-				letter-spacing: 0.05em;
-				margin-bottom: 0.3em;
-			}
-
-			.timeline-title {
-				font-family: var(--font-mono);
-				font-size: 1em;
-				font-weight: 600;
-				color: var(--text-primary);
-				margin: 0 0 0.15em;
-			}
-
-			.timeline-subtitle {
-				font-size: 0.85em;
-				color: var(--text-muted);
-				margin: 0 0 0.4em;
-			}
-
-			.timeline-desc {
-				font-size: 0.9em;
-				color: var(--text-secondary);
-				margin: 0;
-				line-height: 1.6;
-			}
-
-			/* Terminal card */
-			.terminal-card {
-				background: var(--bg-elevated);
-				border: 1px solid var(--border);
-				border-radius: 10px;
-				overflow: hidden;
-			}
-
-			.terminal-header {
-				display: flex;
-				align-items: center;
-				gap: 6px;
-				padding: 0.7em 1em;
-				background: var(--bg-card);
-				border-bottom: 1px solid var(--border);
-			}
-
-			.terminal-dot {
-				width: 10px;
-				height: 10px;
-				border-radius: 50%;
-			}
-
+			/* Terminal */
+			.terminal-card { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+			.terminal-header { display: flex; align-items: center; gap: 6px; padding: 0.7em 1em; background: var(--bg-card); border-bottom: 1px solid var(--border); }
+			.terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
 			.terminal-dot.red { background: #ff5f57; }
 			.terminal-dot.yellow { background: #febc2e; }
 			.terminal-dot.green { background: #28c840; }
-
-			.terminal-filename {
-				margin-left: 0.5em;
-				font-family: var(--font-mono);
-				font-size: 0.75em;
-				color: var(--text-muted);
-			}
-
-			.terminal-body {
-				padding: 1.2em 1.4em;
-				font-family: var(--font-mono);
-				font-size: 0.82em;
-				line-height: 1.8;
-				color: var(--text-secondary);
-			}
-
+			.terminal-filename { margin-left: 0.5em; font-family: var(--font-mono); font-size: 0.75em; color: var(--text-muted); }
+			.terminal-body { padding: 1.2em 1.4em; font-family: var(--font-mono); font-size: 0.82em; line-height: 1.8; color: var(--text-secondary); }
 			.terminal-body .brace { color: var(--text-primary); }
 			.terminal-body .key { color: var(--accent); }
 			.terminal-body .str { color: #7dd3a8; }
 			.terminal-body .num { color: #f0ab6b; }
 			.terminal-body .bool { color: #79b8ff; }
 
-			/* ── Stack ── */
-			.stack-section {
-				margin-top: 0;
-			}
+			/* ══════════════════════════════════════════════
+			   Stack Cards — mismo estilo que la Home
+			   Icono grande arriba, nombre debajo, hover con
+			   glow del color de cada tech
+			   ══════════════════════════════════════════════ */
+			.stack-section { margin-top: 0; }
+			.stack-groups { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25em; }
+			.stack-group { padding: 1.2em 1.4em; background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; }
+			.stack-group h3 { font-size: 0.8em; color: var(--accent); margin-bottom: 0.8em; letter-spacing: 0.06em; text-transform: uppercase; }
+			.stack-group h3::before { content: none; }
 
-			.stack-groups {
-				display: grid;
-				grid-template-columns: repeat(2, 1fr);
-				gap: 1.25em;
-			}
+			/* Grid de cards dentro de cada grupo */
+			.stack-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 0.6em; list-style: none; padding: 0; margin: 0; }
 
-			.stack-group {
-				padding: 1.2em 1.4em;
-				background: var(--bg-card);
-				border: 1px solid var(--border);
-				border-radius: 10px;
-			}
-
-			.stack-group h3 {
-				font-size: 0.8em;
-				color: var(--accent);
-				margin-bottom: 0.8em;
-				letter-spacing: 0.06em;
-				text-transform: uppercase;
-			}
-
-			.stack-group h3::before {
-				content: none;
-			}
-
-			.stack-list {
+			/* Cada card individual */
+			.stack-card {
+				position: relative;
 				display: flex;
-				flex-wrap: wrap;
-				gap: 0.45em;
-				list-style: none;
-				padding: 0;
-				margin: 0;
-			}
-
-			.stack-list li {
-				padding: 0.28em 0.7em;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				gap: 0.5em;
+				padding: 0.9em 0.5em 0.7em;
 				background: var(--bg-elevated);
 				border: 1px solid var(--border);
-				border-radius: 4px;
-				font-family: var(--font-mono);
-				font-size: 0.78em;
-				color: var(--text-secondary);
+				border-radius: 8px;
+				cursor: default;
+				overflow: hidden;
+				transition:
+					transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+					border-color 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+					box-shadow 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 			}
+
+			/* Línea de color en la parte superior */
+			.stack-card::before {
+				content: '';
+				position: absolute;
+				top: 0; left: 0; right: 0;
+				height: 2px;
+				background: var(--stack-color, var(--accent));
+				opacity: 0;
+				transition: opacity 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+			}
+
+			/* Glow radial de fondo */
+			.stack-card::after {
+				content: '';
+				position: absolute;
+				top: -30%; left: 50%;
+				transform: translateX(-50%);
+				width: 120%; height: 100%;
+				background: radial-gradient(ellipse at center top, var(--stack-glow, rgba(0,255,136,0.07)) 0%, transparent 70%);
+				opacity: 0;
+				transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+				pointer-events: none;
+				z-index: 0;
+			}
+
+			.stack-card:hover {
+				transform: translateY(-4px);
+				border-color: var(--border-hover);
+				box-shadow: 0 6px 20px rgba(0,0,0,0.4), 0 0 14px var(--stack-glow, rgba(0,255,136,0.1));
+			}
+			.stack-card:hover::before { opacity: 1; }
+			.stack-card:hover::after { opacity: 1; }
+
+			/* Icono */
+			.stack-icon {
+				position: relative; z-index: 1;
+				width: 30px; height: 30px;
+				object-fit: contain;
+				border: none; border-radius: 0;
+				filter: grayscale(0.4) brightness(0.85);
+				transition: transform 0.45s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.45s cubic-bezier(0.25,0.46,0.45,0.94);
+			}
+			.stack-card:hover .stack-icon {
+				transform: scale(1.15);
+				filter: grayscale(0) brightness(1.15) drop-shadow(0 0 8px var(--stack-glow, rgba(0,255,136,0.3)));
+			}
+
+			/* Nombre */
+			.stack-name {
+				position: relative; z-index: 1;
+				font-family: var(--font-mono);
+				font-size: 0.68em;
+				color: var(--text-muted);
+				white-space: nowrap;
+				transition: color 0.45s cubic-bezier(0.25,0.46,0.45,0.94);
+			}
+			.stack-card:hover .stack-name { color: var(--text-primary); }
 
 			/* ── Work cards ── */
-			.work-grid {
-				display: grid;
-				grid-template-columns: repeat(3, 1fr);
-				gap: 1.25em;
-			}
-
-			.work-card {
-				padding: 1.3em 1.4em;
-				background: var(--bg-card);
-				border: 1px solid var(--border);
-				border-radius: 10px;
-				transition: all 0.2s;
-			}
-
-			.work-card:hover {
-				border-color: var(--border-hover);
-				box-shadow: var(--shadow-glow);
-				transform: translateY(-2px);
-			}
-
-			.work-card .tag {
-				font-family: var(--font-mono);
-				font-size: 0.7em;
-				color: var(--accent);
-				margin-bottom: 0.5em;
-			}
-
-			.work-card h3 {
-				font-size: 1em;
-				margin-bottom: 0.4em;
-			}
-
-			.work-card h3::before {
-				content: none;
-			}
-
-			.work-card p {
-				margin: 0;
-				font-size: 0.88em;
-				line-height: 1.6;
-			}
+			.work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25em; }
+			.work-card { padding: 1.3em 1.4em; background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; transition: all 0.2s; }
+			.work-card:hover { border-color: var(--border-hover); box-shadow: var(--shadow-glow); transform: translateY(-2px); }
+			.work-card .tag { font-family: var(--font-mono); font-size: 0.7em; color: var(--accent); margin-bottom: 0.5em; }
+			.work-card h3 { font-size: 1em; margin-bottom: 0.4em; }
+			.work-card h3::before { content: none; }
+			.work-card p { margin: 0; font-size: 0.88em; line-height: 1.6; }
 
 			/* ── Quote ── */
-			.goal-quote {
-				margin: 0;
-				font-size: 1.05em;
-				line-height: 1.75;
-			}
+			.goal-quote { margin: 0; font-size: 1.05em; line-height: 1.75; }
 
 			/* ── Responsive ── */
 			@media (max-width: 768px) {
-				.hero-content {
-					flex-direction: column;
-					text-align: center;
-					gap: 2em;
-				}
-
-				.hero-sub {
-					max-width: none;
-				}
-
-				.cta-links {
-					justify-content: center;
-				}
-
-				.hero-photo img {
-					width: 200px;
-					height: 200px;
-				}
-
-				.stats-grid {
-					grid-template-columns: repeat(2, 1fr);
-				}
-
-				.content-grid {
-					grid-template-columns: 1fr;
-					gap: 2.5rem;
-				}
-
-				.stack-groups {
-					grid-template-columns: 1fr;
-				}
-
-				.work-grid {
-					grid-template-columns: 1fr;
-				}
-
-				.about-hero h1 {
-					font-size: 2.2em;
-				}
+				.hero-content { flex-direction: column; text-align: center; gap: 2em; }
+				.hero-sub { max-width: none; }
+				.cta-links { justify-content: center; }
+				.hero-photo img { width: 200px; height: 200px; }
+				.stats-grid { grid-template-columns: repeat(2, 1fr); }
+				.content-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+				.stack-groups { grid-template-columns: 1fr; }
+				.work-grid { grid-template-columns: 1fr; }
+				.about-hero h1 { font-size: 2.2em; }
 			}
-
 			@media (max-width: 480px) {
-				.stats-grid {
-					grid-template-columns: 1fr;
-				}
-
-				.about-hero h1 {
-					font-size: 1.9em;
-				}
-
-				.hero-photo img {
-					width: 180px;
-					height: 180px;
-				}
+				.stats-grid { grid-template-columns: 1fr; }
+				.about-hero h1 { font-size: 1.9em; }
+				.hero-photo img { width: 180px; height: 180px; }
 			}
 		</style>
 	</head>
@@ -514,21 +257,19 @@ ${experiencia}
 						<img src="/images/joelcano.png" alt="Foto de Joel Cano Sánchez" width="220" height="220" />
 					</div>
 					<div class="hero-text">
-						<p class="greeting">// about_me</p>
-						<h1>Joel Cano Sánchez</h1>
-						<p class="hero-sub">
-							Desarrollador <strong>full-stack junior</strong> con 19 años. Me apasiona crear
+						<p class="greeting" data-i18n="about.greeting">// about_me</p>
+						<h1 data-i18n="about.name">Joel Cano Sánchez</h1>
+						<p class="hero-sub" data-i18n="about.sub">
+							Desarrollador full-stack junior con 19 años. Me apasiona crear
 							aplicaciones desde cero, resolver problemas reales y ver cómo una idea se convierte
 							en algo funcional.
 						</p>
 						<div class="cta-links">
-							<a href="/projects" class="btn btn-primary">Ver proyectos →</a>
-							<a href="https://github.com/joelcansan" target="_blank" rel="noopener noreferrer" class="btn btn-outline">GitHub</a>
+							<a href="/projects" class="btn btn-primary" data-i18n="about.projects">Ver proyectos →</a>
+							<a href="https://github.com/joelcansan" target="_blank" rel="noopener noreferrer" class="btn btn-outline" data-i18n="about.github">GitHub</a>
 							<a
 								href="https://mail.google.com/mail/u/0/#inbox?compose=DmwnWrRqhSDmLLzgvbLNwCpqvlxgScVFtWCklrDknzJcHhQnzxLrKwThxTMWqbKqbwXVmmpmDcvB"
-								target="_blank"
-								rel="noopener noreferrer"
-								class="btn btn-outline"
+								target="_blank" rel="noopener noreferrer" class="btn btn-outline" data-i18n="about.contact"
 							>Contacto</a>
 						</div>
 					</div>
@@ -540,20 +281,20 @@ ${experiencia}
 			<!-- Stats -->
 			<div class="stats-grid page-section">
 				<div class="stat-card">
-					<div class="stat-value">19</div>
-					<div class="stat-label">Años</div>
+					<div class="stat-value" data-i18n="about.statAge">19</div>
+					<div class="stat-label" data-i18n="about.statAgeLabel">Años</div>
 				</div>
 				<div class="stat-card">
-					<div class="stat-value">2º</div>
-					<div class="stat-label">DAW</div>
+					<div class="stat-value" data-i18n="about.statCourse">2º</div>
+					<div class="stat-label" data-i18n="about.statCourseLabel">DAW</div>
 				</div>
 				<div class="stat-card">
-					<div class="stat-value">Full-stack</div>
-					<div class="stat-label">Junior</div>
+					<div class="stat-value" data-i18n="about.statRole">Full-stack</div>
+					<div class="stat-label" data-i18n="about.statRoleLabel">Junior</div>
 				</div>
 				<div class="stat-card">
-					<div class="stat-value">2</div>
-					<div class="stat-label">Becarios</div>
+					<div class="stat-value" data-i18n="about.statIntern">2</div>
+					<div class="stat-label" data-i18n="about.statInternLabel">Becarios</div>
 				</div>
 			</div>
 
@@ -562,20 +303,36 @@ ${experiencia}
 			<!-- Timeline + Terminal -->
 			<div class="content-grid page-section">
 				<div>
-					<p class="section-label">// Mi camino</p>
+					<p class="section-label" data-i18n="about.timeline">// Mi camino</p>
 					<ul class="timeline">
-						{timeline.map((item) => (
-							<li>
-								<p class="timeline-period">{item.period}</p>
-								<h3 class="timeline-title">{item.title}</h3>
-								<p class="timeline-subtitle">{item.subtitle}</p>
-								<p class="timeline-desc">{item.desc}</p>
-							</li>
-						))}
+						<li>
+							<p class="timeline-period" data-i18n="about.t1period">2022 — 2024</p>
+							<h3 class="timeline-title" data-i18n="about.t1title">SMR</h3>
+							<p class="timeline-subtitle" data-i18n="about.t1sub">Sistemas Microinformáticos y Redes</p>
+							<p class="timeline-desc" data-i18n="about.t1desc">Base sólida en hardware, redes y sistemas operativos.</p>
+						</li>
+						<li>
+							<p class="timeline-period" data-i18n="about.t2period">2024 — Actualidad</p>
+							<h3 class="timeline-title" data-i18n="about.t2title">DAW</h3>
+							<p class="timeline-subtitle" data-i18n="about.t2sub">Desarrollo de Aplicaciones Web</p>
+							<p class="timeline-desc" data-i18n="about.t2desc">Segundo curso. Full-stack, APIs, bases de datos y despliegue.</p>
+						</li>
+						<li>
+							<p class="timeline-period" data-i18n="about.t3period">Becario</p>
+							<h3 class="timeline-title" data-i18n="about.t3title">e-Corp Sistemas</h3>
+							<p class="timeline-subtitle" data-i18n="about.t3sub">Montaje y sistemas</p>
+							<p class="timeline-desc" data-i18n="about.t3desc">Montaje de ordenadores, instalación y configuración de sistemas operativos.</p>
+						</li>
+						<li>
+							<p class="timeline-period" data-i18n="about.t4period">Becario</p>
+							<h3 class="timeline-title" data-i18n="about.t4title">Reactivació Badalona</h3>
+							<p class="timeline-subtitle" data-i18n="about.t4sub">Desarrollo web</p>
+							<p class="timeline-desc" data-i18n="about.t4desc">WordPress, MariaDB, y stack moderno con React, Next.js, Tailwind, Laravel y Express.</p>
+						</li>
 					</ul>
 				</div>
 				<div>
-					<p class="section-label">// joel.json</p>
+					<p class="section-label" data-i18n="about.terminal">// joel.json</p>
 					<div class="terminal-card">
 						<div class="terminal-header">
 							<span class="terminal-dot red"></span>
@@ -592,30 +349,54 @@ ${experiencia}
 
 			<!-- Stack -->
 			<section class="stack-section page-section section-block">
-				<p class="section-label">// Stack</p>
+				<p class="section-label" data-i18n="about.stack">// Stack</p>
 				<div class="stack-groups">
+					<!-- Frontend -->
 					<div class="stack-group">
-						<h3>Frontend</h3>
-						<ul class="stack-list">
-							{stack.frontend.map((tech) => <li>{tech}</li>)}
+						<h3 data-i18n="about.frontend">Frontend</h3>
+						<ul class="stack-grid">
+							{stack.frontend.map((tech) => (
+								<li class="stack-card" style={`--stack-color: ${tech.color}; --stack-glow: ${tech.color}22;`}>
+									<img class="stack-icon" src={tech.icon} alt={tech.name} width="30" height="30" loading="lazy" />
+									<span class="stack-name">{tech.name}</span>
+								</li>
+							))}
 						</ul>
 					</div>
+					<!-- Backend -->
 					<div class="stack-group">
-						<h3>Backend</h3>
-						<ul class="stack-list">
-							{stack.backend.map((tech) => <li>{tech}</li>)}
+						<h3 data-i18n="about.backend">Backend</h3>
+						<ul class="stack-grid">
+							{stack.backend.map((tech) => (
+								<li class="stack-card" style={`--stack-color: ${tech.color}; --stack-glow: ${tech.color}22;`}>
+									<img class="stack-icon" src={tech.icon} alt={tech.name} width="30" height="30" loading="lazy" />
+									<span class="stack-name">{tech.name}</span>
+								</li>
+							))}
 						</ul>
 					</div>
+					<!-- Bases de datos -->
 					<div class="stack-group">
-						<h3>Bases de datos</h3>
-						<ul class="stack-list">
-							{stack.database.map((tech) => <li>{tech}</li>)}
+						<h3 data-i18n="about.databases">Bases de datos</h3>
+						<ul class="stack-grid">
+							{stack.database.map((tech) => (
+								<li class="stack-card" style={`--stack-color: ${tech.color}; --stack-glow: ${tech.color}22;`}>
+									<img class="stack-icon" src={tech.icon} alt={tech.name} width="30" height="30" loading="lazy" />
+									<span class="stack-name">{tech.name}</span>
+								</li>
+							))}
 						</ul>
 					</div>
+					<!-- Herramientas -->
 					<div class="stack-group">
-						<h3>Herramientas</h3>
-						<ul class="stack-list">
-							{stack.tools.map((tech) => <li>{tech}</li>)}
+						<h3 data-i18n="about.tools">Herramientas</h3>
+						<ul class="stack-grid">
+							{stack.tools.map((tech) => (
+								<li class="stack-card" style={`--stack-color: ${tech.color}; --stack-glow: ${tech.color}22;`}>
+									<img class="stack-icon" src={tech.icon} alt={tech.name} width="30" height="30" loading="lazy" />
+									<span class="stack-name">{tech.name}</span>
+								</li>
+							))}
 						</ul>
 					</div>
 				</div>
@@ -625,22 +406,30 @@ ${experiencia}
 
 			<!-- Cómo trabajo -->
 			<div class="page-section section-block">
-			<p class="section-label">// Cómo trabajo</p>
-			<div class="work-grid">
-				{workCards.map((card) => (
+				<p class="section-label" data-i18n="about.howWork">// Cómo trabajo</p>
+				<div class="work-grid">
 					<div class="work-card">
-						<p class="tag">{card.tag}</p>
-						<h3>{card.title}</h3>
-						<p>{card.desc}</p>
+						<p class="tag" data-i18n="about.w1tag">// metodología</p>
+						<h3 data-i18n="about.w1title">SCRUM</h3>
+						<p data-i18n="about.w1desc">Trabajo en equipo con sprints y entregas iterativas.</p>
 					</div>
-				))}
-			</div>
+					<div class="work-card">
+						<p class="tag" data-i18n="about.w2tag">// versionado</p>
+						<h3 data-i18n="about.w2title">Git</h3>
+						<p data-i18n="about.w2desc">Control de versiones en todos mis proyectos personales y académicos.</p>
+					</div>
+					<div class="work-card">
+						<p class="tag" data-i18n="about.w3tag">// deploy</p>
+						<h3 data-i18n="about.w3title">En producción</h3>
+						<p data-i18n="about.w3desc">Vercel, Render, Railway y GitHub Pages.</p>
+					</div>
+				</div>
 			</div>
 
 			<div class="divider"></div>
 
 			<!-- Objetivo -->
-			<blockquote class="goal-quote">
+			<blockquote class="goal-quote" data-i18n="about.quote">
 				Mi objetivo es seguir creciendo como desarrollador, aportar valor en cada proyecto y
 				rodearme de personas que me reten a mejorar. Cada línea de código me motiva a construir
 				cosas cada vez más sólidas, útiles y profesionales.

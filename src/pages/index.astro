@@ -15,13 +15,18 @@ const projects = (await getCollection('project')).sort((a, b) => {
 
 const latestProjects = projects.slice(0, 3);
 
-const highlights = [
-	'2º DAW con experiencia en becarios (e-Corp Sistemas y Reactivació Badalona).',
-	'Full-stack: frontend, backend, APIs REST y bases de datos relacionales.',
-	'Proyectos desplegados en Vercel, Render, Railway y GitHub Pages.',
+const stackMini = [
+	{ name: 'React', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg', color: '#61DAFB' },
+	{ name: 'Next.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg', color: '#ffffff' },
+	{ name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg', color: '#339933' },
+	{ name: 'JavaScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg', color: '#F7DF1E' },
+	{ name: 'PHP', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg', color: '#777BB4' },
+	{ name: 'Laravel', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg', color: '#FF2D20' },
+	{ name: 'MySQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg', color: '#4479A1' },
+	{ name: 'Astro', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/astro/astro-original.svg', color: '#FF5D01' },
+	{ name: 'Git', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg', color: '#F05032' },
+	{ name: 'Docker', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg', color: '#2496ED' },
 ];
-
-const stackMini = ['React', 'Next.js', 'Node.js', 'Laravel', 'MariaDB', 'Astro', 'Git', 'Docker'];
 ---
 
 <!doctype html>
@@ -30,423 +35,94 @@ const stackMini = ['React', 'Next.js', 'Node.js', 'Laravel', 'MariaDB', 'Astro',
 		<BaseHead title={`Home | ${titulo}`} description={SITE_DESCRIPTION} />
 		<style>
 			/* ── Hero ── */
-			.hero {
-				padding: 1rem 0 0.5rem;
-				margin-bottom: 0.5rem;
-			}
+			.hero { padding: 1rem 0 0.5rem; margin-bottom: 0.5rem; }
+			.hero-content { display: flex; align-items: center; justify-content: space-between; gap: 3em; }
+			.hero-text { flex: 1; }
+			.greeting { font-family: var(--font-mono); font-size: 0.9em; color: var(--accent); margin-bottom: 0.75em; letter-spacing: 0.05em; }
+			.hero h1 { font-size: 3em; margin-bottom: 0.45em; line-height: 1.15; }
+			.hero-sub { color: var(--text-secondary); font-size: 1.1em; max-width: 520px; margin-bottom: 2.25em; line-height: 1.8; }
+			.cta-links { display: flex; gap: 0.8em; flex-wrap: wrap; }
+			.btn { display: inline-flex; align-items: center; gap: 0.4em; padding: 0.6em 1.2em; border-radius: 6px; font-family: var(--font-mono); font-size: 0.9em; text-decoration: none; transition: all 0.2s; cursor: pointer; }
+			.btn-primary { background: var(--accent); color: #0a0e0f; border: 1px solid var(--accent); font-weight: 600; }
+			.btn-primary:hover { background: var(--accent-dim); border-color: var(--accent-dim); box-shadow: var(--shadow-glow); text-shadow: none; color: #0a0e0f; }
+			.btn-outline { background: transparent; color: var(--text-secondary); border: 1px solid var(--border); }
+			.btn-outline:hover { color: var(--accent); border-color: var(--border-hover); background: var(--accent-glow); text-shadow: none; }
+			.hero-photo { flex: 0 0 260px; display: flex; justify-content: center; }
+			.hero-photo img { width: 260px; height: 260px; object-fit: cover; border-radius: 12px; border: 2px solid var(--border); box-shadow: var(--shadow-glow); background: var(--bg-card); }
+			.divider { height: 1px; background: var(--border); margin: var(--section-gap) 0; }
+			.section-header { display: flex; align-items: baseline; justify-content: space-between; gap: 1em; margin-bottom: 2rem; flex-wrap: wrap; }
+			.section-header .section-label { margin-bottom: 0; }
+			.link-more { font-family: var(--font-mono); font-size: 0.85em; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+			.link-more:hover { color: var(--accent); text-shadow: none; }
 
-			.hero-content {
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-				gap: 3em;
-			}
-
-			.hero-text {
-				flex: 1;
-			}
-
-			.greeting {
-				font-family: var(--font-mono);
-				font-size: 0.9em;
-				color: var(--accent);
-				margin-bottom: 0.75em;
-				letter-spacing: 0.05em;
-			}
-
-			.hero h1 {
-				font-size: 3em;
-				margin-bottom: 0.45em;
-				line-height: 1.15;
-			}
-
-			.hero-sub {
-				color: var(--text-secondary);
-				font-size: 1.1em;
-				max-width: 520px;
-				margin-bottom: 2.25em;
-				line-height: 1.8;
-			}
-
-			.cta-links {
-				display: flex;
-				gap: 0.8em;
-				flex-wrap: wrap;
-			}
-
-			.btn {
-				display: inline-flex;
-				align-items: center;
-				gap: 0.4em;
-				padding: 0.6em 1.2em;
-				border-radius: 6px;
-				font-family: var(--font-mono);
-				font-size: 0.9em;
-				text-decoration: none;
-				transition: all 0.2s;
-				cursor: pointer;
-			}
-
-			.btn-primary {
-				background: var(--accent);
-				color: #0a0e0f;
-				border: 1px solid var(--accent);
-				font-weight: 600;
-			}
-
-			.btn-primary:hover {
-				background: var(--accent-dim);
-				border-color: var(--accent-dim);
-				box-shadow: var(--shadow-glow);
-				text-shadow: none;
-				color: #0a0e0f;
-			}
-
-			.btn-outline {
-				background: transparent;
-				color: var(--text-secondary);
-				border: 1px solid var(--border);
-			}
-
-			.btn-outline:hover {
-				color: var(--accent);
-				border-color: var(--border-hover);
-				background: var(--accent-glow);
-				text-shadow: none;
-			}
-
-			.hero-photo {
-				flex: 0 0 260px;
-				display: flex;
-				justify-content: center;
-			}
-
-			.hero-photo img {
-				width: 260px;
-				height: 260px;
-				object-fit: cover;
-				border-radius: 12px;
-				border: 2px solid var(--border);
-				box-shadow: var(--shadow-glow);
-				background: var(--bg-card);
-			}
-
-			.divider {
-				height: 1px;
-				background: var(--border);
-				margin: var(--section-gap) 0;
-			}
-
-			.section-header {
-				display: flex;
-				align-items: baseline;
-				justify-content: space-between;
-				gap: 1em;
-				margin-bottom: 2rem;
-				flex-wrap: wrap;
-			}
-
-			.section-header .section-label {
-				margin-bottom: 0;
-			}
-
-			.link-more {
-				font-family: var(--font-mono);
-				font-size: 0.85em;
-				color: var(--text-muted);
-				text-decoration: none;
-				transition: color 0.2s;
-			}
-
-			.link-more:hover {
-				color: var(--accent);
-				text-shadow: none;
-			}
-
-			/* ── Proyectos destacados (3 últimos) ── */
-			.projects-grid {
-				display: grid;
-				grid-template-columns: repeat(3, 1fr);
-				gap: 1.5rem;
-				list-style: none;
-				margin: 0;
-				padding: 0;
-			}
-
-			.projects-grid > li {
-				display: flex;
-				min-width: 0;
-			}
-
-			.projects-grid .project-card {
-				width: 100%;
-			}
-
-			.project-card {
-				background: var(--bg-card);
-				border: 1px solid var(--border);
-				border-radius: 10px;
-				overflow: hidden;
-				text-decoration: none;
-				color: inherit;
-				transition: all 0.25s ease;
-				display: flex;
-				flex-direction: column;
-				position: relative;
-			}
-
-			.project-card::before {
-				content: '';
-				position: absolute;
-				top: 0;
-				left: 0;
-				right: 0;
-				height: 2px;
-				background: linear-gradient(90deg, transparent, var(--accent), transparent);
-				opacity: 0;
-				transition: opacity 0.25s;
-			}
-
-			.project-card:hover {
-				border-color: var(--border-hover);
-				box-shadow: var(--shadow-glow);
-				transform: translateY(-3px);
-				text-shadow: none;
-			}
-
-			.project-card:hover::before {
-				opacity: 1;
-			}
-
-			.card-img {
-				width: 100%;
-				height: 180px;
-				object-fit: cover;
-				border-radius: 0;
-				border: none;
-				display: block;
-			}
-
-			.card-img-placeholder {
-				width: 100%;
-				height: 180px;
-				background: var(--bg-elevated);
-				display: flex;
-				align-items: center;
-				justify-content: center;
-			}
-
-			.card-body {
-				padding: 1.35em 1.4em 1.5em;
-				flex: 1;
-				display: flex;
-				flex-direction: column;
-			}
-
-			.card-tag {
-				font-family: var(--font-mono);
-				font-size: 0.7em;
-				color: var(--accent);
-				letter-spacing: 0.08em;
-				text-transform: uppercase;
-				margin-bottom: 0.5em;
-			}
-
-			.card-title {
-				margin: 0 0 0.5em;
-				color: var(--text-primary);
-				font-family: var(--font-mono);
-				font-size: 1em;
-				font-weight: 600;
-				line-height: 1.3;
-			}
-
-			.card-title::before {
-				content: none !important;
-			}
-
-			.card-desc {
-				margin: 0;
-				color: var(--text-muted);
-				font-size: 0.87em;
-				line-height: 1.65;
-				flex: 1;
-				display: -webkit-box;
-				-webkit-line-clamp: 3;
-				-webkit-box-orient: vertical;
-				overflow: hidden;
-			}
-
-			.card-techs {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 0.35em;
-				margin-top: 1em;
-			}
-
-			.tech-chip {
-				padding: 0.2em 0.6em;
-				background: var(--bg-base);
-				border: 1px solid var(--border);
-				border-radius: 4px;
-				font-family: var(--font-mono);
-				font-size: 0.75em;
-				color: var(--accent);
-			}
-
-			.empty-projects {
-				padding: 2em;
-				text-align: center;
-				background: var(--bg-card);
-				border: 1px solid var(--border);
-				border-radius: 10px;
-				color: var(--text-muted);
-				font-family: var(--font-mono);
-				font-size: 0.9em;
-			}
+			/* ── Proyectos grid ── */
+			.projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; list-style: none; margin: 0; padding: 0; }
+			.projects-grid > li { display: flex; min-width: 0; }
+			.projects-grid .project-card { width: 100%; }
+			.project-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; text-decoration: none; color: inherit; transition: all 0.25s ease; display: flex; flex-direction: column; position: relative; }
+			.project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0; transition: opacity 0.25s; }
+			.project-card:hover { border-color: var(--border-hover); box-shadow: var(--shadow-glow); transform: translateY(-3px); text-shadow: none; }
+			.project-card:hover::before { opacity: 1; }
+			.card-img { width: 100%; height: 180px; object-fit: cover; border-radius: 0; border: none; display: block; }
+			.card-img-placeholder { width: 100%; height: 180px; background: var(--bg-elevated); display: flex; align-items: center; justify-content: center; }
+			.card-body { padding: 1.35em 1.4em 1.5em; flex: 1; display: flex; flex-direction: column; }
+			.card-tag { font-family: var(--font-mono); font-size: 0.7em; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5em; }
+			.card-title { margin: 0 0 0.5em; color: var(--text-primary); font-family: var(--font-mono); font-size: 1em; font-weight: 600; line-height: 1.3; }
+			.card-title::before { content: none !important; }
+			.card-desc { margin: 0; color: var(--text-muted); font-size: 0.87em; line-height: 1.65; flex: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+			.card-techs { display: flex; flex-wrap: wrap; gap: 0.35em; margin-top: 1em; }
+			.tech-chip { padding: 0.2em 0.6em; background: var(--bg-base); border: 1px solid var(--border); border-radius: 4px; font-family: var(--font-mono); font-size: 0.75em; color: var(--accent); }
+			.empty-projects { padding: 2em; text-align: center; background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; color: var(--text-muted); font-family: var(--font-mono); font-size: 0.9em; }
 
 			/* ── Por qué yo ── */
-			.highlights {
-				list-style: none;
-				padding: 0;
-				margin: 0 0 1.75em;
-				display: flex;
-				flex-direction: column;
-				gap: 1.15em;
-			}
+			.highlights { list-style: none; padding: 0; margin: 0 0 1.75em; display: flex; flex-direction: column; gap: 1.15em; }
+			.highlights li { display: flex; gap: 0.85em; align-items: flex-start; color: var(--text-secondary); font-size: 0.95em; line-height: 1.75; }
+			.highlights li::before { content: '→'; color: var(--accent); font-family: var(--font-mono); flex-shrink: 0; }
+			.about-link { font-family: var(--font-mono); font-size: 0.88em; }
 
-			.highlights li {
-				display: flex;
-				gap: 0.85em;
-				align-items: flex-start;
-				color: var(--text-secondary);
-				font-size: 0.95em;
-				line-height: 1.75;
-			}
-
-			.highlights li::before {
-				content: '→';
-				color: var(--accent);
-				font-family: var(--font-mono);
-				flex-shrink: 0;
-			}
-
-			.about-link {
-				font-family: var(--font-mono);
-				font-size: 0.88em;
-			}
-
-			/* ── Stack mini ── */
-			.stack-list {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 0.5em;
-				list-style: none;
-				padding: 0;
-				margin: 0;
-			}
-
-			.stack-list li {
-				padding: 0.3em 0.8em;
-				background: var(--bg-card);
-				border: 1px solid var(--border);
-				border-radius: 4px;
-				font-family: var(--font-mono);
-				font-size: 0.8em;
-				color: var(--text-secondary);
-			}
+			/* ── Stack Cards ── */
+			.stack-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; list-style: none; padding: 0; margin: 0; }
+			.stack-card { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.7em; padding: 1.4em 0.8em 1.1em; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; cursor: default; overflow: hidden; transition: transform 0.45s cubic-bezier(0.25,0.46,0.45,0.94), border-color 0.45s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.45s cubic-bezier(0.25,0.46,0.45,0.94); }
+			.stack-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--stack-color, var(--accent)); opacity: 0; transition: opacity 0.45s cubic-bezier(0.25,0.46,0.45,0.94); }
+			.stack-card::after { content: ''; position: absolute; top: -30%; left: 50%; transform: translateX(-50%); width: 120%; height: 100%; background: radial-gradient(ellipse at center top, var(--stack-glow, rgba(0,255,136,0.07)) 0%, transparent 70%); opacity: 0; transition: opacity 0.5s cubic-bezier(0.25,0.46,0.45,0.94); pointer-events: none; z-index: 0; }
+			.stack-card:hover { transform: translateY(-6px); border-color: var(--border-hover); box-shadow: 0 8px 30px rgba(0,0,0,0.4), 0 0 20px var(--stack-glow, rgba(0,255,136,0.1)); }
+			.stack-card:hover::before { opacity: 1; }
+			.stack-card:hover::after { opacity: 1; }
+			.stack-icon { position: relative; z-index: 1; width: 42px; height: 42px; object-fit: contain; border: none; border-radius: 0; filter: grayscale(0.4) brightness(0.85); transition: transform 0.45s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.45s cubic-bezier(0.25,0.46,0.45,0.94); }
+			.stack-card:hover .stack-icon { transform: scale(1.18); filter: grayscale(0) brightness(1.15) drop-shadow(0 0 10px var(--stack-glow, rgba(0,255,136,0.3))); }
+			.stack-name { position: relative; z-index: 1; font-family: var(--font-mono); font-size: 0.78em; color: var(--text-muted); white-space: nowrap; letter-spacing: 0.02em; transition: color 0.45s cubic-bezier(0.25,0.46,0.45,0.94); }
+			.stack-card:hover .stack-name { color: var(--text-primary); }
 
 			/* ── CTA final ── */
-			.cta-final {
-				text-align: center;
-				padding: 3em 2.5em;
-				background: var(--bg-card);
-				border: 1px solid var(--border);
-				border-radius: 12px;
-			}
+			.cta-final { text-align: center; padding: 3em 2.5em; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; }
+			.cta-final h2 { font-size: 1.4em; margin-bottom: 0.75em; }
+			.cta-final h2::before { content: none; }
+			.cta-final p { color: var(--text-secondary); margin-bottom: 1.75em; font-size: 0.95em; line-height: 1.75; max-width: 42ch; margin-left: auto; margin-right: auto; }
+			.cta-final .cta-links { justify-content: center; }
 
-			.cta-final h2 {
-				font-size: 1.4em;
-				margin-bottom: 0.75em;
-			}
-
-			.cta-final h2::before {
-				content: none;
-			}
-
-			.cta-final p {
-				color: var(--text-secondary);
-				margin-bottom: 1.75em;
-				font-size: 0.95em;
-				line-height: 1.75;
-				max-width: 42ch;
-				margin-left: auto;
-				margin-right: auto;
-			}
-
-			.cta-final .cta-links {
-				justify-content: center;
-			}
-
+			/* ── Responsive ── */
 			@media (max-width: 768px) {
-				.hero h1 {
-					font-size: 2.25em;
-				}
-
-				.hero-content {
-					flex-direction: column;
-					text-align: center;
-					gap: 2em;
-				}
-
-				.hero-sub {
-					max-width: none;
-					margin-bottom: 1.75em;
-				}
-
-				.cta-links {
-					justify-content: center;
-				}
-
-				.hero-photo {
-					margin-top: 0.5em;
-				}
-
-				.hero-photo img {
-					width: 200px;
-					height: 200px;
-				}
-
-				.projects-grid {
-					grid-template-columns: 1fr;
-					gap: 1.25rem;
-				}
-
-				.section-header {
-					margin-bottom: 1.5rem;
-				}
-
-				.cta-final {
-					padding: 2.25em 1.5em;
-				}
+				.hero h1 { font-size: 2.25em; }
+				.hero-content { flex-direction: column; text-align: center; gap: 2em; }
+				.hero-sub { max-width: none; margin-bottom: 1.75em; }
+				.cta-links { justify-content: center; }
+				.hero-photo { margin-top: 0.5em; }
+				.hero-photo img { width: 200px; height: 200px; }
+				.projects-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+				.section-header { margin-bottom: 1.5rem; }
+				.cta-final { padding: 2.25em 1.5em; }
+				.stack-grid { grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+				.stack-card { padding: 1em 0.6em 0.85em; }
+				.stack-icon { width: 34px; height: 34px; }
 			}
-
 			@media (max-width: 480px) {
-				.hero h1 {
-					font-size: 1.9em;
-				}
-
-				.hero-photo img {
-					width: 180px;
-					height: 180px;
-				}
-
+				.hero h1 { font-size: 1.9em; }
+				.hero-photo img { width: 180px; height: 180px; }
+				.stack-grid { grid-template-columns: repeat(2, 1fr); }
 			}
-
 			@media (min-width: 769px) and (max-width: 1024px) {
-				.projects-grid {
-					grid-template-columns: repeat(2, 1fr);
-				}
+				.projects-grid { grid-template-columns: repeat(2, 1fr); }
+				.stack-grid { grid-template-columns: repeat(5, 1fr); }
 			}
 		</style>
 	</head>
@@ -457,21 +133,22 @@ const stackMini = ['React', 'Next.js', 'Node.js', 'Laravel', 'MariaDB', 'Astro',
 			<section class="hero page-section">
 				<div class="hero-content">
 					<div class="hero-text">
-						<p class="greeting">// Bienvenido a mi portfolio</p>
-						<h1>Joel Cano Sánchez</h1>
-						<p class="hero-sub">
-							Desarrollador <strong>full-stack junior</strong>. Construyo aplicaciones web de
+						<p class="greeting" data-i18n="hero.greeting">// Bienvenido a mi portfolio</p>
+						<h1 data-i18n="hero.name">Joel Cano Sánchez</h1>
+						<p class="hero-sub" data-i18n="hero.sub">
+							Desarrollador full-stack junior. Construyo aplicaciones web de
 							principio a fin: frontend, APIs, bases de datos y despliegue.
 						</p>
 						<div class="cta-links">
-							<a href="/projects" class="btn btn-primary">Ver proyectos →</a>
-							<a href="/about" class="btn btn-outline">Conóceme</a>
-							<a href="https://github.com/joelcansan" target="_blank" rel="noopener noreferrer" class="btn btn-outline">GitHub</a>
+							<a href="/projects" class="btn btn-primary" data-i18n="hero.projects">Ver proyectos →</a>
+							<a href="/about" class="btn btn-outline" data-i18n="hero.about">Conóceme</a>
+							<a href="https://github.com/joelcansan" target="_blank" rel="noopener noreferrer" class="btn btn-outline" data-i18n="hero.github">GitHub</a>
 							<a
 								href="https://mail.google.com/mail/u/0/#inbox?compose=DmwnWrRqhSDmLLzgvbLNwCpqvlxgScVFtWCklrDknzJcHhQnzxLrKwThxTMWqbKqbwXVmmpmDcvB"
 								target="_blank"
 								rel="noopener noreferrer"
 								class="btn btn-outline"
+								data-i18n="hero.contact"
 							>Contacto</a>
 						</div>
 					</div>
@@ -486,46 +163,33 @@ const stackMini = ['React', 'Next.js', 'Node.js', 'Laravel', 'MariaDB', 'Astro',
 			<!-- Proyectos destacados -->
 			<section class="page-section">
 				<div class="section-header">
-					<p class="section-label">// Proyectos destacados</p>
+					<p class="section-label" data-i18n="home.featured">// Proyectos destacados</p>
 					{projects.length > 0 && (
-						<a href="/projects" class="link-more">Ver todos →</a>
+						<a href="/projects" class="link-more" data-i18n="home.viewAll">Ver todos →</a>
 					)}
 				</div>
-
 				{projects.length === 0 ? (
-					<p class="empty-projects">// Aún no hay proyectos publicados.</p>
+					<p class="empty-projects" data-i18n="home.noProjects">// Aún no hay proyectos publicados.</p>
 				) : (
 					<ul class="projects-grid">
 						{latestProjects.map((project) => (
 							<li>
 								<a href={`/projects/${project.id}/`} class="project-card">
 									{project.data.heroImage ? (
-										<Image
-											class="card-img"
-											width={400}
-											height={180}
-											src={project.data.heroImage}
-											alt={project.data.name}
-										/>
+										<Image class="card-img" width={400} height={180} src={project.data.heroImage} alt={project.data.name} />
 									) : (
 										<div class="card-img-placeholder">
-											<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-												<rect x="2" y="3" width="20" height="14" rx="2" /><path d="M8 21h8M12 17v4" />
-											</svg>
+											<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="3" width="20" height="14" rx="2" /><path d="M8 21h8M12 17v4" /></svg>
 										</div>
 									)}
 									<div class="card-body">
-										<p class="card-tag">// proyecto</p>
+										<p class="card-tag" data-i18n="home.projectTag">// proyecto</p>
 										<h3 class="card-title">{project.data.name}</h3>
 										<p class="card-desc">{project.data.description}</p>
 										{project.data.techs && project.data.techs.length > 0 && (
 											<div class="card-techs">
-												{project.data.techs.slice(0, 3).map((tech) => (
-													<span class="tech-chip">{tech}</span>
-												))}
-												{project.data.techs.length > 3 && (
-													<span class="tech-chip">+{project.data.techs.length - 3}</span>
-												)}
+												{project.data.techs.slice(0, 3).map((tech) => (<span class="tech-chip">{tech}</span>))}
+												{project.data.techs.length > 3 && (<span class="tech-chip">+{project.data.techs.length - 3}</span>)}
 											</div>
 										)}
 									</div>
@@ -540,20 +204,27 @@ const stackMini = ['React', 'Next.js', 'Node.js', 'Laravel', 'MariaDB', 'Astro',
 
 			<!-- Por qué yo -->
 			<section class="page-section">
-				<p class="section-label">// Por qué trabajar conmigo</p>
+				<p class="section-label" data-i18n="home.why">// Por qué trabajar conmigo</p>
 				<ul class="highlights">
-					{highlights.map((item) => <li>{item}</li>)}
+					<li data-i18n="home.highlight1">2º DAW con experiencia en becarios (e-Corp Sistemas y Reactivació Badalona).</li>
+					<li data-i18n="home.highlight2">Full-stack: frontend, backend, APIs REST y bases de datos relacionales.</li>
+					<li data-i18n="home.highlight3">Proyectos desplegados en Vercel, Render, Railway y GitHub Pages.</li>
 				</ul>
-				<a href="/about" class="about-link">Leer mi historia completa →</a>
+				<a href="/about" class="about-link" data-i18n="home.readMore">Leer mi historia completa →</a>
 			</section>
 
 			<div class="divider"></div>
 
-			<!-- Stack mini -->
+			<!-- Stack principal -->
 			<section class="page-section">
-				<p class="section-label">// Stack principal</p>
-				<ul class="stack-list">
-					{stackMini.map((tech) => <li>{tech}</li>)}
+				<p class="section-label" data-i18n="home.stack">// Stack principal</p>
+				<ul class="stack-grid">
+					{stackMini.map((tech) => (
+						<li class="stack-card" style={`--stack-color: ${tech.color}; --stack-glow: ${tech.color}22;`}>
+							<img class="stack-icon" src={tech.icon} alt={tech.name} width="42" height="42" loading="lazy" />
+							<span class="stack-name">{tech.name}</span>
+						</li>
+					))}
 				</ul>
 			</section>
 
@@ -561,18 +232,19 @@ const stackMini = ['React', 'Next.js', 'Node.js', 'Laravel', 'MariaDB', 'Astro',
 
 			<!-- CTA final -->
 			<section class="cta-final">
-				<h2>¿Hablamos?</h2>
-				<p>
+				<h2 data-i18n="home.ctaTitle">¿Hablamos?</h2>
+				<p data-i18n="home.ctaDesc">
 					Busco seguir creciendo como desarrollador y aportar en proyectos reales.
 					Échale un vistazo a mi trabajo o escríbeme.
 				</p>
 				<div class="cta-links">
-					<a href="/projects" class="btn btn-primary">Ver proyectos</a>
+					<a href="/projects" class="btn btn-primary" data-i18n="home.ctaProjects">Ver proyectos</a>
 					<a
 						href="https://mail.google.com/mail/u/0/#inbox?compose=DmwnWrRqhSDmLLzgvbLNwCpqvlxgScVFtWCklrDknzJcHhQnzxLrKwThxTMWqbKqbwXVmmpmDcvB"
 						target="_blank"
 						rel="noopener noreferrer"
 						class="btn btn-outline"
+						data-i18n="home.ctaContact"
 					>Contacto</a>
 				</div>
 			</section>

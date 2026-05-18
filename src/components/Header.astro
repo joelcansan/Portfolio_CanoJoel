@@ -2,9 +2,9 @@
 import HeaderLink from './HeaderLink.astro';
 
 const navLinks = [
-	{ href: '/', label: 'Home' },
-	{ href: '/projects', label: 'Proyectos' },
-	{ href: '/about', label: 'About' },
+	{ href: '/', label: 'Home', i18n: 'nav.home' },
+	{ href: '/projects', label: 'Proyectos', i18n: 'nav.projects' },
+	{ href: '/about', label: 'About', i18n: 'nav.about' },
 ];
 ---
 
@@ -17,11 +17,14 @@ const navLinks = [
 		</div>
 
 		<div class="nav-desktop">
+			<!-- Links de navegación con data-i18n para traducir -->
 			<div class="internal-links">
 				{navLinks.map((link) => (
-					<HeaderLink href={link.href}>{link.label}</HeaderLink>
+					<HeaderLink href={link.href} data-i18n={link.i18n}>{link.label}</HeaderLink>
 				))}
 			</div>
+
+			<!-- Links sociales -->
 			<div class="social-links">
 				<a href="https://github.com/joelcansan" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
 					<svg viewBox="0 0 16 16" aria-hidden="true" width="20" height="20">
@@ -42,6 +45,32 @@ const navLinks = [
 					<span class="cv-label">Descargar CV</span>
 				</a>
 			</div>
+
+			<!--
+				═══════════════════════════════════════
+				SELECTOR DE IDIOMA (ES / EN)
+				═══════════════════════════════════════
+				Dos botones pequeños separados por una barra.
+				Al hacer click llaman a setLanguage() del i18n.js
+				La clase .active marca el idioma seleccionado.
+			-->
+			<div class="lang-selector" aria-label="Cambiar idioma">
+				<button
+					type="button"
+					class="lang-option active"
+					data-lang="es"
+					onclick="setLanguage('es')"
+					title="Español"
+				>ES</button>
+				<span class="lang-divider">/</span>
+				<button
+					type="button"
+					class="lang-option"
+					data-lang="en"
+					onclick="setLanguage('en')"
+					title="English"
+				>EN</button>
+			</div>
 		</div>
 
 		<button
@@ -60,17 +89,24 @@ const navLinks = [
 		</button>
 	</nav>
 
+	<!-- Menú móvil -->
 	<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
 		<div class="mobile-menu-inner">
 			<div class="mobile-links">
 				{navLinks.map((link) => (
-					<HeaderLink href={link.href} class="mobile-nav-link">{link.label}</HeaderLink>
+					<HeaderLink href={link.href} class="mobile-nav-link" data-i18n={link.i18n}>{link.label}</HeaderLink>
 				))}
 			</div>
 			<div class="mobile-social">
 				<a href="https://github.com/joelcansan" target="_blank" rel="noopener noreferrer">GitHub</a>
 				<a href="https://www.linkedin.com/in/joel-cano-sanchez-95198b2b4/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-				<a href="/public/CV_CanoJoel.pdf" download="CV_CanoJoel.pdf" aria-label="Descargar CV">Descargar CV</a>
+				<a href="/public/CV_CanoJoel.pdf" download="CV_CanoJoel.pdf" aria-label="Descargar CV" data-i18n="footer.cv">Descargar CV</a>
+			</div>
+			<!-- Selector de idioma en móvil -->
+			<div class="mobile-lang">
+				<button type="button" class="lang-option active" data-lang="es" onclick="setLanguage('es')">ES</button>
+				<span class="lang-divider">/</span>
+				<button type="button" class="lang-option" data-lang="en" onclick="setLanguage('en')">EN</button>
 			</div>
 		</div>
 	</div>
@@ -234,7 +270,6 @@ const navLinks = [
 		gap: 0 !important;
 	}
 
-	/* Relleno de izquierda a derecha al hacer hover */
 	.cv-btn::after {
 		content: '';
 		position: absolute;
@@ -276,6 +311,62 @@ const navLinks = [
 		margin-left: 6px;
 	}
 
+	/* ══════════════════════════════════════
+	   SELECTOR DE IDIOMA (ES / EN)
+	   ══════════════════════════════════════
+	   Dos botones con tipografía mono.
+	   El activo brilla en verde accent,
+	   el inactivo queda gris apagado.
+	*/
+	.lang-selector,
+	.mobile-lang {
+		display: flex;
+		align-items: center;
+		gap: 0.3em;
+	}
+
+	/* Cada botón de idioma */
+	.lang-option {
+		/* Reset del botón nativo */
+		background: none;
+		border: none;
+		cursor: pointer;
+		padding: 0.2em 0.45em;
+		border-radius: 4px;
+
+		/* Tipografía mono, tamaño pequeño */
+		font-family: var(--font-mono);
+		font-size: 0.78em;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+
+		/* Color gris apagado por defecto */
+		color: var(--text-muted);
+		transition: color 0.2s ease, background 0.2s ease;
+	}
+
+	/* Hover en el botón inactivo */
+	.lang-option:hover {
+		color: var(--text-secondary);
+		background: var(--accent-glow);
+	}
+
+	/* Botón del idioma activo: verde accent */
+	.lang-option.active {
+		color: var(--accent);
+		background: rgba(0, 255, 136, 0.1);
+	}
+
+	/* La barrita separadora / entre ES y EN */
+	.lang-divider {
+		color: var(--text-muted);
+		font-family: var(--font-mono);
+		font-size: 0.75em;
+		opacity: 0.4;
+		user-select: none;
+	}
+
+	/* ── Hamburguesa (móvil) ── */
 	.menu-toggle {
 		display: none;
 		align-items: center;
@@ -326,6 +417,7 @@ const navLinks = [
 		transform: translateY(-7px) rotate(-45deg);
 	}
 
+	/* ── Menú móvil ── */
 	.mobile-menu {
 		max-height: 0;
 		overflow: hidden;
@@ -335,7 +427,7 @@ const navLinks = [
 	}
 
 	.site-header.menu-open .mobile-menu {
-		max-height: 320px;
+		max-height: 380px;
 		border-bottom-color: rgba(0, 255, 136, 0.25);
 	}
 
@@ -400,6 +492,14 @@ const navLinks = [
 	.mobile-social a:hover {
 		color: var(--accent);
 		text-shadow: none;
+	}
+
+	/* Selector de idioma en el menú móvil */
+	.mobile-lang {
+		margin-top: 1em;
+		padding-top: 1em;
+		border-top: 1px solid var(--border);
+		justify-content: center;
 	}
 
 	@media (max-width: 768px) {

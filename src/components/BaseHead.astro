@@ -3,6 +3,7 @@
 // all pages through the use of the <BaseHead /> component.
 import '../styles/global.css';
 import Fireflies from './Fireflies.astro';
+import CursorBubble from './CursorBubble.astro';
 import type { ImageMetadata } from 'astro';
 import FallbackImage from '../assets/blog-placeholder-1.jpg';
 import { Font } from 'astro:assets';
@@ -63,10 +64,20 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
 
-<!-- Fireflies animation -->
+<!--
+	Sistema de traducciones (i18n)
+	Carga el archivo con todas las traducciones ES/EN.
+	Se ejecuta ANTES del DOMContentLoaded para que esté listo.
+-->
+<script is:inline src="/i18n.js"></script>
+
+<!-- Fireflies animation (partículas ambient de fondo) -->
 <Fireflies />
 
-<!-- Mouse spotlight effect -->
+<!-- Burbuja que sigue al cursor (solo en desktop, no en móvil) -->
+<CursorBubble />
+
+<!-- Mouse spotlight effect — actualiza las CSS vars que usa body::before -->
 <script is:inline>
 	if (typeof window !== 'undefined') {
 		document.addEventListener('mousemove', (e) => {
