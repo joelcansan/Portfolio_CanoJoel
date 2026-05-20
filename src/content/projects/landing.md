@@ -1,5 +1,5 @@
 ---
-name: "Landing Restaurante"
+name: "Classroom 2.0"
 description: "Página estática para un restaurante de Premià de Mar. Diseño moderno con carta digital, sección de reservas y galeria de fotos."
 techs: ["HTML", "CSS", "JavaScript"]
 github: "https://github.com/joelcansan"
