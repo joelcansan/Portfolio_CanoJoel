@@ -7,13 +7,13 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  server: {
+server: {
     host: true
   },
   preview: {
     host: true,
     allowedHosts: ['portfolio-canojoel.onrender.com']
-  }
+  },
   site: 'https://example.com',
   integrations: [mdx(), sitemap()],
 
