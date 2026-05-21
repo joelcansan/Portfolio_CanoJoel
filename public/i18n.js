@@ -15,7 +15,7 @@ window.I18N = {
 		// Hero
 		'hero.greeting': '// Bienvenido a mi portfolio',
 		'hero.name':     'Joel Cano Sánchez',
-		'hero.role':     'Desarrollador Web Full Stack',
+		'hero.role':     'Desarrollador Web',
 		'hero.sub':      'Construyo aplicaciones web de principio a fin: interfaces, APIs, bases de datos y despliegue. Apasionado del código limpio y las buenas arquitecturas.',
 		'hero.projects': 'Ver proyectos →',
 		'hero.about':    'Conóceme',
