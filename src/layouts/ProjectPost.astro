@@ -7,19 +7,26 @@ import Header from '../components/Header.astro';
 
 type Props = CollectionEntry<'project'>['data'];
 
-const { name, description, heroImage, techs = [], github, demo, pubDate } = Astro.props;
+const { name, nameEs, description, descriptionEs, heroImage, techs = [], github, demo, pubDate } = Astro.props;
 ---
 
-<html lang="es">
+<html lang="en">
 	<head>
-		<BaseHead title={`${name} | Proyecto`} description={description} />
+		<!-- Aplicar idioma ANTES de renderizar para evitar flash de contenido incorrecto -->
+		<script is:inline>
+			(function () {
+				var lang = localStorage.getItem('portfolio-lang') || 'es';
+				document.documentElement.setAttribute('data-active-lang', lang);
+			})();
+		</script>
+		<BaseHead title={`${name} | Project`} description={description} />
 		<style>
 			main {
 				width: calc(100% - 2em);
 				max-width: 100%;
 				margin: 0;
 				padding: 0;
-				padding-top: 64px; /* compensa el header fijo */
+				padding-top: 64px;
 			}
 
 			/* Hero image */
@@ -50,12 +57,12 @@ const { name, description, heroImage, techs = [], github, demo, pubDate } = Astr
 				margin: 0;
 			}
 
-			/* Contenedor del contenido */
+			/* Content container */
 			.project-content {
-				width: 800px;
+				width: 820px;
 				max-width: calc(100% - 2em);
 				margin: 0 auto;
-				padding: 2.5em 1em 4em;
+				padding: 3em 1em 6em;
 			}
 
 			/* Breadcrumb */
@@ -63,7 +70,7 @@ const { name, description, heroImage, techs = [], github, demo, pubDate } = Astr
 				font-family: var(--font-mono);
 				font-size: 0.8em;
 				color: var(--text-muted);
-				margin-bottom: 1.5em;
+				margin-bottom: 2em;
 				display: flex;
 				align-items: center;
 				gap: 0.5em;
@@ -84,39 +91,40 @@ const { name, description, heroImage, techs = [], github, demo, pubDate } = Astr
 				color: var(--accent);
 			}
 
-			/* Header del proyecto */
+			/* Project header */
 			.project-header {
-				margin-bottom: 2em;
-				padding-bottom: 2em;
+				margin-bottom: 3em;
+				padding-bottom: 2.5em;
 				border-bottom: 1px solid var(--border);
 			}
 
 			.project-header h1 {
-				font-size: 2.4em;
-				margin-bottom: 0.4em;
+				font-size: 2.6em;
+				margin-bottom: 0.5em;
 				line-height: 1.15;
 			}
 
 			.project-desc {
 				color: var(--text-secondary);
-				font-size: 1.05em;
-				line-height: 1.7;
-				margin-bottom: 1.5em;
+				font-size: 1.1em;
+				line-height: 1.8;
+				margin-bottom: 2em;
+				max-width: 68ch;
 			}
 
-			/* Links de acción */
+			/* Action links */
 			.project-links {
 				display: flex;
 				gap: 0.8em;
 				flex-wrap: wrap;
-				margin-bottom: 1.5em;
+				margin-bottom: 2em;
 			}
 
 			.btn-link {
 				display: inline-flex;
 				align-items: center;
 				gap: 0.4em;
-				padding: 0.5em 1.1em;
+				padding: 0.55em 1.2em;
 				border-radius: 6px;
 				font-family: var(--font-mono);
 				font-size: 0.85em;
@@ -153,9 +161,9 @@ const { name, description, heroImage, techs = [], github, demo, pubDate } = Astr
 				text-shadow: none;
 			}
 
-			/* Stack de tecnologías */
+			/* Tech stack */
 			.techs-section {
-				margin-bottom: 2em;
+				margin-bottom: 0.5em;
 			}
 
 			.techs-label {
@@ -164,7 +172,7 @@ const { name, description, heroImage, techs = [], github, demo, pubDate } = Astr
 				color: var(--text-muted);
 				letter-spacing: 0.1em;
 				text-transform: uppercase;
-				margin-bottom: 0.6em;
+				margin-bottom: 0.75em;
 			}
 
 			.techs-list {
@@ -177,7 +185,7 @@ const { name, description, heroImage, techs = [], github, demo, pubDate } = Astr
 			}
 
 			.tech-badge {
-				padding: 0.3em 0.8em;
+				padding: 0.3em 0.85em;
 				background: var(--bg-elevated);
 				border: 1px solid var(--border);
 				border-radius: 4px;
@@ -187,18 +195,18 @@ const { name, description, heroImage, techs = [], github, demo, pubDate } = Astr
 				letter-spacing: 0.02em;
 			}
 
-			/* Contenido markdown */
+			/* Markdown content */
 			.prose {
 				color: var(--text-secondary);
-				line-height: 1.8;
+				line-height: 1.9;
 			}
 
 			.prose h2 {
 				color: var(--text-primary);
 				font-family: var(--font-mono);
 				font-size: 1.3em;
-				margin: 2em 0 0.8em;
-				padding-bottom: 0.4em;
+				margin: 2.8em 0 1em;
+				padding-bottom: 0.5em;
 				border-bottom: 1px solid var(--border);
 			}
 
@@ -211,7 +219,7 @@ const { name, description, heroImage, techs = [], github, demo, pubDate } = Astr
 			.prose h3 {
 				color: var(--text-primary);
 				font-size: 1.1em;
-				margin: 1.5em 0 0.5em;
+				margin: 2em 0 0.75em;
 			}
 
 			.prose h3::before {
@@ -220,22 +228,46 @@ const { name, description, heroImage, techs = [], github, demo, pubDate } = Astr
 
 			.prose p {
 				color: var(--text-secondary);
-				margin-bottom: 1.2em;
+				margin-bottom: 1.6em;
+				font-size: 1.02em;
+				line-height: 1.9;
 			}
 
 			.prose ul {
-				padding-left: 1.2em;
-				margin-bottom: 1.2em;
+				padding-left: 0;
+				margin-bottom: 2em;
+				list-style: none;
+				display: flex;
+				flex-direction: column;
+				gap: 0;
 			}
 
 			.prose ul li {
-				margin-bottom: 0.4em;
 				color: var(--text-secondary);
+				font-size: 1.02em;
+				line-height: 1.75;
+				padding: 0.75em 1em 0.75em 1em;
+				border-bottom: 1px solid var(--border);
+				display: flex;
+				align-items: baseline;
+				gap: 0.6em;
+			}
+
+			.prose ul li:first-child {
+				border-top: 1px solid var(--border);
+			}
+
+			.prose ul li::before {
+				content: '→';
+				color: var(--accent);
+				font-family: var(--font-mono);
+				font-size: 0.85em;
+				flex-shrink: 0;
+				opacity: 0.8;
 			}
 
 			.prose ul li::marker {
-				color: var(--accent);
-				content: '▸ ';
+				content: none;
 			}
 
 			.prose strong {
@@ -259,13 +291,50 @@ const { name, description, heroImage, techs = [], github, demo, pubDate } = Astr
 				font-size: 0.88em;
 			}
 
+			.prose blockquote {
+				border-left: 3px solid var(--accent);
+				margin: 2em 0;
+				padding: 0.75em 1.5em;
+				background: var(--bg-card);
+				border-radius: 0 6px 6px 0;
+				color: var(--text-muted);
+				font-style: italic;
+			}
+
+			.prose blockquote p {
+				margin-bottom: 0;
+				font-size: 0.95em;
+			}
+
+			/* ── Bilingual content blocks ── */
+			/* Por defecto ocultar ambos hasta que el atributo esté listo */
+			.lang-en,
+			.lang-es { display: none; }
+
+			/* Inglés activo */
+			html[data-active-lang="en"] .lang-en { display: block; }
+			html[data-active-lang="en"] .lang-es { display: none; }
+
+			/* Español activo */
+			html[data-active-lang="es"] .lang-en { display: none; }
+			html[data-active-lang="es"] .lang-es { display: block; }
+
+			/* Fallback: si no hay atributo todavía, mostrar inglés */
+			html:not([data-active-lang]) .lang-en { display: block; }
+
+			/* Divider between sections */
+			.prose h2 + p,
+			.prose h3 + p {
+				margin-top: 0;
+			}
+
 			@media (max-width: 768px) {
 				.project-content {
-					padding: 2em 1em 3em;
+					padding: 2.5em 1em 4em;
 				}
 
 				.project-header h1 {
-					font-size: 1.8em;
+					font-size: 1.9em;
 				}
 
 				.hero-image,
@@ -286,7 +355,7 @@ const { name, description, heroImage, techs = [], github, demo, pubDate } = Astr
 
 			@media (max-width: 480px) {
 				.project-header h1 {
-					font-size: 1.55em;
+					font-size: 1.6em;
 				}
 
 				.breadcrumb {
@@ -307,41 +376,49 @@ const { name, description, heroImage, techs = [], github, demo, pubDate } = Astr
 
 			<div class="project-content">
 				<nav class="breadcrumb">
-					<a href="/projects">Proyectos</a>
+					<a href="/projects" data-i18n="project.breadcrumb">Projects</a>
 					<span>/</span>
 					<span style="color: var(--text-secondary)">{name}</span>
 				</nav>
 
 				<header class="project-header">
-					<h1>{name}</h1>
-					<p class="project-desc">{description}</p>
+					<h1>
+						<span class="lang-en">{name}</span>
+						{nameEs && <span class="lang-es">{nameEs}</span>}
+						{!nameEs && <span class="lang-es">{name}</span>}
+					</h1>
+					<p class="project-desc">
+						<span class="lang-en">{description}</span>
+						{descriptionEs && <span class="lang-es">{descriptionEs}</span>}
+						{!descriptionEs && <span class="lang-es">{description}</span>}
+					</p>
 
 					{(github || demo) && (
 						<div class="project-links">
 							{github && (
-								<a href={github} target="_blank" class="btn-link btn-link-outline">
-									<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-										<path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
-									</svg>
-									Ver código
-								</a>
+							<a href={github} target="_blank" rel="noopener noreferrer" class="btn-link btn-link-outline">
+							<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+							<path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+							</svg>
+							<span data-i18n="project.viewCode">View code</span>
+							</a>
 							)}
 							{demo && (
-								<a href={demo} target="_blank" class="btn-link btn-link-primary">
-									<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-										<path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
-										<polyline points="15 3 21 3 21 9"/>
-										<line x1="10" y1="14" x2="21" y2="3"/>
-									</svg>
-									Ver demo
-								</a>
+							<a href={demo} target="_blank" rel="noopener noreferrer" class="btn-link btn-link-primary">
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+							<polyline points="15 3 21 3 21 9"/>
+							<line x1="10" y1="14" x2="21" y2="3"/>
+							</svg>
+							<span data-i18n="project.viewDemo">Live demo</span>
+							</a>
 							)}
 						</div>
 					)}
 
 					{techs && techs.length > 0 && (
 						<div class="techs-section">
-							<p class="techs-label">// Tecnologías utilizadas</p>
+							<p class="techs-label" data-i18n="project.techsLabel">// Tech stack</p>
 							<ul class="techs-list">
 								{techs.map((tech) => (
 									<li class="tech-badge">{tech}</li>
@@ -357,5 +434,23 @@ const { name, description, heroImage, techs = [], github, demo, pubDate } = Astr
 			</div>
 		</main>
 		<Footer />
+
+		<script is:inline>
+			(function () {
+				function syncLang() {
+					var lang = (typeof window.getLanguage === 'function')
+						? window.getLanguage()
+						: (localStorage.getItem('portfolio-lang') || 'es');
+					document.documentElement.setAttribute('data-active-lang', lang);
+				}
+				syncLang();
+				// Re-apply whenever setLanguage() is called
+				var _orig = window.setLanguage;
+				window.setLanguage = function (lang) {
+					if (_orig) _orig(lang);
+					document.documentElement.setAttribute('data-active-lang', lang);
+				};
+			})();
+		</script>
 	</body>
 </html>
