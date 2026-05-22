@@ -3,4 +3,4 @@
 
 export const SITE_TITLE = 'JCS — Portfolio';
 export const SITE_DESCRIPTION =
-	'Portfolio de Joel Cano Sánchez, desarrollador full-stack junior. Proyectos web con React, Node.js, Laravel y más.';
+	'Portfolio of Joel Cano Sánchez, junior full-stack developer. Web projects with React, Node.js, Laravel and more.';

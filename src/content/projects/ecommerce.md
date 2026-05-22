@@ -1,22 +1,22 @@
 ---
-name: "Tienda online de ropa"
-description: "Página estática de una tienda de ropa desarrollada con Astro. Incluye catálogo de productos, sistema de navegación por categorías y diseño responsive."
+name: "Online Clothing Store"
+description: "Static page for a clothing store built with Astro. Includes product catalogue, category navigation system and responsive design."
 techs: ["Astro", "HTML", "CSS", "JavaScript"]
 github: "https://github.com/joelcansan"
 pubDate: "2024-01-15"
 ---
 
-## Descripción del proyecto
+## Project description
 
-He desarrollado esta landing page con **Astro**, sobre una tienda online de ropa. El objetivo era crear una página estática de alto rendimiento que cargase rápido y fuese fácil de mantener.
+I developed this landing page with **Astro**, for an online clothing store. The goal was to create a high-performance static page that loads fast and is easy to maintain.
 
-## ¿Qué hace?
+## What does it do?
 
-- Catálogo de productos con imágenes y precios
-- Navegación por categorías (mujer, hombre, accesorios)
-- Diseño responsive para móvil y escritorio
-- Optimización de imágenes automática con Astro
+- Product catalogue with images and prices
+- Navigation by categories (women, men, accessories)
+- Responsive design for mobile and desktop
+- Automatic image optimisation with Astro
 
-## Decisiones técnicas
+## Technical decisions
 
-Elegí **Astro** porque genera HTML estático sin JavaScript innecesario en el cliente, lo que resulta en tiempos de carga muy rápidos. El CSS está organizado con variables custom para mantener la consistencia visual.
+I chose **Astro** because it generates static HTML without unnecessary client-side JavaScript, resulting in very fast load times. The CSS is organised with custom variables to maintain visual consistency.

@@ -1,22 +1,22 @@
 ---
-name: "Landing Restaurante"
-description: "Página estática para un restaurante de Premià de Mar. Diseño moderno con carta digital, sección de reservas y galeria de fotos."
+name: "Restaurant Landing Page"
+description: "Static page for a restaurant in Premià de Mar. Modern design with digital menu, reservations section and photo gallery."
 techs: ["HTML", "CSS", "JavaScript"]
 github: "https://github.com/joelcansan"
 pubDate: "2023-11-20"
 ---
 
-## Descripción del proyecto
+## Project description
 
-He desarrollado esta página estática para un restaurante ubicado en **Premià de Mar**. El cliente necesitaba una presencia web sencilla que mostrase su carta y permitiese a los clientes ver el local.
+I developed this static page for a restaurant located in **Premià de Mar**. The client needed a simple web presence to showcase their menu and let customers see the venue.
 
-## ¿Qué hace?
+## What does it do?
 
-- Carta digital con secciones de entrantes, principales y postres
-- Sección de contacto con formulario y mapa
-- Galería de fotos del local
-- Diseño responsive optimizado para móvil
+- Digital menu with starters, mains and desserts sections
+- Contact section with form and map
+- Photo gallery of the venue
+- Responsive design optimised for mobile
 
-## Decisiones técnicas
+## Technical decisions
 
-Al ser un proyecto sin requisitos dinámicos, opté por **HTML, CSS y JavaScript vanilla** para mantener la sencillez y evitar dependencias innecesarias. El formulario de contacto se integra con un servicio externo de envío de emails.
+As this project had no dynamic requirements, I chose **HTML, CSS and vanilla JavaScript** to keep things simple and avoid unnecessary dependencies. The contact form integrates with an external email-sending service.
