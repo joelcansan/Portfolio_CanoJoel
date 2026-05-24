@@ -17,30 +17,35 @@ const { name, nameEn, description, descriptionEn, heroImage, techs = [], github,
 		<BaseHead title={`${name} | Project`} description={description} />
 		<style>
 			main {
-				width: calc(100% - 2em);
+				width: 100%;
 				max-width: 100%;
 				margin: 0;
 				padding: 0;
 				padding-top: 64px;
 			}
 
-			/* Content container */
+			/* ═══════════════════════════════════
+			   CONTENEDOR PRINCIPAL
+			═══════════════════════════════════ */
 			.project-content {
-				width: 820px;
-				max-width: calc(100% - 2em);
+				width: 760px;
+				max-width: calc(100% - 3em);
 				margin: 0 auto;
-				padding: 3em 1em 6em;
+				padding: 5em 0 8em;
 			}
 
-			/* Breadcrumb */
+			/* ═══════════════════════════════════
+			   BREADCRUMB
+			═══════════════════════════════════ */
 			.breadcrumb {
-				font-family: var(--font-mono);
-				font-size: 0.8em;
-				color: var(--text-muted);
-				margin-bottom: 2em;
 				display: flex;
 				align-items: center;
 				gap: 0.5em;
+				font-family: var(--font-mono);
+				font-size: 0.75em;
+				color: var(--text-muted);
+				letter-spacing: 0.05em;
+				margin-bottom: 4em;
 			}
 
 			.breadcrumb a {
@@ -49,56 +54,89 @@ const { name, nameEn, description, descriptionEn, heroImage, techs = [], github,
 				transition: color 0.2s;
 			}
 
-			.breadcrumb a:hover {
-				color: var(--accent);
-				text-shadow: none;
-			}
+			.breadcrumb a:hover { color: var(--accent); }
 
-			.breadcrumb span {
-				color: var(--accent);
-			}
+			.breadcrumb .sep { opacity: 0.35; }
 
-			/* Project header */
+			/* ═══════════════════════════════════
+			   CABECERA DEL PROYECTO
+			═══════════════════════════════════ */
 			.project-header {
-				margin-bottom: 3em;
-				padding-bottom: 2.5em;
-				border-bottom: 1px solid var(--border);
+				margin-bottom: 5em;
+			}
+
+			/* Etiqueta superior tipo "chip" */
+			.project-eyebrow {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.5em;
+				font-family: var(--font-mono);
+				font-size: 0.72em;
+				color: var(--accent);
+				letter-spacing: 0.14em;
+				text-transform: uppercase;
+				margin-bottom: 1.4em;
+				opacity: 0.85;
+			}
+
+			.project-eyebrow::before {
+				content: '';
+				display: inline-block;
+				width: 18px;
+				height: 1px;
+				background: var(--accent);
+				opacity: 0.6;
 			}
 
 			.project-header h1 {
-				font-size: 2.6em;
-				margin-bottom: 0.5em;
-				line-height: 1.15;
+				font-size: clamp(2.2em, 5vw, 3.4em);
+				font-weight: 800;
+				line-height: 1.08;
+				letter-spacing: -0.03em;
+				margin-bottom: 1.2em;
+				color: var(--text-primary);
 			}
 
 			.project-desc {
+				font-size: 1.15em;
+				line-height: 1.85;
 				color: var(--text-secondary);
-				font-size: 1.1em;
-				line-height: 1.8;
-				margin-bottom: 2em;
-				max-width: 68ch;
+				max-width: 62ch;
+				margin-bottom: 0;
 			}
 
-			/* Action links */
+			/* ═══════════════════════════════════
+			   BARRA DE METADATOS
+			   (links + techs juntos, separados)
+			═══════════════════════════════════ */
+			.project-meta {
+				display: flex;
+				flex-direction: column;
+				gap: 2.5em;
+				margin: 3.5em 0 0;
+				padding: 2.5em 0 0;
+				border-top: 1px solid var(--border);
+			}
+
+			/* Links */
 			.project-links {
 				display: flex;
-				gap: 0.8em;
+				gap: 0.75em;
 				flex-wrap: wrap;
-				margin-bottom: 2em;
 			}
 
 			.btn-link {
 				display: inline-flex;
 				align-items: center;
-				gap: 0.4em;
-				padding: 0.55em 1.2em;
-				border-radius: 6px;
+				gap: 0.45em;
+				padding: 0.6em 1.4em;
+				border-radius: 8px;
 				font-family: var(--font-mono);
-				font-size: 0.85em;
+				font-size: 0.82em;
 				font-weight: 500;
 				text-decoration: none;
 				transition: all 0.2s;
-				cursor: pointer;
+				letter-spacing: 0.02em;
 			}
 
 			.btn-link-primary {
@@ -129,17 +167,15 @@ const { name, nameEn, description, descriptionEn, heroImage, techs = [], github,
 			}
 
 			/* Tech stack */
-			.techs-section {
-				margin-bottom: 0.5em;
-			}
+			.techs-section {}
 
 			.techs-label {
 				font-family: var(--font-mono);
-				font-size: 0.75em;
+				font-size: 0.7em;
 				color: var(--text-muted);
-				letter-spacing: 0.1em;
+				letter-spacing: 0.12em;
 				text-transform: uppercase;
-				margin-bottom: 0.75em;
+				margin-bottom: 1em;
 			}
 
 			.techs-list {
@@ -152,90 +188,139 @@ const { name, nameEn, description, descriptionEn, heroImage, techs = [], github,
 			}
 
 			.tech-badge {
-				padding: 0.3em 0.85em;
-				background: var(--bg-elevated);
+				padding: 0.35em 0.9em;
+				background: transparent;
 				border: 1px solid var(--border);
-				border-radius: 4px;
+				border-radius: 100px;
 				font-family: var(--font-mono);
-				font-size: 0.82em;
-				color: var(--accent);
-				letter-spacing: 0.02em;
+				font-size: 0.78em;
+				color: var(--text-secondary);
+				letter-spacing: 0.03em;
+				transition: all 0.2s;
 			}
 
-			/* Markdown content */
+			.tech-badge:hover {
+				border-color: var(--accent);
+				color: var(--accent);
+			}
+
+			/* ═══════════════════════════════════
+			   SEPARADOR VISUAL ANTES DEL PROSE
+			═══════════════════════════════════ */
+			.prose-divider {
+				display: flex;
+				align-items: center;
+				gap: 1.2em;
+				margin: 5em 0 4.5em;
+			}
+
+			.prose-divider::before,
+			.prose-divider::after {
+				content: '';
+				flex: 1;
+				height: 1px;
+				background: var(--border);
+			}
+
+			.prose-divider-label {
+				font-family: var(--font-mono);
+				font-size: 0.68em;
+				color: var(--text-muted);
+				letter-spacing: 0.18em;
+				text-transform: uppercase;
+				white-space: nowrap;
+			}
+
+			/* ═══════════════════════════════════
+			   PROSE — CONTENIDO MARKDOWN
+			═══════════════════════════════════ */
 			.prose {
 				color: var(--text-secondary);
-				line-height: 1.9;
+				line-height: 1.95;
 			}
 
+			/* Cada h2 actúa como separador de sección */
 			.prose h2 {
+				position: relative;
 				color: var(--text-primary);
 				font-family: var(--font-mono);
-				font-size: 1.3em;
-				margin: 2.8em 0 1em;
-				padding-bottom: 0.5em;
-				border-bottom: 1px solid var(--border);
+				font-size: 0.78em;
+				font-weight: 600;
+				letter-spacing: 0.16em;
+				text-transform: uppercase;
+				color: var(--accent);
+				margin: 4.5em 0 1.8em;
+				padding-bottom: 0;
 			}
 
 			.prose h2::before {
-				content: '## ';
-				color: var(--accent);
-				font-size: 0.9em;
+				content: '//  ';
+				opacity: 0.5;
+			}
+
+			/* Línea decorativa debajo del h2 */
+			.prose h2::after {
+				content: '';
+				display: block;
+				width: 100%;
+				height: 1px;
+				background: linear-gradient(to right, var(--border) 0%, transparent 80%);
+				margin-top: 1em;
 			}
 
 			.prose h3 {
 				color: var(--text-primary);
-				font-size: 1.1em;
-				margin: 2em 0 0.75em;
-			}
-
-			.prose h3::before {
-				content: none;
+				font-size: 1.05em;
+				font-weight: 600;
+				margin: 2.5em 0 0.8em;
 			}
 
 			.prose p {
+				font-size: 1.04em;
+				line-height: 1.95;
 				color: var(--text-secondary);
-				margin-bottom: 1.6em;
-				font-size: 1.02em;
-				line-height: 1.9;
+				margin-bottom: 1.8em;
+				max-width: 68ch;
 			}
 
+			/* Lista como tarjetas */
 			.prose ul {
-				padding-left: 0;
-				margin-bottom: 2em;
+				padding: 0;
+				margin: 0 0 2.5em;
 				list-style: none;
 				display: flex;
 				flex-direction: column;
-				gap: 0;
+				gap: 0.4em;
 			}
 
 			.prose ul li {
-				color: var(--text-secondary);
-				font-size: 1.02em;
-				line-height: 1.75;
-				padding: 0.75em 1em 0.75em 1em;
-				border-bottom: 1px solid var(--border);
 				display: flex;
 				align-items: baseline;
-				gap: 0.6em;
+				gap: 0.75em;
+				font-size: 1.02em;
+				line-height: 1.75;
+				color: var(--text-secondary);
+				padding: 0.85em 1.1em;
+				background: var(--bg-elevated, rgba(255,255,255,0.03));
+				border: 1px solid var(--border);
+				border-radius: 8px;
+				transition: border-color 0.2s;
 			}
 
-			.prose ul li:first-child {
-				border-top: 1px solid var(--border);
+			.prose ul li:hover {
+				border-color: var(--border-hover, rgba(255,255,255,0.12));
 			}
 
 			.prose ul li::before {
 				content: '→';
 				color: var(--accent);
 				font-family: var(--font-mono);
-				font-size: 0.85em;
+				font-size: 0.82em;
 				flex-shrink: 0;
-				opacity: 0.8;
+				opacity: 0.7;
 			}
 
-			.prose ul li::marker {
-				content: none;
-			}
+			.prose ul li::marker { content: none; }
 
 			.prose strong {
 				color: var(--text-primary);
@@ -245,8 +330,9 @@ const { name, nameEn, description, descriptionEn, heroImage, techs = [], github,
 			.prose a {
 				color: var(--accent);
 				text-decoration: underline;
-				text-decoration-color: rgba(0, 255, 136, 0.3);
-				text-underline-offset: 3px;
+				text-decoration-color: rgba(0,255,136,0.25);
+				text-underline-offset: 4px;
+				transition: text-decoration-color 0.2s;
 			}
 
 			.prose a:hover {
@@ -255,77 +341,57 @@ const { name, nameEn, description, descriptionEn, heroImage, techs = [], github,
 			}
 
 			.prose code {
-				font-size: 0.88em;
+				font-size: 0.86em;
+				padding: 0.15em 0.45em;
+				background: var(--bg-elevated, rgba(255,255,255,0.06));
+				border: 1px solid var(--border);
+				border-radius: 4px;
 			}
 
 			.prose blockquote {
-				border-left: 3px solid var(--accent);
-				margin: 2em 0;
-				padding: 0.75em 1.5em;
-				background: var(--bg-card);
-				border-radius: 0 6px 6px 0;
-				color: var(--text-muted);
-				font-style: italic;
+				border-left: 2px solid var(--accent);
+				margin: 2.5em 0;
+				padding: 1.25em 1.75em;
+				background: var(--bg-elevated, rgba(255,255,255,0.03));
+				border-radius: 0 8px 8px 0;
 			}
 
 			.prose blockquote p {
 				margin-bottom: 0;
-				font-size: 0.95em;
+				font-size: 0.97em;
+				font-style: italic;
+				color: var(--text-muted);
 			}
 
-			/* Divider between sections */
-			.prose h2 + p,
-			.prose h3 + p {
-				margin-top: 0;
-			}
-
+			/* ═══════════════════════════════════
+			   RESPONSIVE
+			═══════════════════════════════════ */
 			@media (max-width: 768px) {
-				.project-content {
-					padding: 2.5em 1em 4em;
-				}
-
-				.project-header h1 {
-					font-size: 1.9em;
-				}
-
-				.project-links {
-					flex-direction: column;
-					align-items: stretch;
-				}
-
-				.btn-link {
-					justify-content: center;
-				}
+				.project-content { padding: 3.5em 0 5em; }
+				.project-header { margin-bottom: 3.5em; }
+				.project-header h1 { font-size: 2em; }
+				.prose-divider { margin: 3.5em 0 3em; }
+				.prose h2 { margin: 3.5em 0 1.4em; }
+				.project-links { flex-direction: column; }
+				.btn-link { justify-content: center; }
 			}
 
 			@media (max-width: 480px) {
-				.project-header h1 {
-					font-size: 1.6em;
-				}
-
-				.breadcrumb {
-					flex-wrap: wrap;
-				}
+				.project-content { max-width: calc(100% - 2em); }
+				.project-header h1 { font-size: 1.7em; }
+				.breadcrumb { margin-bottom: 2.5em; }
+				.prose ul li { padding: 0.75em 0.9em; }
 			}
 		</style>
 
 		<!-- Estilos globales para los bloques bilingues del markdown -->
 		<style is:global>
-			/* Ocultar ambos por defecto */
 			.lang-en, .lang-es { display: none !important; }
-
-			/* Español activo (default) */
 			html[data-active-lang="es"] .lang-es { display: block !important; }
 			html[data-active-lang="es"] .lang-en { display: none !important; }
-
-			/* Inglés activo */
 			html[data-active-lang="en"] .lang-en { display: block !important; }
 			html[data-active-lang="en"] .lang-es { display: none !important; }
-
-			/* Fallback sin atributo: español */
 			html:not([data-active-lang]) .lang-es { display: block !important; }
-
-			/* Los span inline necesitan inline en vez de block */
 			span.lang-en, span.lang-es { display: none !important; }
 			html[data-active-lang="es"] span.lang-es { display: inline !important; }
 			html[data-active-lang="en"] span.lang-en { display: inline !important; }
@@ -337,13 +403,15 @@ const { name, nameEn, description, descriptionEn, heroImage, techs = [], github,
 		<Header />
 		<main>
 			<div class="project-content">
+
 				<nav class="breadcrumb">
 					<a href="/projects" data-i18n="project.breadcrumb">Projects</a>
-					<span>/</span>
-					<span style="color: var(--text-secondary)">{name}</span>
+					<span class="sep">/</span>
+					<span>{name}</span>
 				</nav>
 
 				<header class="project-header">
+					<p class="project-eyebrow">Project</p>
 					<h1 id="proj-title"
 						data-name-es={name}
 						data-name-en={nameEn || name}>
@@ -355,44 +423,52 @@ const { name, nameEn, description, descriptionEn, heroImage, techs = [], github,
 						{description}
 					</p>
 
-					{(github || demo) && (
-						<div class="project-links">
-							{github && (
-							<a href={github} target="_blank" rel="noopener noreferrer" class="btn-link btn-link-outline">
-							<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-							<path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
-							</svg>
-							<span data-i18n="project.viewCode">View code</span>
-							</a>
-							)}
-							{demo && (
-							<a href={demo} target="_blank" rel="noopener noreferrer" class="btn-link btn-link-primary">
-							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-							<path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
-							<polyline points="15 3 21 3 21 9"/>
-							<line x1="10" y1="14" x2="21" y2="3"/>
-							</svg>
-							<span data-i18n="project.viewDemo">Live demo</span>
-							</a>
-							)}
-						</div>
-					)}
+					<div class="project-meta">
+						{(github || demo) && (
+							<div class="project-links">
+								{github && (
+									<a href={github} target="_blank" rel="noopener noreferrer" class="btn-link btn-link-outline">
+										<svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor">
+											<path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+										</svg>
+										<span data-i18n="project.viewCode">View code</span>
+									</a>
+								)}
+								{demo && (
+									<a href={demo} target="_blank" rel="noopener noreferrer" class="btn-link btn-link-primary">
+										<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+											<path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+											<polyline points="15 3 21 3 21 9"/>
+											<line x1="10" y1="14" x2="21" y2="3"/>
+										</svg>
+										<span data-i18n="project.viewDemo">Live demo</span>
+									</a>
+								)}
+							</div>
+						)}
 
-					{techs && techs.length > 0 && (
-						<div class="techs-section">
-							<p class="techs-label" data-i18n="project.techsLabel">// Tech stack</p>
-							<ul class="techs-list">
-								{techs.map((tech) => (
-									<li class="tech-badge">{tech}</li>
-								))}
-							</ul>
-						</div>
-					)}
+						{techs && techs.length > 0 && (
+							<div class="techs-section">
+								<p class="techs-label" data-i18n="project.techsLabel">// Tech stack</p>
+								<ul class="techs-list">
+									{techs.map((tech) => (
+										<li class="tech-badge">{tech}</li>
+									))}
+								</ul>
+							</div>
+						)}
+					</div>
 				</header>
+
+				<!-- Separador visual antes del contenido -->
+				<div class="prose-divider">
+					<span class="prose-divider-label">About this project</span>
+				</div>
 
 				<div class="prose">
 					<slot />
 				</div>
+
 			</div>
 		</main>
 		<Footer />
@@ -406,13 +482,11 @@ const { name, nameEn, description, descriptionEn, heroImage, techs = [], github,
 				document.documentElement.setAttribute('data-active-lang', lang);
 			}
 
-			// Aplicar al cargar
 			document.addEventListener('DOMContentLoaded', function () {
 				var lang = localStorage.getItem('portfolio-lang') || 'es';
 				applyProjectLang(lang);
 			});
 
-			// Interceptar setLanguage global para sincronizar
 			var _origSet = window.setLanguage;
 			window.setLanguage = function (lang) {
 				if (_origSet) _origSet(lang);

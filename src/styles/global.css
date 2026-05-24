@@ -81,7 +81,6 @@ body {
   position: relative;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Sin background-image aquí — los blobs van en pseudo-elementos y SVG */
 }
 
 /* Grain de ruido SVG — textura cinematográfica */
@@ -113,7 +112,7 @@ body::before {
 
 body.nav-open { overflow: hidden; }
 
-/* Blobs ambientales fijos — posición calculada para ser atmosféricos */
+/* Blobs ambientales fijos */
 #bg-blobs {
   pointer-events: none;
   position: fixed;
@@ -203,7 +202,7 @@ main {
 .section-label::before { content: none; }
 
 /* ══════════════════════════════════════════
-   TIPOGRAFÍA
+   TIPOGRAFÍA GLOBAL
    ══════════════════════════════════════════ */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--mono);
@@ -321,7 +320,7 @@ ul li::marker { color: var(--sig); }
 ::selection { background: rgba(0,232,122,0.18); color: var(--ink-0); }
 
 /* ══════════════════════════════════════════
-   SCROLL REVEAL — clases globales
+   SCROLL REVEAL
    ══════════════════════════════════════════ */
 .reveal-up {
   opacity: 0;
@@ -372,6 +371,108 @@ ul li::marker { color: var(--sig); }
 }
 
 /* ══════════════════════════════════════════
+   PROSE — override estilos globales
+   (detail de proyecto, blog, etc.)
+   ══════════════════════════════════════════ */
+
+/* Resetear h1::before dentro del prose */
+.prose h1::before { content: none; }
+
+/* H2: etiqueta de sección pequeña en verde, no título grande */
+.prose h2 {
+  font-size: 0.72rem !important;
+  font-weight: 600 !important;
+  font-family: var(--mono) !important;
+  color: var(--sig) !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  margin: 4rem 0 1.5rem !important;
+  padding: 0 !important;
+  line-height: 1.4 !important;
+}
+
+.prose h2::before {
+  content: '//  ' !important;
+  opacity: 0.45 !important;
+  font-weight: 400 !important;
+}
+
+.prose h2::after {
+  content: '' !important;
+  display: block !important;
+  width: 100% !important;
+  height: 1px !important;
+  background: linear-gradient(to right, var(--line-mid) 0%, transparent 75%) !important;
+  margin-top: 1em !important;
+}
+
+/* H3 dentro del prose */
+.prose h3 {
+  font-size: 1.05rem !important;
+  font-weight: 600 !important;
+  color: var(--ink-0) !important;
+  letter-spacing: -0.01em !important;
+  margin: 2.5rem 0 0.9rem !important;
+  text-transform: none !important;
+}
+
+.prose h3::before { content: none !important; }
+
+/* Párrafos */
+.prose p {
+  font-size: 1.02rem !important;
+  line-height: 1.95 !important;
+  color: var(--ink-1) !important;
+  margin-bottom: 1.6rem !important;
+  max-width: 68ch !important;
+}
+
+/* Listas — tarjetas con borde */
+.prose ul {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 0 2.5rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.45em !important;
+}
+
+.prose ul li {
+  display: flex !important;
+  align-items: baseline !important;
+  gap: 0.85em !important;
+  font-size: 0.97rem !important;
+  line-height: 1.75 !important;
+  color: var(--ink-1) !important;
+  padding: 0.9em 1.2em !important;
+  background: var(--surface-1) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 8px !important;
+  transition: border-color 0.2s !important;
+}
+
+.prose ul li:hover {
+  border-color: var(--line-mid) !important;
+}
+
+.prose ul li::before {
+  content: '→' !important;
+  color: var(--sig) !important;
+  font-family: var(--mono) !important;
+  font-size: 0.8rem !important;
+  flex-shrink: 0 !important;
+  opacity: 0.65 !important;
+}
+
+.prose ul li::marker { content: none !important; }
+
+/* Strong dentro del prose */
+.prose strong {
+  color: var(--ink-0) !important;
+  font-weight: 600 !important;
+}
+
+/* ══════════════════════════════════════════
    RESPONSIVE
    ══════════════════════════════════════════ */
 @media (max-width: 768px) {
@@ -381,6 +482,9 @@ ul li::marker { color: var(--sig); }
   h1 { font-size: 2rem; }
   h2 { font-size: 1.6rem; }
   h1::before { content: ''; }
+
+  .prose h2 { margin: 3rem 0 1.2rem !important; }
+  .prose ul li { padding: 0.75em 1em !important; }
 }
 
 @media (max-width: 480px) {
