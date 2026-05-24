@@ -218,6 +218,7 @@ window.setLanguage = function (lang) {
 	if (!window.I18N[lang]) return;
 	localStorage.setItem('portfolio-lang', lang);
 	document.documentElement.lang = lang;
+	document.documentElement.setAttribute('data-active-lang', lang);
 	applyTranslations(lang);
 	updateLangButtons(lang);
 	updateTicker(lang);
@@ -275,6 +276,7 @@ function updateTicker(lang) {
 document.addEventListener('DOMContentLoaded', function () {
 	var lang = window.getLanguage();
 	document.documentElement.lang = lang;
+	document.documentElement.setAttribute('data-active-lang', lang);
 	applyTranslations(lang);
 	updateLangButtons(lang);
 	updateTicker(lang);

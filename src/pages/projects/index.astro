@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
@@ -322,10 +321,8 @@ const projects = (await getCollection('project')).sort((a, b) => {
             >
               {/* Imagen full */}
               {project.data.heroImage ? (
-                <Image
+                <img
                   class="proj-img"
-                  width={i === 0 ? 1400 : 900}
-                  height={i === 0 ? 700 : 560}
                   src={project.data.heroImage}
                   alt={project.data.name}
                 />

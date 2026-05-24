@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
@@ -7,17 +6,13 @@ import Header from '../components/Header.astro';
 
 type Props = CollectionEntry<'project'>['data'];
 
-const { name, nameEs, description, descriptionEs, heroImage, techs = [], github, demo, pubDate } = Astro.props;
+const { name, nameEn, description, descriptionEn, heroImage, techs = [], github, demo, pubDate } = Astro.props;
 ---
 
 <html lang="en">
 	<head>
-		<!-- Aplicar idioma ANTES de renderizar para evitar flash de contenido incorrecto -->
 		<script is:inline>
-			(function () {
-				var lang = localStorage.getItem('portfolio-lang') || 'es';
-				document.documentElement.setAttribute('data-active-lang', lang);
-			})();
+			document.documentElement.setAttribute('data-active-lang', localStorage.getItem('portfolio-lang') || 'es');
 		</script>
 		<BaseHead title={`${name} | Project`} description={description} />
 		<style>
@@ -27,34 +22,6 @@ const { name, nameEs, description, descriptionEs, heroImage, techs = [], github,
 				margin: 0;
 				padding: 0;
 				padding-top: 64px;
-			}
-
-			/* Hero image */
-			.hero-image {
-				width: 100%;
-				max-height: 420px;
-				overflow: hidden;
-				position: relative;
-			}
-
-			.hero-image::after {
-				content: '';
-				position: absolute;
-				bottom: 0;
-				left: 0;
-				right: 0;
-				height: 120px;
-				background: linear-gradient(to bottom, transparent, var(--bg-base));
-			}
-
-			.hero-image img {
-				width: 100%;
-				height: 420px;
-				object-fit: cover;
-				border-radius: 0;
-				border: none;
-				display: block;
-				margin: 0;
 			}
 
 			/* Content container */
@@ -306,22 +273,6 @@ const { name, nameEs, description, descriptionEs, heroImage, techs = [], github,
 				font-size: 0.95em;
 			}
 
-			/* ── Bilingual content blocks ── */
-			/* Por defecto ocultar ambos hasta que el atributo esté listo */
-			.lang-en,
-			.lang-es { display: none; }
-
-			/* Inglés activo */
-			html[data-active-lang="en"] .lang-en { display: block; }
-			html[data-active-lang="en"] .lang-es { display: none; }
-
-			/* Español activo */
-			html[data-active-lang="es"] .lang-en { display: none; }
-			html[data-active-lang="es"] .lang-es { display: block; }
-
-			/* Fallback: si no hay atributo todavía, mostrar inglés */
-			html:not([data-active-lang]) .lang-en { display: block; }
-
 			/* Divider between sections */
 			.prose h2 + p,
 			.prose h3 + p {
@@ -335,12 +286,6 @@ const { name, nameEs, description, descriptionEs, heroImage, techs = [], github,
 
 				.project-header h1 {
 					font-size: 1.9em;
-				}
-
-				.hero-image,
-				.hero-image img {
-					max-height: 240px;
-					height: 240px;
 				}
 
 				.project-links {
@@ -363,17 +308,34 @@ const { name, nameEs, description, descriptionEs, heroImage, techs = [], github,
 				}
 			}
 		</style>
+
+		<!-- Estilos globales para los bloques bilingues del markdown -->
+		<style is:global>
+			/* Ocultar ambos por defecto */
+			.lang-en, .lang-es { display: none !important; }
+
+			/* Español activo (default) */
+			html[data-active-lang="es"] .lang-es { display: block !important; }
+			html[data-active-lang="es"] .lang-en { display: none !important; }
+
+			/* Inglés activo */
+			html[data-active-lang="en"] .lang-en { display: block !important; }
+			html[data-active-lang="en"] .lang-es { display: none !important; }
+
+			/* Fallback sin atributo: español */
+			html:not([data-active-lang]) .lang-es { display: block !important; }
+
+			/* Los span inline necesitan inline en vez de block */
+			span.lang-en, span.lang-es { display: none !important; }
+			html[data-active-lang="es"] span.lang-es { display: inline !important; }
+			html[data-active-lang="en"] span.lang-en { display: inline !important; }
+			html:not([data-active-lang]) span.lang-es { display: inline !important; }
+		</style>
 	</head>
 
 	<body>
 		<Header />
 		<main>
-			{heroImage && (
-				<div class="hero-image">
-					<Image width={1200} height={420} src={heroImage} alt={name} />
-				</div>
-			)}
-
 			<div class="project-content">
 				<nav class="breadcrumb">
 					<a href="/projects" data-i18n="project.breadcrumb">Projects</a>
@@ -382,15 +344,15 @@ const { name, nameEs, description, descriptionEs, heroImage, techs = [], github,
 				</nav>
 
 				<header class="project-header">
-					<h1>
-						<span class="lang-en">{name}</span>
-						{nameEs && <span class="lang-es">{nameEs}</span>}
-						{!nameEs && <span class="lang-es">{name}</span>}
+					<h1 id="proj-title"
+						data-name-es={name}
+						data-name-en={nameEn || name}>
+						{name}
 					</h1>
-					<p class="project-desc">
-						<span class="lang-en">{description}</span>
-						{descriptionEs && <span class="lang-es">{descriptionEs}</span>}
-						{!descriptionEs && <span class="lang-es">{description}</span>}
+					<p class="project-desc" id="proj-desc"
+						data-desc-es={description}
+						data-desc-en={descriptionEn || description}>
+						{description}
 					</p>
 
 					{(github || demo) && (
@@ -436,21 +398,26 @@ const { name, nameEs, description, descriptionEs, heroImage, techs = [], github,
 		<Footer />
 
 		<script is:inline>
-			(function () {
-				function syncLang() {
-					var lang = (typeof window.getLanguage === 'function')
-						? window.getLanguage()
-						: (localStorage.getItem('portfolio-lang') || 'es');
-					document.documentElement.setAttribute('data-active-lang', lang);
-				}
-				syncLang();
-				// Re-apply whenever setLanguage() is called
-				var _orig = window.setLanguage;
-				window.setLanguage = function (lang) {
-					if (_orig) _orig(lang);
-					document.documentElement.setAttribute('data-active-lang', lang);
-				};
-			})();
+			function applyProjectLang(lang) {
+				var title = document.getElementById('proj-title');
+				var desc  = document.getElementById('proj-desc');
+				if (title) title.textContent = title.getAttribute('data-name-' + lang) || title.getAttribute('data-name-en');
+				if (desc)  desc.textContent  = desc.getAttribute('data-desc-' + lang)  || desc.getAttribute('data-desc-en');
+				document.documentElement.setAttribute('data-active-lang', lang);
+			}
+
+			// Aplicar al cargar
+			document.addEventListener('DOMContentLoaded', function () {
+				var lang = localStorage.getItem('portfolio-lang') || 'es';
+				applyProjectLang(lang);
+			});
+
+			// Interceptar setLanguage global para sincronizar
+			var _origSet = window.setLanguage;
+			window.setLanguage = function (lang) {
+				if (_origSet) _origSet(lang);
+				applyProjectLang(lang);
+			};
 		</script>
 	</body>
 </html>
