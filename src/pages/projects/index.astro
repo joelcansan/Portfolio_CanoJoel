@@ -15,9 +15,9 @@ const projects = (await getCollection('project')).sort((a, b) => {
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
-  <BaseHead title={`Proyectos | ${titulo}`} description={SITE_DESCRIPTION} />
+  <BaseHead title={`Projects | ${titulo}`} description={SITE_DESCRIPTION} />
   <style>
     main { padding-top: 6rem; }
 
@@ -303,14 +303,14 @@ const projects = (await getCollection('project')).sort((a, b) => {
   <main>
 
     <div class="page-header reveal-up" data-reveal>
-      <h1>Proyectos</h1>
+      <h1>Projects</h1>
       <p class="page-sub">
-        // {projects.length} proyecto{projects.length !== 1 ? 's' : ''} en total
+        // {projects.length} project{projects.length !== 1 ? 's' : ''} total
       </p>
     </div>
 
     {projects.length === 0 ? (
-      <div class="empty">// No hay proyectos todavía. ¡Pronto!</div>
+      <div class="empty">// No projects yet. Coming soon!</div>
     ) : (
       <ul class="projects-grid">
         {projects.map((project, i) => (
@@ -359,7 +359,7 @@ const projects = (await getCollection('project')).sort((a, b) => {
                 )}
 
                 <span class="proj-arrow">
-                  Ver proyecto
+                  View project
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="5" y1="12" x2="19" y2="12"/>
                     <polyline points="12 5 19 12 12 19"/>

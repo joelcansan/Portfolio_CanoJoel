@@ -39,7 +39,7 @@ const stackMini = [
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
   <BaseHead title={`Home | ${titulo}`} description={SITE_DESCRIPTION} />
   <style>
@@ -519,7 +519,7 @@ const stackMini = [
         <div class="hero-text">
           <div class="hero-badge">
             <span class="badge-dot"></span>
-            Disponible para proyectos
+            Available for projects
           </div>
           <!-- Ticker: nombre ↔ rol cada 5s -->
           <div class="hero-ticker" aria-label="Joel Cano Sánchez, Desarrollador Web">
@@ -527,19 +527,19 @@ const stackMini = [
               <span class="ticker-name" data-i18n="hero.name">Joel Cano Sánchez</span>
             </div>
             <div class="ticker-item" id="ticker-role">
-              <span class="ticker-role" data-i18n="hero.role">Desarrollador Web</span>
+              <span class="ticker-role" data-i18n="hero.role">Web Developer</span>
             </div>
           </div>
           <p class="hero-desc" data-i18n="hero.sub">
-            Construyo aplicaciones web de principio a fin: interfaces, APIs,
-            bases de datos y despliegue. Apasionado del código limpio y las
-            buenas arquitecturas.
+            I build web applications from end to end: interfaces, APIs,
+            databases and deployment. Passionate about clean code and
+            solid architectures.
           </p>
           <div class="hero-ctas">
-            <a href="/projects" class="btn btn-primary">Ver proyectos →</a>
-            <a href="/about"    class="btn btn-ghost">Conóceme</a>
+            <a href="/projects" class="btn btn-primary">View projects →</a>
+            <a href="/about"    class="btn btn-ghost">About me</a>
             <a href="https://github.com/joelcansan" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">GitHub</a>
-            <a href="#contacto" class="btn btn-ghost">Contacto</a>
+            <a href="#contacto" class="btn btn-ghost">Contact</a>
           </div>
         </div>
 
@@ -558,11 +558,11 @@ const stackMini = [
     <!-- ════ SLIDER DE PROYECTOS ════ -->
     <section class="page-section" id="proyectos">
       <div class="section-head reveal-up" data-reveal>
-        <p class="section-label">// Proyectos destacados</p>
+        <p class="section-label">// Featured projects</p>
       </div>
 
       {projects.length === 0 ? (
-        <p class="empty-projects">// Aún no hay proyectos publicados.</p>
+        <p class="empty-projects">// No projects published yet.</p>
       ) : (
         <>
           <ul class="proj-list">
@@ -602,7 +602,7 @@ const stackMini = [
 
           <div class="proj-footer reveal-fade" data-reveal>
             <a href="/projects">
-              Ver todos los proyectos
+              View all projects
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
               </svg>
@@ -616,29 +616,29 @@ const stackMini = [
 
     <!-- ════ POR QUÉ YO ════ -->
     <section class="page-section">
-      <p class="section-label reveal-left" data-reveal>// Por qué trabajar conmigo</p>
+      <p class="section-label reveal-left" data-reveal>// Why work with me</p>
       <ul class="highlights">
         <li class="hl-item reveal-up reveal-delay-1" data-reveal>
           <span class="hl-arrow">→</span>
-          <span>2º DAW con experiencia en prácticas (e-Corp Sistemas y Reactivació Badalona).</span>
+          <span>2nd year DAW with internship experience (e-Corp Sistemas and Reactivació Badalona).</span>
         </li>
         <li class="hl-item reveal-up reveal-delay-2" data-reveal>
           <span class="hl-arrow">→</span>
-          <span>Full-stack: frontend, backend, APIs REST y bases de datos relacionales.</span>
+          <span>Full-stack: frontend, backend, REST APIs and relational databases.</span>
         </li>
         <li class="hl-item reveal-up reveal-delay-3" data-reveal>
           <span class="hl-arrow">→</span>
-          <span>Proyectos desplegados en Vercel, Render, Railway y GitHub Pages.</span>
+          <span>Projects deployed on Vercel, Render, Railway and GitHub Pages.</span>
         </li>
       </ul>
-      <a href="/about" class="about-link reveal-fade" data-reveal>Leer mi historia completa →</a>
+      <a href="/about" class="about-link reveal-fade" data-reveal>Read my full story →</a>
     </section>
 
     <div class="divider"></div>
 
     <!-- ════ STACK ════ -->
     <section class="page-section">
-      <p class="section-label reveal-left" data-reveal>// Stack principal</p>
+      <p class="section-label reveal-left" data-reveal>// Main stack</p>
       <ul class="stack-grid">
         {stackMini.map((tech, i) => (
           <li

@@ -3,12 +3,12 @@ import HeaderLink from './HeaderLink.astro';
 
 const navLinks = [
   { href: '/',         label: 'Home',      i18n: 'nav.home' },
-  { href: '/projects', label: 'Proyectos', i18n: 'nav.projects' },
+  { href: '/projects', label: 'Projects', i18n: 'nav.projects' },
   { href: '/about',    label: 'About',     i18n: 'nav.about' },
 ];
 ---
 
-<!-- Blobs de fondo -->
+<!-- Background blobs -->
 <div id="bg-blobs" aria-hidden="true">
   <span></span>
   <span></span>
@@ -18,8 +18,8 @@ const navLinks = [
 <header class="hdr" id="site-header">
   <div class="hdr-inner">
 
-    <!-- LOGO izquierda: {JCS} + status -->
-    <a href="/" class="hdr-logo" aria-label="Inicio">
+    <!-- LOGO left: {JCS} + status -->
+    <a href="/" class="hdr-logo" aria-label="Home">
       <span class="logo-brace">{</span><span class="logo-jcs">JCS</span><span class="logo-brace">}</span>
       <span class="logo-sep" aria-hidden="true"></span>
       <span class="logo-status">
@@ -28,8 +28,8 @@ const navLinks = [
       </span>
     </a>
 
-    <!-- NAV CENTRAL — píldora -->
-    <nav class="hdr-pill" aria-label="Navegación">
+    <!-- NAV CENTER — pill -->
+    <nav class="hdr-pill" aria-label="Navigation">
       {navLinks.map((link) => (
         <HeaderLink href={link.href} class="pill-link" data-i18n={link.i18n}>
           {link.label}
@@ -37,7 +37,7 @@ const navLinks = [
       ))}
     </nav>
 
-    <!-- ACCIONES derecha -->
+    <!-- ACTIONS right -->
     <div class="hdr-actions">
 
       <!-- GitHub -->
@@ -56,39 +56,39 @@ const navLinks = [
         </svg>
       </a>
 
-      <!-- CV — botón con label que se expande al hover (igual que master) -->
-      <a href="/public/CV_CanoJoel.pdf" download="CV_CanoJoel.pdf" class="act-cv" aria-label="Descargar CV" title="Descargar CV">
+      <!-- CV button with expand label on hover -->
+      <a href="/public/CV_CanoJoel.pdf" download="CV_CanoJoel.pdf" class="act-cv" aria-label="Download CV" title="Download CV">
         <svg class="cv-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
           <polyline points="7 10 12 15 17 10"/>
           <line x1="12" y1="15" x2="12" y2="3"/>
         </svg>
-        <span class="cv-label">Descargar CV</span>
+        <span class="cv-label">Download CV</span>
       </a>
 
       <!-- Lang -->
-      <div class="act-lang" aria-label="Idioma">
+      <div class="act-lang" aria-label="Language">
         <button type="button" class="lang-opt active" data-lang="es" onclick="setLanguage('es')">ES</button>
         <span class="lang-div" aria-hidden="true">/</span>
         <button type="button" class="lang-opt" data-lang="en" onclick="setLanguage('en')">EN</button>
       </div>
 
-      <!-- Burger móvil -->
+      <!-- Mobile burger -->
       <button type="button" class="hdr-burger" id="menu-toggle"
-              aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menú">
+              aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
         <span></span><span></span><span></span>
       </button>
     </div>
   </div>
 
-  <!-- Barra de progreso scroll -->
+  <!-- Scroll progress bar -->
   <div class="scroll-bar" id="scroll-bar" aria-hidden="true"></div>
 </header>
 
-<!-- MENÚ MÓVIL overlay -->
+<!-- MOBILE MENU overlay -->
 <div class="mob-overlay" id="mobile-menu" aria-hidden="true">
   <div class="mob-inner">
-    <button type="button" class="mob-close" id="mob-close" aria-label="Cerrar menú">
+    <button type="button" class="mob-close" id="mob-close" aria-label="Close menu">
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
         <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
       </svg>
@@ -106,7 +106,7 @@ const navLinks = [
     <div class="mob-foot">
       <a href="https://github.com/joelcansan" target="_blank" rel="noopener noreferrer">GitHub</a>
       <a href="https://www.linkedin.com/in/joel-cano-sanchez-95198b2b4/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      <a href="/public/CV_CanoJoel.pdf" download>Descargar CV</a>
+      <a href="/public/CV_CanoJoel.pdf" download>Download CV</a>
     </div>
 
     <div class="mob-lang">
@@ -155,11 +155,10 @@ const navLinks = [
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 200;
-    /* El fondo cubre todo el ancho de la ventana */
     background: transparent;
   }
 
-  /* Fondo glassmorphism — cubre 100% del ancho */
+  /* Glassmorphism background */
   .hdr::before {
     content: '';
     position: absolute;
@@ -223,7 +222,6 @@ const navLinks = [
 
   .hdr-logo:hover .logo-jcs { color: var(--sig); }
 
-  /* Separador vertical entre {JCS} y el status */
   .logo-sep {
     display: block;
     width: 1px;
@@ -233,7 +231,6 @@ const navLinks = [
     flex-shrink: 0;
   }
 
-  /* Pill "online" */
   .logo-status {
     display: inline-flex;
     align-items: center;
@@ -266,7 +263,7 @@ const navLinks = [
     text-transform: lowercase;
   }
 
-  /* ── Píldora nav central ── */
+  /* ── Center nav pill ── */
   .hdr-pill {
     display: flex;
     align-items: center;
@@ -305,7 +302,7 @@ const navLinks = [
     font-weight: 700;
   }
 
-  /* ── Acciones ── */
+  /* ── Actions ── */
   .hdr-actions {
     display: flex;
     align-items: center;
@@ -333,12 +330,12 @@ const navLinks = [
     opacity: 1;
   }
 
-  /* ── Botón CV — animación de expand igual que en master ── */
+  /* ── CV Button ── */
   .act-cv {
     position: relative;
     display: inline-flex;
     align-items: center;
-    gap: 0;                     /* el gap lo añade .cv-label en hover */
+    gap: 0;
     padding: 0 10px;
     height: 34px;
     overflow: hidden;
@@ -350,7 +347,6 @@ const navLinks = [
     transition: background 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
   }
 
-  /* Sweep de fondo al hover */
   .act-cv::after {
     content: '';
     position: absolute;
@@ -377,7 +373,6 @@ const navLinks = [
     width: 16px; height: 16px;
   }
 
-  /* El label se expande desde 0 al hover */
   .cv-label {
     position: relative;
     z-index: 1;
@@ -461,7 +456,7 @@ const navLinks = [
   }
 
   /* ══════════════════════════════════════════
-     MENÚ MÓVIL overlay
+     MOBILE MENU overlay
      ══════════════════════════════════════════ */
   .mob-overlay {
     position: fixed; inset: 0; z-index: 500;
