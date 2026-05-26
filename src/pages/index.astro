@@ -39,28 +39,29 @@ const stackMini = [
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
   <BaseHead title={`Home | ${titulo}`} description={SITE_DESCRIPTION} />
   <style>
     /* El main tiene padding-top para el header fijo */
-    main { padding-top: 5rem; }
+    main { padding-top: 4rem; padding-bottom: 3rem; }
 
     /* ════════════════════════════════════════
        HERO
        ════════════════════════════════════════ */
     .hero {
-      min-height: 90vh;
+      min-height: 60vh;
       display: flex;
       align-items: center;
-      margin-bottom: var(--gap);
+      margin-bottom: calc(var(--gap) * 0.6);
+      padding: 3.5rem 0 2rem;
     }
 
     .hero-inner {
       display: grid;
       grid-template-columns: 1fr 270px;
       align-items: center;
-      gap: 4rem;
+      gap: 2.5rem;
       width: 100%;
     }
 
@@ -486,7 +487,7 @@ const stackMini = [
        RESPONSIVE
        ════════════════════════════════════════ */
     @media (max-width: 900px) {
-      .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-inner { grid-template-columns: 1fr; gap: 1.5rem; }
       .hero-photo { order: -1; }
       .photo-wrap { width: 180px; height: 180px; }
       .hero-desc { max-width: none; }
@@ -511,20 +512,20 @@ const stackMini = [
 </head>
 <body>
   <Header />
-  <main>
+  <main id="main-content">
 
     <!-- ════ HERO ════ -->
-    <section class="hero page-section">
+    <section class="hero page-section" aria-labelledby="hero-heading">
       <div class="hero-inner">
         <div class="hero-text">
-          <div class="hero-badge">
-            <span class="badge-dot"></span>
-            Available for projects
+          <div class="hero-badge" role="status" data-i18n-aria-label="hero.available">
+            <span class="badge-dot" aria-hidden="true"></span>
+            <span data-i18n="hero.available">Disponible para proyectos</span>
           </div>
           <!-- Ticker: nombre ↔ rol cada 5s -->
           <div class="hero-ticker" aria-label="Joel Cano Sánchez, Desarrollador Web">
             <div class="ticker-item" id="ticker-name">
-              <span class="ticker-name" data-i18n="hero.name">Joel Cano Sánchez</span>
+              <span class="ticker-name" data-i18n="hero.name" id="hero-heading">Joel Cano Sánchez</span>
             </div>
             <div class="ticker-item" id="ticker-role">
               <span class="ticker-role" data-i18n="hero.role">Web Developer</span>
@@ -536,17 +537,17 @@ const stackMini = [
             solid architectures.
           </p>
           <div class="hero-ctas">
-            <a href="/projects" class="btn btn-primary">View projects →</a>
-            <a href="/about"    class="btn btn-ghost">About me</a>
-            <a href="https://github.com/joelcansan" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">GitHub</a>
-            <a href="#contacto" class="btn btn-ghost">Contact</a>
+            <a href="/projects" class="btn btn-primary" data-i18n="hero.cta.projects">Ver proyectos →</a>
+            <a href="/about"    class="btn btn-ghost"    data-i18n="hero.cta.about">Sobre mí</a>
+            <a href="https://github.com/joelcansan" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" data-i18n="hero.cta.github" aria-label="GitHub (abre en nueva pestaña)">GitHub</a>
+            <a href="#contacto" class="btn btn-ghost" data-i18n="hero.cta.contact">Contacto</a>
           </div>
         </div>
 
         <div class="hero-photo">
           <div class="photo-wrap">
             <div class="photo-inner">
-              <img src="/images/joelcano.png" alt="Joel Cano Sánchez" width="260" height="260" />
+              <img src="/images/joelcano.png" alt="Foto de perfil de Joel Cano Sánchez" width="260" height="260" />
             </div>
           </div>
         </div>
@@ -556,13 +557,13 @@ const stackMini = [
     <div class="divider"></div>
 
     <!-- ════ SLIDER DE PROYECTOS ════ -->
-    <section class="page-section" id="proyectos">
+    <section class="page-section" id="proyectos" aria-labelledby="sec-proyectos">
       <div class="section-head reveal-up" data-reveal>
-        <p class="section-label">// Featured projects</p>
+        <p class="section-label" id="sec-proyectos" data-i18n="home.featured">// Proyectos destacados</p>
       </div>
 
       {projects.length === 0 ? (
-        <p class="empty-projects">// No projects published yet.</p>
+        <p class="empty-projects" data-i18n="home.noProjects">// Aún no hay proyectos publicados.</p>
       ) : (
         <>
           <ul class="proj-list">
@@ -572,13 +573,18 @@ const stackMini = [
                 : null;
               return (
                 <li class="proj-item" data-proj>
-                  <a href={`/projects/${project.id}/`} class="proj-card">
+                  <a href={`/projects/${project.id}/`} class="proj-card"
+                    data-name-es={project.data.name}
+                    data-name-en={project.data.nameEn || project.data.name}
+                    data-desc-es={project.data.description}
+                    data-desc-en={project.data.descriptionEn || project.data.description}
+                  >
                     <div class="proj-main">
                       <div class="proj-top">
                         <span class="proj-num">{String(i + 1).padStart(2, '0')}</span>
-                        <h3 class="proj-name">{project.data.name}</h3>
+                        <h3 class="proj-name proj-translatable-name">{project.data.name}</h3>
                       </div>
-                      <p class="proj-desc">{project.data.description}</p>
+                      <p class="proj-desc proj-translatable-desc">{project.data.description}</p>
                       {project.data.techs && project.data.techs.length > 0 && (
                         <div class="proj-chips">
                           {project.data.techs.map(t => <span class="proj-chip">{t}</span>)}
@@ -587,7 +593,7 @@ const stackMini = [
                     </div>
                     <div class="proj-aside">
                       {year && <span class="proj-year">{year}</span>}
-                      <span class="proj-arrow" aria-hidden="true">
+                <span class="proj-arrow" aria-hidden="true">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                           <line x1="7" y1="17" x2="17" y2="7"/>
                           <polyline points="7 7 17 7 17 17"/>
@@ -601,8 +607,7 @@ const stackMini = [
           </ul>
 
           <div class="proj-footer reveal-fade" data-reveal>
-            <a href="/projects">
-              View all projects
+            <a href="/projects" data-i18n="home.viewAll">Ver todos →
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
               </svg>
@@ -615,39 +620,41 @@ const stackMini = [
     <div class="divider"></div>
 
     <!-- ════ POR QUÉ YO ════ -->
-    <section class="page-section">
-      <p class="section-label reveal-left" data-reveal>// Why work with me</p>
+    <section class="page-section" aria-labelledby="sec-why">
+      <p class="section-label reveal-left" data-reveal id="sec-why" data-i18n="home.why">// Por qué trabajar conmigo</p>
       <ul class="highlights">
         <li class="hl-item reveal-up reveal-delay-1" data-reveal>
-          <span class="hl-arrow">→</span>
-          <span>2nd year DAW with internship experience (e-Corp Sistemas and Reactivació Badalona).</span>
+          <span class="hl-arrow" aria-hidden="true">→</span>
+          <span data-i18n="home.highlight1">2º DAW con experiencia en prácticas (e-Corp Sistemas y Reactivació Badalona).</span>
         </li>
         <li class="hl-item reveal-up reveal-delay-2" data-reveal>
-          <span class="hl-arrow">→</span>
-          <span>Full-stack: frontend, backend, REST APIs and relational databases.</span>
+          <span class="hl-arrow" aria-hidden="true">→</span>
+          <span data-i18n="home.highlight2">Full-stack: frontend, backend, APIs REST y bases de datos relacionales.</span>
         </li>
         <li class="hl-item reveal-up reveal-delay-3" data-reveal>
-          <span class="hl-arrow">→</span>
-          <span>Projects deployed on Vercel, Render, Railway and GitHub Pages.</span>
+          <span class="hl-arrow" aria-hidden="true">→</span>
+          <span data-i18n="home.highlight3">Proyectos desplegados en Vercel, Render, Railway y GitHub Pages.</span>
         </li>
       </ul>
-      <a href="/about" class="about-link reveal-fade" data-reveal>Read my full story →</a>
+      <a href="/about" class="about-link reveal-fade" data-reveal data-i18n="home.readMore">Leer mi historia completa →</a>
     </section>
 
     <div class="divider"></div>
 
     <!-- ════ STACK ════ -->
-    <section class="page-section">
-      <p class="section-label reveal-left" data-reveal>// Main stack</p>
-      <ul class="stack-grid">
+    <section class="page-section" aria-labelledby="sec-stack">
+      <p class="section-label reveal-left" data-reveal id="sec-stack" data-i18n="home.stack">// Stack principal</p>
+      <ul class="stack-grid" role="list" aria-label="Tecnologías principales">
         {stackMini.map((tech, i) => (
           <li
             class={`stack-card reveal-up reveal-delay-${Math.min(i + 1, 10)}`}
             data-reveal
             style={`--stack-color: ${tech.color}; --stack-glow: ${tech.color}22;`}
+            role="img"
+            aria-label={tech.name}
           >
-            <img class="stack-icon" src={tech.icon} alt={tech.name} width="36" height="36" loading="lazy" />
-            <span class="stack-name">{tech.name}</span>
+            <img class="stack-icon" src={tech.icon} alt="" width="36" height="36" loading="lazy" aria-hidden="true" />
+            <span class="stack-name" aria-hidden="true">{tech.name}</span>
           </li>
         ))}
       </ul>
@@ -656,7 +663,7 @@ const stackMini = [
     <div class="divider"></div>
 
     <!-- ════ CONTACTO ════ -->
-    <section class="page-section reveal-up" data-reveal id="contacto">
+    <section class="page-section reveal-up" data-reveal id="contacto" aria-labelledby="sec-contacto">
       <ContactForm />
     </section>
 
@@ -705,6 +712,31 @@ const stackMini = [
 
     /* Arrancar: primer cambio a los 3s */
     setTimeout(showRole, 2000);
+
+    /* ─ Traducción de proyectos en la lista ─
+       Lee data-name-es/en y data-desc-es/en de cada tarjeta
+       y actualiza .proj-translatable-name y .proj-translatable-desc */
+    function translateProjects(lang) {
+      document.querySelectorAll('.proj-card[data-name-es]').forEach(function (card) {
+        var nameEl = card.querySelector('.proj-translatable-name');
+        var descEl = card.querySelector('.proj-translatable-desc');
+        if (nameEl) nameEl.textContent = card.getAttribute('data-name-' + lang) || card.getAttribute('data-name-es');
+        if (descEl) descEl.textContent = card.getAttribute('data-desc-' + lang) || card.getAttribute('data-desc-es');
+      });
+    }
+
+    /* Ejecutar al cargar con el idioma activo */
+    document.addEventListener('DOMContentLoaded', function () {
+      var lang = localStorage.getItem('portfolio-lang') || 'es';
+      translateProjects(lang);
+    });
+
+    /* Enganchar setLanguage para que traduzca también los proyectos */
+    var _origSetHome = window.setLanguage;
+    window.setLanguage = function (lang) {
+      if (_origSetHome) _origSetHome(lang);
+      translateProjects(lang);
+    };
 
     /* ─ Scroll reveal genérico ─ */
     var revEls = document.querySelectorAll('[data-reveal]');

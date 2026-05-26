@@ -14,7 +14,7 @@ const projects = (await getCollection('project')).sort((a, b) => {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
   <BaseHead title={`Projects | ${titulo}`} description={SITE_DESCRIPTION} />
   <style>
@@ -299,17 +299,17 @@ const projects = (await getCollection('project')).sort((a, b) => {
 </head>
 <body>
   <Header />
-  <main>
+  <main id="main-content">
 
     <div class="page-header reveal-up" data-reveal>
-      <h1>Projects</h1>
-      <p class="page-sub">
-        // {projects.length} project{projects.length !== 1 ? 's' : ''} total
+      <h1 data-i18n="projects.title">Proyectos</h1>
+      <p class="page-sub" data-i18n-projects-count={String(projects.length)}>
+        // {projects.length} proyecto{projects.length !== 1 ? 's' : ''} en total
       </p>
     </div>
 
     {projects.length === 0 ? (
-      <div class="empty">// No projects yet. Coming soon!</div>
+      <div class="empty" role="status" data-i18n="projects.empty">// No hay proyectos todavía. ¡Pronto!</div>
     ) : (
       <ul class="projects-grid">
         {projects.map((project, i) => (
@@ -318,16 +318,21 @@ const projects = (await getCollection('project')).sort((a, b) => {
               href={`/projects/${project.id}/`}
               class="proj-card"
               data-index={String(i + 1).padStart(2, '0')}
+              data-name-es={project.data.name}
+              data-name-en={project.data.nameEn || project.data.name}
+              data-desc-es={project.data.description}
+              data-desc-en={project.data.descriptionEn || project.data.description}
+              aria-label={`Ver proyecto: ${project.data.name}`}
             >
               {/* Imagen full */}
               {project.data.heroImage ? (
                 <img
                   class="proj-img"
                   src={project.data.heroImage}
-                  alt={project.data.name}
+                  alt={`Imagen del proyecto ${project.data.name}`}
                 />
               ) : (
-                <div class="proj-placeholder">
+                <div class="proj-placeholder" aria-hidden="true">
                   <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
                     <rect x="2" y="3" width="20" height="14" rx="2"/>
                     <path d="M8 21h8M12 17v4"/>
@@ -336,18 +341,18 @@ const projects = (await getCollection('project')).sort((a, b) => {
               )}
 
               {/* Overlay */}
-              <div class="proj-overlay"></div>
+              <div class="proj-overlay" aria-hidden="true"></div>
 
               {/* Watermark número */}
-              <span class="proj-watermark">{String(i + 1).padStart(2, '0')}</span>
+              <span class="proj-watermark" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
 
               {/* Contenido */}
               <div class="proj-content">
                 <p class="proj-num">
                   {String(i + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
                 </p>
-                <h2 class="proj-title">{project.data.name}</h2>
-                <p class="proj-desc">{project.data.description}</p>
+                <h2 class="proj-title proj-translatable-name">{project.data.name}</h2>
+                <p class="proj-desc proj-translatable-desc">{project.data.description}</p>
 
                 {project.data.techs && project.data.techs.length > 0 && (
                   <div class="proj-chips">
@@ -356,8 +361,8 @@ const projects = (await getCollection('project')).sort((a, b) => {
                 )}
 
                 <span class="proj-arrow">
-                  View project
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <span data-i18n="projects.viewProject">Ver proyecto</span>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <line x1="5" y1="12" x2="19" y2="12"/>
                     <polyline points="12 5 19 12 12 19"/>
                   </svg>
@@ -374,7 +379,42 @@ const projects = (await getCollection('project')).sort((a, b) => {
 
   <script is:inline>
     (function () {
-      /* Reveal genérico */
+      /* ─ Traducción de proyectos ─ */
+      function translateProjects(lang) {
+        document.querySelectorAll('.proj-card[data-name-es]').forEach(function (card) {
+          var nameEl = card.querySelector('.proj-translatable-name');
+          var descEl = card.querySelector('.proj-translatable-desc');
+          if (nameEl) nameEl.textContent = card.getAttribute('data-name-' + lang) || card.getAttribute('data-name-es');
+          if (descEl) descEl.textContent = card.getAttribute('data-desc-' + lang) || card.getAttribute('data-desc-es');
+        });
+      }
+
+      /* ─ Contador dinámico ─ */
+      function updateCounter(lang) {
+        var el = document.querySelector('[data-i18n-projects-count]');
+        if (!el) return;
+        var count = String(document.querySelectorAll('.proj-item').length);
+        el.textContent = lang === 'en'
+          ? '// ' + count + ' project' + (count !== '1' ? 's' : '') + ' total'
+          : '// ' + count + ' proyecto' + (count !== '1' ? 's' : '') + ' en total';
+      }
+
+      /* Aplicar al cargar */
+      document.addEventListener('DOMContentLoaded', function () {
+        var lang = localStorage.getItem('portfolio-lang') || 'es';
+        translateProjects(lang);
+        updateCounter(lang);
+      });
+
+      /* Enganchar setLanguage */
+      var _origSet = window.setLanguage;
+      window.setLanguage = function (lang) {
+        if (_origSet) _origSet(lang);
+        translateProjects(lang);
+        updateCounter(lang);
+      };
+
+      /* ─ Reveal genérico ─ */
       var revEls = document.querySelectorAll('[data-reveal]');
       var projItems = document.querySelectorAll('[data-proj-item] .proj-card');
 

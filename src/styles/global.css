@@ -27,7 +27,7 @@
 
   --ink-0:      #eef2f6;
   --ink-1:      #8aa4b8;
-  --ink-2:      #4a5f70;
+  --ink-2:      #6b8899;
   --ink-3:      #283540;
 
   --mono: 'JetBrains Mono', 'Fira Code', monospace;
@@ -64,7 +64,32 @@
   --content-width:  var(--max-w);
 }
 
+html { scroll-behavior: smooth; }
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ══════════════════════════════════════════
+   FOCUS VISIBLE — accesibilidad teclado
+   ══════════════════════════════════════════ */
+:focus-visible {
+  outline: 2px solid var(--sig);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Quita outline para usuarios de ratón, lo mantiene para teclado */
+:focus:not(:focus-visible) { outline: none; }
+
+/* Reduce movimiento para usuarios con prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 
 /* ══════════════════════════════════════════
    BODY — Fondo orgánico con blobs + grain
@@ -368,6 +393,28 @@ ul li::marker { color: var(--sig); }
   clip: rect(0,0,0,0);
   white-space: nowrap;
   border: 0;
+}
+
+/* Skip to main content — accesibilidad navegación teclado */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 9999;
+  background: var(--sig);
+  color: var(--void);
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.6em 1.2em;
+  border-radius: 0 0 var(--r-md) var(--r-md);
+  text-decoration: none;
+  transition: top 0.2s;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 2px solid var(--void);
+  outline-offset: 2px;
 }
 
 /* ══════════════════════════════════════════

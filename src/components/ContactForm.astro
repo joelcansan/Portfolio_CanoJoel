@@ -9,7 +9,7 @@
 
   <div class="cf-header reveal-up" data-reveal>
     <p class="section-label">// Contacto</p>
-    <h2 class="cf-title">¿Hablamos?</h2>
+    <h2 class="cf-title" id="sec-contacto">¿Hablamos?</h2>
     <p class="cf-subtitle">
       ¿Tienes un proyecto, una oferta o quieres saludar?
       Escríbeme y te respondo en menos de 24h.
@@ -20,39 +20,39 @@
 
     <!-- ── Formulario ── -->
     <form class="cf-form reveal-up reveal-delay-1" data-reveal id="contact-form" novalidate
-      action="https://formspree.io/f/mzdwrbbw" method="POST">
-      <div id="form-status" class="form-status" aria-live="polite"></div>
+      action="https://formspree.io/f/mzdwrbbw" method="POST" aria-label="Formulario de contacto">
+      <div id="form-status" class="form-status" role="alert" aria-live="polite" aria-atomic="true"></div>
 
       <div class="form-row">
         <div class="form-group">
-          <label for="cf-name" class="form-label"><span class="lbl-num">01</span> Nombre</label>
-          <input type="text" id="cf-name" name="from_name" class="form-input" placeholder="Tu nombre" required autocomplete="name" />
-          <span class="field-err" data-for="cf-name"></span>
+          <label for="cf-name" class="form-label"><span class="lbl-num" aria-hidden="true">01</span> Nombre <span class="req-mark" aria-hidden="true">*</span><span class="sr-only">(obligatorio)</span></label>
+          <input type="text" id="cf-name" name="from_name" class="form-input" placeholder="Tu nombre" required autocomplete="name" aria-required="true" aria-describedby="err-cf-name" />
+          <span class="field-err" id="err-cf-name" data-for="cf-name" role="alert"></span>
         </div>
         <div class="form-group">
-          <label for="cf-email" class="form-label"><span class="lbl-num">02</span> Email</label>
-          <input type="email" id="cf-email" name="reply_to" class="form-input" placeholder="tu@email.com" required autocomplete="email" />
-          <span class="field-err" data-for="cf-email"></span>
+          <label for="cf-email" class="form-label"><span class="lbl-num" aria-hidden="true">02</span> Email <span class="req-mark" aria-hidden="true">*</span><span class="sr-only">(obligatorio)</span></label>
+          <input type="email" id="cf-email" name="reply_to" class="form-input" placeholder="tu@email.com" required autocomplete="email" aria-required="true" aria-describedby="err-cf-email" />
+          <span class="field-err" id="err-cf-email" data-for="cf-email" role="alert"></span>
         </div>
       </div>
 
       <div class="form-group">
-        <label for="cf-subject" class="form-label"><span class="lbl-num">03</span> Asunto</label>
-        <input type="text" id="cf-subject" name="subject" class="form-input" placeholder="¿De qué va?" required />
-        <span class="field-err" data-for="cf-subject"></span>
+        <label for="cf-subject" class="form-label"><span class="lbl-num" aria-hidden="true">03</span> Asunto <span class="req-mark" aria-hidden="true">*</span><span class="sr-only">(obligatorio)</span></label>
+        <input type="text" id="cf-subject" name="subject" class="form-input" placeholder="¿De qué va?" required aria-required="true" aria-describedby="err-cf-subject" />
+        <span class="field-err" id="err-cf-subject" data-for="cf-subject" role="alert"></span>
       </div>
 
       <div class="form-group">
-        <label for="cf-message" class="form-label"><span class="lbl-num">04</span> Mensaje</label>
-        <textarea id="cf-message" name="message" class="form-input form-textarea" placeholder="Cuéntame..." rows="5" required></textarea>
-        <span class="field-err" data-for="cf-message"></span>
+        <label for="cf-message" class="form-label"><span class="lbl-num" aria-hidden="true">04</span> Mensaje <span class="req-mark" aria-hidden="true">*</span><span class="sr-only">(obligatorio)</span></label>
+        <textarea id="cf-message" name="message" class="form-input form-textarea" placeholder="Cuéntame..." rows="5" required aria-required="true" aria-describedby="err-cf-message"></textarea>
+        <span class="field-err" id="err-cf-message" data-for="cf-message" role="alert"></span>
       </div>
 
       <!-- Botones -->
       <div class="cf-actions">
-        <button type="submit" class="cf-btn" id="form-submit">
+        <button type="submit" class="cf-btn" id="form-submit" aria-describedby="form-status">
           <span class="btn-text">Enviar mensaje</span>
-          <span class="btn-ico">
+          <span class="btn-ico" aria-hidden="true">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
             </svg>
@@ -232,6 +232,7 @@
     text-transform: uppercase; display: flex; align-items: center; gap: 0.5em;
   }
   .lbl-num { color: var(--sig); font-weight: 700; }
+  .req-mark { color: #ff6b6b; margin-left: 0.1em; }
 
   .form-input {
     width: 100%; background: var(--surface-1);

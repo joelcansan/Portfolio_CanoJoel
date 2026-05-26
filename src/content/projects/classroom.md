@@ -1,6 +1,8 @@
 ---
 name: "Classroom 2.0"
+nameEn: "Classroom 2.0"
 description: "Página estática para un restaurante de Premià de Mar. Diseño moderno con carta digital, sección de reservas y galeria de fotos."
+descriptionEn: "Static website for a restaurant in Premià de Mar. Modern design with a digital menu, reservations section and photo gallery."
 techs: ["HTML", "CSS", "JavaScript"]
 github: "https://github.com/joelcansan"
 pubDate: "2023-11-20"
