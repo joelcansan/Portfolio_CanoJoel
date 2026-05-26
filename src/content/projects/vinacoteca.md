@@ -4,7 +4,7 @@ nameEn: "Vinacoteca — Wine Shop"
 description: "SPA full-stack de una tienda de vinos construida con React y una API REST propia hecha con Node.js/Express. Incluye autenticación, catálogo de productos, carrito de compra y panel de administración."
 descriptionEn: "Full-stack wine shop SPA built with React and a custom REST API made with Node.js/Express. Features auth, product catalogue, shopping cart and an admin panel."
 techs: ["React", "Node.js", "Express", "REST API", "Tailwind CSS", "Vite"]
-github: "https://github.com/JoelitoCS/CanoJoel_Frontend_Express"
+github: "https://github.com/joelcansan/Vinacoteca"
 heroImage: "/images/vinacoteca.png"
 demo: "https://cano-joel-frontend-express.vercel.app/"
 pubDate: "2025-05-01"
