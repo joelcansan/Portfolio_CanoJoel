@@ -15,7 +15,7 @@ pubDate: "2023-11-20"
 
 ## Descripción del proyecto
 
-**Classroom 2.0** es una plataforma educativa full-stack desarrollada en colaboración con **Iván García Cuesta**. La aplicación permite a profesores y alumnos gestionar módulos, tareas y usuarios dentro de un entorno de aula digital.
+**Classroom 2.0** es una plataforma educativa full-stack desarrollada en colaboración con **[Iván García Cuesta](https://www.linkedin.com/in/iv%C3%A1n-garc%C3%ADa-cuesta-8322943b6/)**. La aplicación permite a profesores y alumnos gestionar módulos, tareas y usuarios dentro de un entorno de aula digital.
 
 El proyecto está dividido en dos repositorios:
 - **Frontend:** [tareas_modulos](https://github.com/IvanceteG/tareas_modulos) — construido con React y TypeScript, desplegado en Vercel.
@@ -40,7 +40,7 @@ El frontend está construido con **React y TypeScript**, lo que aporta tipado es
 
 ## Project description
 
-**Classroom 2.0** is a full-stack educational platform developed in collaboration with **Iván García Cuesta**. The application allows teachers and students to manage modules, assignments and users within a digital classroom environment.
+**Classroom 2.0** is a full-stack educational platform developed in collaboration with **[Iván García Cuesta](https://www.linkedin.com/in/iv%C3%A1n-garc%C3%ADa-cuesta-8322943b6/)**. The application allows teachers and students to manage modules, assignments and users within a digital classroom environment.
 
 The project is split into two repositories:
 - **Frontend:** [tareas_modulos](https://github.com/IvanceteG/tareas_modulos) — built with React and TypeScript, deployed on Vercel.
