@@ -522,19 +522,37 @@ ul li::marker { color: var(--sig); }
 /* ══════════════════════════════════════════
    RESPONSIVE
    ══════════════════════════════════════════ */
+
+/* ── Tablet (hasta 1024px) ── */
+@media (max-width: 1024px) {
+  :root { --gap: 4.5rem; }
+  main {
+    max-width: calc(100% - 3rem);
+    padding: 4rem 1.75rem 5rem;
+  }
+}
+
+/* ── Móvil grande / tablet pequeña (hasta 768px) ── */
 @media (max-width: 768px) {
-  :root { --gap: 3.5rem; }
+  :root { --gap: 4rem; }
   body { font-size: 15px; }
-  main { padding: 2.5rem 1rem 4rem; max-width: 100%; }
+  main {
+    max-width: 100%;
+    padding: 3.5rem 1.5rem 5rem;
+  }
   h1 { font-size: 2rem; }
   h2 { font-size: 1.6rem; }
   h1::before { content: ''; }
 
+  .page-section { margin-bottom: var(--gap); }
+
   .prose h2 { margin: 3rem 0 1.2rem !important; }
-  .prose ul li { padding: 0.75em 1em !important; }
+  .prose ul li { padding: 0.85em 1.1em !important; }
 }
 
+/* ── Móvil (hasta 480px) ── */
 @media (max-width: 480px) {
-  main { padding: 1.75rem 0.85rem 3rem; }
+  :root { --gap: 3.5rem; }
+  main { padding: 3rem 1.25rem 4.5rem; }
   h1 { font-size: 1.75rem; }
 }
