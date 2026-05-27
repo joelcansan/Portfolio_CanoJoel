@@ -1,60 +1,38 @@
 ---
-name: "Tutofy — Shopify Guide"
-nameEs: "Tutofy — Guía de Shopify"
-description: "Full-stack educational web about Shopify: Liquid, CLI, plans, themes and admin interface. Built with PHP, JS and Docker, deployed on Railway."
-descriptionEs: "Web educativa full-stack sobre Shopify: Liquid, CLI, planes, temas e interfaz de administración. Construida con PHP, JS y Docker, desplegada en Railway."
+name: "Tutofy — Guía de Shopify"
+nameEn: "Tutofy — Shopify Guide"
+description: "Web educativa full-stack sobre Shopify: Liquid, CLI, planes, temas e interfaz de administración. Construida con PHP, JS y Docker, desplegada en Railway."
+descriptionEn: "Full-stack educational web about Shopify: Liquid, CLI, plans, themes and admin interface. Built with PHP, JS and Docker, deployed on Railway."
+heroImage: "/images/tutofy.png"
 techs: ["PHP", "JavaScript", "HTML", "CSS", "Docker"]
 github: "https://github.com/joelcansan/Web-Shopify"
 demo: "https://web-shopify-production.up.railway.app/"
 pubDate: "2025-03-10"
 ---
 
-<div class="lang-en">
-
-## Project description
-
-**Tutofy** is a complete educational reference about Shopify — the world's leading e-commerce platform. The goal was to build a multi-page site covering every major aspect of Shopify development and usage in a single place, with a clean and professional interface.
-
-## What does it do?
-
-- Full guide to the **Liquid** templating language (variables, filters, tags, global objects)
-- Explanation of what a **Development Theme** is and how to use it
-- Complete walkthrough of the **Shopify admin panel** interface
-- Reference for all essential **Shopify CLI** commands
-- Comparison of all **Shopify plans** with real pricing
-- Step-by-step **tutorial** for starting a first Shopify project from scratch
-
-## Technical decisions
-
-The site is built entirely with **PHP** for server-side rendering, **vanilla JavaScript** for interactive elements, and plain **HTML/CSS** for the layout. Data is persisted using a **MySQL database running in a Docker container**, keeping the stack self-contained.
-
-The whole application is deployed on **Railway**, which handles both the PHP server and the Docker-managed database — no external hosting dependencies.
-
-> Unofficial educational resource. Not affiliated with Shopify Inc.
-
-</div>
-
-<div class="lang-es">
-
 ## Descripción del proyecto
 
-**Tutofy** es una referencia educativa completa sobre Shopify — la plataforma de e-commerce líder en el mundo. El objetivo era construir un sitio multipágina que cubriera todos los aspectos clave del desarrollo y uso de Shopify en un solo lugar, con una interfaz limpia y profesional.
+**Tutofy** es una plataforma web creada con **PHP**, **HTML**, **CSS** y **JavaScript**, diseñada para ofrecer una guía completa sobre el ecosistema de **[Shopify](ca://s?q=Explicame_que_es_Shopify)**.  
+El objetivo del proyecto es proporcionar información clara, estructurada y accesible sobre cómo funciona Shopify, qué ofrece y cómo cualquier usuario puede crear su propia tienda online desde cero.
 
-## ¿Qué hace?
+La web está desplegada en **Railway**, mientras que la base de datos se gestiona mediante un entorno **Docker** con **MySQL** y **phpMyAdmin**, lo que permite un desarrollo controlado, reproducible y escalable.
 
-- Guía completa del lenguaje de plantillas **Liquid** (variables, filtros, tags, objetos globales)
-- Explicación de qué es un **Development Theme** y cómo usarlo
-- Recorrido completo por la interfaz del **panel de administración de Shopify**
-- Referencia de todos los comandos esenciales del **Shopify CLI**
-- Comparativa de todos los **planes de Shopify** con precios reales
-- **Tutorial** paso a paso para empezar un primer proyecto con Shopify desde cero
+## ¿Qué ofrece Tutofy?
+
+- Explicación detallada de **[qué es Shopify](ca://s?q=Que_es_Shopify)** y cómo funciona su plataforma  
+- Desglose de los **[planes de Shopify](ca://s?q=Planes_de_Shopify)** y sus características  
+- Introducción al lenguaje de plantillas **[Liquid](ca://s?q=Que_es_Liquid_en_Shopify)**  
+- Listado de **comandos esenciales** para trabajar con el **Shopify CLI**  
+- Guías paso a paso para **crear una tienda online desde cero**  
+- Tutoriales prácticos para principiantes y usuarios intermedios  
+- Interactividad en la interfaz gracias a **JavaScript**  
+- Diseño responsive y limpio, construido únicamente con CSS personalizado
 
 ## Decisiones técnicas
 
-El sitio está construido con **PHP** para el renderizado en servidor, **JavaScript vanilla** para los elementos interactivos, y **HTML/CSS** para la maquetación. La persistencia de datos se gestiona con una **base de datos MySQL en un contenedor Docker**, manteniendo el stack autocontenido.
+Elegí desarrollar Tutofy con **PHP** porque permite construir una estructura sencilla, rápida y totalmente controlada sin frameworks adicionales.  
+La base de datos se ejecuta en un contenedor **Docker** con **MySQL**, lo que facilita la gestión del contenido, la portabilidad del entorno y la administración mediante **phpMyAdmin**.
 
-Toda la aplicación está desplegada en **Railway**, que gestiona tanto el servidor PHP como la base de datos en Docker — sin dependencias de hosting externas.
+El despliegue en **Railway** ofrece un entorno estable y automatizado para alojar tanto la web como la API, garantizando un rendimiento óptimo y actualizaciones rápidas.
 
-> Recurso educativo no oficial. No afiliado con Shopify Inc.
-
-</div>
+La interactividad se implementa con **JavaScript puro**, permitiendo animaciones, validaciones y una experiencia más dinámica sin depender de librerías externas.

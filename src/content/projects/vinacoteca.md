@@ -1,40 +1,14 @@
 ---
-name: "Vinacoteca — Wine Shop"
-nameEs: "Vinacoteca — Tienda de Vinos"
-description: "Full-stack wine shop SPA built with React and a custom REST API made with Node.js/Express. Features auth, product catalogue, shopping cart and an admin panel."
-descriptionEs: "SPA full-stack de una tienda de vinos construida con React y una API REST propia hecha con Node.js/Express. Incluye autenticación, catálogo de productos, carrito de compra y panel de administración."
+name: "Vinacoteca — Tienda de Vinos"
+nameEn: "Vinacoteca — Wine Shop"
+description: "SPA full-stack de una tienda de vinos construida con React y una API REST propia hecha con Node.js/Express. Incluye autenticación, catálogo de productos, carrito de compra y panel de administración."
+descriptionEn: "Full-stack wine shop SPA built with React and a custom REST API made with Node.js/Express. Features auth, product catalogue, shopping cart and an admin panel."
 techs: ["React", "Node.js", "Express", "REST API", "Tailwind CSS", "Vite"]
-github: "https://github.com/JoelitoCS/CanoJoel_Frontend_Express"
+github: "https://github.com/joelcansan/Vinacoteca"
+heroImage: "/images/vinacoteca.png"
 demo: "https://cano-joel-frontend-express.vercel.app/"
 pubDate: "2025-05-01"
 ---
-
-<div class="lang-en">
-
-## Project description
-
-**Vinacoteca** is a full-stack wine shop application split into two independently deployed services: a **React SPA** on the frontend and a custom **Express REST API** on the backend. The project covers the complete lifecycle of an e-commerce app — from user authentication to order management.
-
-## What does it do?
-
-- **User authentication** — register, login and protected routes
-- **Product catalogue** — browse wines with images, descriptions and prices
-- **Shopping cart** — persistent cart with quantity management
-- **Order system** — place orders and view order history
-- **User profile** — manage personal data
-- **Admin panel** — restricted dashboard to manage products and orders
-- **18+ API endpoints** consumed from the custom Express backend
-- Fully **responsive** design built with Tailwind CSS
-
-## Technical decisions
-
-The frontend is built with **React + Vite**, using two React Contexts (`AuthContext` and `CarritoContext`) to handle global state for authentication and the shopping cart. All API calls are centralised in a `services/api.js` module, keeping components clean.
-
-The backend is a custom **REST API built with Node.js and Express**, deployed separately on **Render**. The frontend is deployed on **Vercel**, with the API URL configurable via `.env` — making both services easy to redeploy or swap independently.
-
-The separation of frontend and backend into two repos reflects a real-world microservices approach, where each layer can be developed, tested and deployed on its own.
-
-</div>
 
 <div class="lang-es">
 
@@ -60,5 +34,32 @@ El frontend está construido con **React + Vite**, usando dos React Contexts (`A
 El backend es una **API REST propia con Node.js y Express**, desplegada de forma independiente en **Render**. El frontend está en **Vercel**, con la URL de la API configurable via `.env` — facilitando el redespliegue o sustitución de cualquiera de los dos servicios.
 
 La separación en dos repos refleja un enfoque real de microservicios, donde cada capa se puede desarrollar, probar y desplegar de forma autónoma.
+
+</div>
+
+<div class="lang-en">
+
+## Project description
+
+**Vinacoteca** is a full-stack wine shop application split into two independently deployed services: a **React SPA** on the frontend and a custom **Express REST API** on the backend. The project covers the complete lifecycle of an e-commerce app — from user authentication to order management.
+
+## What does it do?
+
+- **User authentication** — register, login and protected routes
+- **Product catalogue** — browse wines with images, descriptions and prices
+- **Shopping cart** — persistent cart with quantity management
+- **Order system** — place orders and view order history
+- **User profile** — manage personal data
+- **Admin panel** — restricted dashboard to manage products and orders
+- **18+ API endpoints** consumed from the custom Express backend
+- Fully **responsive** design built with Tailwind CSS
+
+## Technical decisions
+
+The frontend is built with **React + Vite**, using two React Contexts (`AuthContext` and `CarritoContext`) to handle global state for authentication and the shopping cart. All API calls are centralised in a `services/api.js` module, keeping components clean.
+
+The backend is a custom **REST API built with Node.js and Express**, deployed separately on **Render**. The frontend is deployed on **Vercel**, with the API URL configurable via `.env` — making both services easy to redeploy or swap independently.
+
+The separation of frontend and backend into two repos reflects a real-world microservices approach, where each layer can be developed, tested and deployed on its own.
 
 </div>

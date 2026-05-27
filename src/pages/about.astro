@@ -12,6 +12,7 @@ import { titulo } from '../components/BaseHead.astro';
 const stack = {
 	frontend: [
 		{ name: 'JavaScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg', color: '#F7DF1E' },
+		{ name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg', color: '#3178C6' },
 		{ name: 'React', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg', color: '#61DAFB' },
 		{ name: 'Next.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg', color: '#ffffff' },
 		{ name: 'Astro', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/astro/astro-original.svg', color: '#FF5D01' },
@@ -47,28 +48,51 @@ const profile = {
 	disponible: true,
 };
 
-function renderProfileJson(p: typeof profile) {
-	const experiencia = p.experiencia
-		.map((empresa, i) => `    <span class="str">"${empresa}"</span>${i < p.experiencia.length - 1 ? ',' : ''}`)
+const profileEn = {
+	name: 'Joel Cano Sánchez',
+	role: 'Full-stack junior',
+	age: 19,
+	studies: '2nd year DAW',
+	experience: ['e-Corp Sistemas', 'Reactivació Badalona'],
+	available: true,
+};
+
+function renderJson(keys: string[], values: Record<string, unknown>) {
+	const experienceKey = keys.find(k => k === 'experiencia' || k === 'experience')!;
+	const exp = values[experienceKey] as string[];
+	const expLines = exp
+		.map((e, i) => `    <span class="str">"${e}"</span>${i < exp.length - 1 ? ',' : ''}`)
 		.join('\n');
 
 	return `<span class="brace">{</span>
-  <span class="key">"nombre"</span>: <span class="str">"${p.nombre}"</span>,
-  <span class="key">"rol"</span>: <span class="str">"${p.rol}"</span>,
-  <span class="key">"edad"</span>: <span class="num">${p.edad}</span>,
-  <span class="key">"estudios"</span>: <span class="str">"${p.estudios}"</span>,
-  <span class="key">"experiencia"</span>: [
-${experiencia}
-  ],
-  <span class="key">"disponible"</span>: <span class="bool">${p.disponible}</span>
+${keys.map(k => {
+		const v = values[k];
+		if (k === experienceKey) {
+			return `  <span class="key">"${k}"</span>: [\n${expLines}\n  ]`;
+		}
+		if (typeof v === 'string') return `  <span class="key">"${k}"</span>: <span class="str">"${v}"</span>`;
+		if (typeof v === 'number') return `  <span class="key">"${k}"</span>: <span class="num">${v}</span>`;
+		if (typeof v === 'boolean') return `  <span class="key">"${k}"</span>: <span class="bool">${v}</span>`;
+		return '';
+	}).join(',\n')}
 <span class="brace">}</span>`;
 }
+
+const jsonEs = renderJson(
+	['nombre', 'rol', 'edad', 'estudios', 'experiencia', 'disponible'],
+	{ nombre: profile.nombre, rol: profile.rol, edad: profile.edad, estudios: profile.estudios, experiencia: profile.experiencia, disponible: profile.disponible }
+);
+
+const jsonEn = renderJson(
+	['name', 'role', 'age', 'studies', 'experience', 'available'],
+	{ name: profileEn.name, role: profileEn.role, age: profileEn.age, studies: profileEn.studies, experience: profileEn.experience, available: profileEn.available }
+);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 	<head>
-		<BaseHead title={`About | ${titulo}`} description="About me: education, experience and stack as a junior full-stack developer." />
+		<BaseHead title={`About | ${titulo}`} description="Sobre mí: educación, experiencia y stack como desarrollador full-stack junior." />
 		<style>
 			/* ── Hero ── */
 			.about-hero { padding: 1rem 0 0.5rem; }
@@ -100,10 +124,70 @@ ${experiencia}
 
 			/* Timeline */
 			.timeline { list-style: none; padding: 0; margin: 0; position: relative; }
-			.timeline::before { content: ''; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 2px; background: var(--border); }
+			.timeline::before {
+				content: '';
+				position: absolute;
+				left: 7px; top: 8px; bottom: 8px;
+				width: 2px;
+				background: linear-gradient(
+					to bottom,
+					transparent 0%,
+					var(--sig) 8%,
+					var(--sig) 92%,
+					transparent 100%
+				);
+				opacity: 0.55;
+				box-shadow: 0 0 8px 1px rgba(0, 232, 122, 0.35);
+			}
 			.timeline li { position: relative; padding-left: 2em; padding-bottom: 1.75em; }
 			.timeline li:last-child { padding-bottom: 0; }
-			.timeline li::before { content: ''; position: absolute; left: 0; top: 6px; width: 16px; height: 16px; border-radius: 50%; background: var(--bg-base); border: 2px solid var(--accent); box-shadow: 0 0 8px rgba(0,255,136,0.3); }
+
+			/* Círculo-botón */
+			.timeline-dot {
+				position: absolute;
+				left: 0; top: 6px;
+				width: 16px; height: 16px;
+				border-radius: 50%;
+				background: var(--bg-base);
+				border: 2px solid var(--sig);
+				box-shadow:
+					0 0 0 3px rgba(0, 232, 122, 0.12),
+					0 0 12px 3px rgba(0, 232, 122, 0.45),
+					0 0 24px 4px rgba(0, 232, 122, 0.2);
+				display: block;
+				text-decoration: none;
+				cursor: pointer;
+				transition:
+					background 0.45s ease,
+					box-shadow 0.45s ease;
+				z-index: 2;
+				overflow: hidden;
+			}
+
+			/* Relleno que crece desde el centro */
+			.timeline-dot::after {
+				content: '';
+				position: absolute;
+				inset: 0;
+				border-radius: 50%;
+				background: var(--sig);
+				transform: scale(0);
+				transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+			}
+
+			.timeline-dot:hover::after,
+			.timeline-dot:focus-visible::after {
+				transform: scale(1);
+			}
+
+			.timeline-dot:hover,
+			.timeline-dot:focus-visible {
+				box-shadow:
+					0 0 0 4px rgba(0, 232, 122, 0.2),
+					0 0 18px 5px rgba(0, 232, 122, 0.65),
+					0 0 36px 8px rgba(0, 232, 122, 0.3);
+				outline: none;
+			}
 			.timeline-period { font-family: var(--font-mono); font-size: 0.72em; color: var(--accent); letter-spacing: 0.05em; margin-bottom: 0.3em; }
 			.timeline-title { font-family: var(--font-mono); font-size: 1em; font-weight: 600; color: var(--text-primary); margin: 0 0 0.15em; }
 			.timeline-subtitle { font-size: 0.85em; color: var(--text-muted); margin: 0 0 0.4em; }
@@ -220,6 +304,12 @@ ${experiencia}
 			/* ── Quote ── */
 			.goal-quote { margin: 0; font-size: 1.05em; line-height: 1.75; }
 
+			/* ── Bilingüe: mostrar/ocultar por idioma ── */
+			.lang-en, .lang-es { display: none !important; }
+			html[data-active-lang="es"] .lang-es { display: block !important; }
+			html[data-active-lang="en"] .lang-en { display: block !important; }
+			html:not([data-active-lang]) .lang-es { display: block !important; }
+
 			/* ── Responsive ── */
 			@media (max-width: 768px) {
 				.hero-content { flex-direction: column; text-align: center; gap: 2em; }
@@ -241,28 +331,23 @@ ${experiencia}
 	</head>
 	<body>
 		<Header />
-		<main>
+		<main id="main-content">
 			<!-- Hero -->
 			<section class="about-hero">
 				<div class="hero-content">
-					<div class="hero-photo">
-						<img src="/images/joelcano.png" alt="Photo of Joel Cano Sánchez" width="220" height="220" />
+					<div class="hero-photo reveal-up">
+						<img src="/images/joelcano.png" alt="Foto de perfil de Joel Cano Sánchez" width="220" height="220" />
 					</div>
 					<div class="hero-text">
-						<p class="greeting" data-i18n="about.greeting">// about_me</p>
-						<h1 data-i18n="about.name">Joel Cano Sánchez</h1>
-						<p class="hero-sub" data-i18n="about.sub">
-							Junior full-stack developer. I'm passionate about building
-							applications from scratch, solving real problems and seeing how an idea turns
-							into something functional.
+						<p class="greeting reveal-fade" data-i18n="about.greeting">// sobre_mí</p>
+						<h1 class="reveal-up reveal-delay-1" data-i18n="about.name">Joel Cano Sánchez</h1>
+						<p class="hero-sub reveal-up reveal-delay-2" data-i18n="about.sub">
+							Desarrollador full-stack junior con 19 años. Me apasiona crear aplicaciones desde cero, resolver problemas reales y ver cómo una idea se convierte en algo funcional.
 						</p>
-						<div class="cta-links">
-							<a href="/projects" class="btn btn-primary" data-i18n="about.projects">View projects →</a>
-							<a href="https://github.com/joelcansan" target="_blank" rel="noopener noreferrer" class="btn btn-outline" data-i18n="about.github">GitHub</a>
-							<a
-								href="https://mail.google.com/mail/u/0/#inbox?compose=DmwnWrRqhSDmLLzgvbLNwCpqvlxgScVFtWCklrDknzJcHhQnzxLrKwThxTMWqbKqbwXVmmpmDcvB"
-								target="_blank" rel="noopener noreferrer" class="btn btn-outline" data-i18n="about.contact"
-							>Contact</a>
+						<div class="cta-links reveal-up reveal-delay-3">
+							<a href="/projects" class="btn btn-primary" data-i18n="about.cta.projects">Ver proyectos →</a>
+							<a href="https://github.com/joelcansan" target="_blank" rel="noopener noreferrer" class="btn btn-outline" data-i18n="about.cta.github" aria-label="GitHub (abre en nueva pestaña)">GitHub</a>
+							<a href="mailto:joelcanosan@gmail.com" class="btn btn-outline" data-i18n="about.cta.contact">Contacto</a>
 						</div>
 					</div>
 				</div>
@@ -271,22 +356,22 @@ ${experiencia}
 			<div class="divider"></div>
 
 			<!-- Stats -->
-			<div class="stats-grid page-section">
-				<div class="stat-card">
-					<div class="stat-value" data-i18n="about.statAge">19</div>
-					<div class="stat-label" data-i18n="about.statAgeLabel">Years old</div>
+			<div class="stats-grid page-section" role="list" aria-label="Datos rápidos">
+				<div class="stat-card reveal-up reveal-delay-1" role="listitem">
+					<div class="stat-value" data-i18n="about.stat.age">19</div>
+					<div class="stat-label" data-i18n="about.stat.ageLabel">Años</div>
 				</div>
-				<div class="stat-card">
-					<div class="stat-value" data-i18n="about.statCourse">2º</div>
-					<div class="stat-label" data-i18n="about.statCourseLabel">DAW</div>
+				<div class="stat-card reveal-up reveal-delay-2" role="listitem">
+					<div class="stat-value" data-i18n="about.stat.course">2º</div>
+					<div class="stat-label" data-i18n="about.stat.courseLabel">DAW</div>
 				</div>
-				<div class="stat-card">
-					<div class="stat-value" data-i18n="about.statRole">Full-stack</div>
-					<div class="stat-label" data-i18n="about.statRoleLabel">Junior</div>
+				<div class="stat-card reveal-up reveal-delay-3" role="listitem">
+					<div class="stat-value" data-i18n="about.stat.role">Full-stack</div>
+					<div class="stat-label" data-i18n="about.stat.roleLabel">Junior</div>
 				</div>
-				<div class="stat-card">
-					<div class="stat-value" data-i18n="about.statIntern">2</div>
-					<div class="stat-label" data-i18n="about.statInternLabel">Internships</div>
+				<div class="stat-card reveal-up reveal-delay-4" role="listitem">
+					<div class="stat-value" data-i18n="about.stat.intern">2</div>
+					<div class="stat-label" data-i18n="about.stat.internLabel">Prácticas</div>
 				</div>
 			</div>
 
@@ -295,36 +380,40 @@ ${experiencia}
 			<!-- Timeline + Terminal -->
 			<div class="content-grid page-section">
 				<div>
-					<p class="section-label" data-i18n="about.timeline">// My journey</p>
+					<p class="section-label reveal-left" data-i18n="about.section.timeline">// Mi camino</p>
 					<ul class="timeline">
-						<li>
-							<p class="timeline-period" data-i18n="about.t1period">2022 — 2024</p>
-							<h3 class="timeline-title" data-i18n="about.t1title">SMR</h3>
-							<p class="timeline-subtitle" data-i18n="about.t1sub">Sistemas Microinformáticos y Redes</p>
-							<p class="timeline-desc" data-i18n="about.t1desc">Solid foundation in hardware, networking and operating systems.</p>
+						<li class="reveal-up reveal-delay-1">
+							<a href="https://www.fpllefia.com/" target="_blank" rel="noopener noreferrer" class="timeline-dot" aria-label="Web del instituto FP Llefia (abre en nueva pestaña)"></a>
+							<p class="timeline-period" data-i18n="about.t1.period">2022 — 2024</p>
+							<h3 class="timeline-title" data-i18n="about.t1.title">SMR</h3>
+							<p class="timeline-subtitle" data-i18n="about.t1.sub">Sistemas Microinformáticos y Redes</p>
+							<p class="timeline-desc" data-i18n="about.t1.desc">Base sólida en hardware, redes y sistemas operativos.</p>
 						</li>
-						<li>
-							<p class="timeline-period" data-i18n="about.t2period">2024 — Present</p>
-							<h3 class="timeline-title" data-i18n="about.t2title">DAW</h3>
-							<p class="timeline-subtitle" data-i18n="about.t2sub">Desarrollo de Aplicaciones Web</p>
-							<p class="timeline-desc" data-i18n="about.t2desc">Second year. Full-stack, APIs, databases and deployment.</p>
+						<li class="reveal-up reveal-delay-2">
+							<a href="https://www.fpllefia.com/" target="_blank" rel="noopener noreferrer" class="timeline-dot" aria-label="Web del instituto FP Llefia (abre en nueva pestaña)"></a>
+							<p class="timeline-period" data-i18n="about.t2.period">2024 — Actualidad</p>
+							<h3 class="timeline-title" data-i18n="about.t2.title">DAW</h3>
+							<p class="timeline-subtitle" data-i18n="about.t2.sub">Desarrollo de Aplicaciones Web</p>
+							<p class="timeline-desc" data-i18n="about.t2.desc">Segundo curso. Full-stack, APIs, bases de datos y despliegue.</p>
 						</li>
-						<li>
-							<p class="timeline-period" data-i18n="about.t3period">Intern</p>
-							<h3 class="timeline-title" data-i18n="about.t3title">e-Corp Sistemas</h3>
-							<p class="timeline-subtitle" data-i18n="about.t3sub">Assembly and systems</p>
-							<p class="timeline-desc" data-i18n="about.t3desc">Computer assembly, OS installation and configuration.</p>
+						<li class="reveal-up reveal-delay-3">
+							<a href="https://www.e-corp.es/" target="_blank" rel="noopener noreferrer" class="timeline-dot" aria-label="Web de e-Corp Sistemas (abre en nueva pestaña)"></a>
+							<p class="timeline-period" data-i18n="about.t3.period">Prácticas</p>
+							<h3 class="timeline-title" data-i18n="about.t3.title">e-Corp Sistemas</h3>
+							<p class="timeline-subtitle" data-i18n="about.t3.sub">Montaje y sistemas</p>
+							<p class="timeline-desc" data-i18n="about.t3.desc">Montaje de ordenadores, instalación y configuración de sistemas operativos.</p>
 						</li>
-						<li>
-							<p class="timeline-period" data-i18n="about.t4period">Intern</p>
-							<h3 class="timeline-title" data-i18n="about.t4title">Reactivació Badalona</h3>
-							<p class="timeline-subtitle" data-i18n="about.t4sub">Web development</p>
-							<p class="timeline-desc" data-i18n="about.t4desc">WordPress, MariaDB, and modern stack with React, Next.js, Tailwind, Laravel and Express.</p>
+						<li class="reveal-up reveal-delay-4">
+							<a href="https://reactivaciobadalona.cat/" target="_blank" rel="noopener noreferrer" class="timeline-dot" aria-label="Web de Reactivació Badalona (abre en nueva pestaña)"></a>
+							<p class="timeline-period" data-i18n="about.t4.period">Prácticas</p>
+							<h3 class="timeline-title" data-i18n="about.t4.title">Reactivació Badalona</h3>
+							<p class="timeline-subtitle" data-i18n="about.t4.sub">Desarrollo web</p>
+							<p class="timeline-desc" data-i18n="about.t4.desc">WordPress, MariaDB, y stack moderno con React, Next.js, Tailwind, Laravel y Express.</p>
 						</li>
 					</ul>
 				</div>
 				<div>
-					<p class="section-label" data-i18n="about.terminal">// joel.json</p>
+					<p class="section-label reveal-left reveal-delay-1" data-i18n="about.section.terminal">// joel.json</p>
 					<div class="terminal-card">
 						<div class="terminal-header">
 							<span class="terminal-dot red"></span>
@@ -332,7 +421,8 @@ ${experiencia}
 							<span class="terminal-dot green"></span>
 							<span class="terminal-filename">joel.json</span>
 						</div>
-						<pre class="terminal-body"><code set:html={renderProfileJson(profile)} /></pre>
+						<pre class="terminal-body lang-es"><code set:html={jsonEs} /></pre>
+						<pre class="terminal-body lang-en"><code set:html={jsonEn} /></pre>
 					</div>
 				</div>
 			</div>
@@ -341,54 +431,54 @@ ${experiencia}
 
 			<!-- Stack -->
 			<section class="stack-section page-section section-block">
-				<p class="section-label" data-i18n="about.stack">// Stack</p>
+				<p class="section-label reveal-left" data-i18n="about.section.stack">// Stack</p>
 				<div class="stack-groups">
 					<!-- Frontend -->
-					<div class="stack-group">
-						<h3 data-i18n="about.frontend">Frontend</h3>
+					<div class="stack-group reveal-up reveal-delay-1">
+						<h3 data-i18n="about.section.frontend">Frontend</h3>
 						<ul class="stack-grid">
-							{stack.frontend.map((tech) => (
-								<li class="stack-card" style={`--stack-color: ${tech.color}; --stack-glow: ${tech.color}22;`}>
-									<img class="stack-icon" src={tech.icon} alt={tech.name} width="30" height="30" loading="lazy" />
-									<span class="stack-name">{tech.name}</span>
-								</li>
-							))}
+						{stack.frontend.map((tech) => (
+						<li class="stack-card" style={`--stack-color: ${tech.color}; --stack-glow: ${tech.color}22;`} role="img" aria-label={tech.name}>
+						<img class="stack-icon" src={tech.icon} alt="" width="30" height="30" loading="lazy" aria-hidden="true" />
+						<span class="stack-name" aria-hidden="true">{tech.name}</span>
+						</li>
+						))}
 						</ul>
 					</div>
 					<!-- Backend -->
-					<div class="stack-group">
-						<h3 data-i18n="about.backend">Backend</h3>
+					<div class="stack-group reveal-up reveal-delay-2">
+						<h3 data-i18n="about.section.backend">Backend</h3>
 						<ul class="stack-grid">
-							{stack.backend.map((tech) => (
-								<li class="stack-card" style={`--stack-color: ${tech.color}; --stack-glow: ${tech.color}22;`}>
-									<img class="stack-icon" src={tech.icon} alt={tech.name} width="30" height="30" loading="lazy" />
-									<span class="stack-name">{tech.name}</span>
-								</li>
-							))}
+						{stack.backend.map((tech) => (
+						<li class="stack-card" style={`--stack-color: ${tech.color}; --stack-glow: ${tech.color}22;`} role="img" aria-label={tech.name}>
+						<img class="stack-icon" src={tech.icon} alt="" width="30" height="30" loading="lazy" aria-hidden="true" />
+						<span class="stack-name" aria-hidden="true">{tech.name}</span>
+						</li>
+						))}
 						</ul>
 					</div>
 					<!-- Databases -->
-					<div class="stack-group">
-						<h3 data-i18n="about.databases">Databases</h3>
+					<div class="stack-group reveal-up reveal-delay-3">
+						<h3 data-i18n="about.section.databases">Bases de datos</h3>
 						<ul class="stack-grid">
-							{stack.database.map((tech) => (
-								<li class="stack-card" style={`--stack-color: ${tech.color}; --stack-glow: ${tech.color}22;`}>
-									<img class="stack-icon" src={tech.icon} alt={tech.name} width="30" height="30" loading="lazy" />
-									<span class="stack-name">{tech.name}</span>
-								</li>
-							))}
+						{stack.database.map((tech) => (
+						<li class="stack-card" style={`--stack-color: ${tech.color}; --stack-glow: ${tech.color}22;`} role="img" aria-label={tech.name}>
+						<img class="stack-icon" src={tech.icon} alt="" width="30" height="30" loading="lazy" aria-hidden="true" />
+						<span class="stack-name" aria-hidden="true">{tech.name}</span>
+						</li>
+						))}
 						</ul>
 					</div>
 					<!-- Tools -->
-					<div class="stack-group">
-						<h3 data-i18n="about.tools">Tools</h3>
+					<div class="stack-group reveal-up reveal-delay-4">
+						<h3 data-i18n="about.section.tools">Herramientas</h3>
 						<ul class="stack-grid">
-							{stack.tools.map((tech) => (
-								<li class="stack-card" style={`--stack-color: ${tech.color}; --stack-glow: ${tech.color}22;`}>
-									<img class="stack-icon" src={tech.icon} alt={tech.name} width="30" height="30" loading="lazy" />
-									<span class="stack-name">{tech.name}</span>
-								</li>
-							))}
+						{stack.tools.map((tech) => (
+						<li class="stack-card" style={`--stack-color: ${tech.color}; --stack-glow: ${tech.color}22;`} role="img" aria-label={tech.name}>
+						<img class="stack-icon" src={tech.icon} alt="" width="30" height="30" loading="lazy" aria-hidden="true" />
+						<span class="stack-name" aria-hidden="true">{tech.name}</span>
+						</li>
+						))}
 						</ul>
 					</div>
 				</div>
@@ -398,22 +488,22 @@ ${experiencia}
 
 			<!-- How I work -->
 			<div class="page-section section-block">
-				<p class="section-label" data-i18n="about.howWork">// How I work</p>
+				<p class="section-label reveal-left" data-i18n="about.section.howWork">// Cómo trabajo</p>
 				<div class="work-grid">
-					<div class="work-card">
-						<p class="tag" data-i18n="about.w1tag">// methodology</p>
-						<h3 data-i18n="about.w1title">SCRUM</h3>
-						<p data-i18n="about.w1desc">Team work with sprints and iterative deliveries.</p>
+					<div class="work-card reveal-up reveal-delay-1">
+						<p class="tag" data-i18n="about.w1.tag">// metodología</p>
+						<h3 data-i18n="about.w1.title">SCRUM</h3>
+						<p data-i18n="about.w1.desc">Trabajo en equipo con sprints y entregas iterativas.</p>
 					</div>
-					<div class="work-card">
-						<p class="tag" data-i18n="about.w2tag">// versioning</p>
-						<h3 data-i18n="about.w2title">Git</h3>
-						<p data-i18n="about.w2desc">Version control in all my personal and academic projects.</p>
+					<div class="work-card reveal-up reveal-delay-2">
+						<p class="tag" data-i18n="about.w2.tag">// versionado</p>
+						<h3 data-i18n="about.w2.title">Git</h3>
+						<p data-i18n="about.w2.desc">Control de versiones en todos mis proyectos personales y académicos.</p>
 					</div>
-					<div class="work-card">
-						<p class="tag" data-i18n="about.w3tag">// deploy</p>
-						<h3 data-i18n="about.w3title">In production</h3>
-						<p data-i18n="about.w3desc">Vercel, Render, Railway and GitHub Pages.</p>
+					<div class="work-card reveal-up reveal-delay-3">
+						<p class="tag" data-i18n="about.w3.tag">// deploy</p>
+						<h3 data-i18n="about.w3.title">En producción</h3>
+						<p data-i18n="about.w3.desc">Vercel, Render, Railway y GitHub Pages.</p>
 					</div>
 				</div>
 			</div>
@@ -421,12 +511,36 @@ ${experiencia}
 			<div class="divider"></div>
 
 			<!-- Goal -->
-			<blockquote class="goal-quote" data-i18n="about.quote">
-				My goal is to keep growing as a developer, add value in every project and
-				surround myself with people who challenge me to improve. Every line of code motivates me to build
-				things that are increasingly solid, useful and professional.
+			<blockquote class="goal-quote reveal-up" data-i18n="about.quote">
+				Mi objetivo es seguir creciendo como desarrollador, aportar valor en cada proyecto y rodearme de personas que me reten a mejorar. Cada línea de código me motiva a construir cosas cada vez más sólidas, útiles y profesionales.
 			</blockquote>
 		</main>
 		<Footer />
+		<script is:inline>
+		(function () {
+			/* ─ Scroll reveal ─ reutiliza las mismas clases que Home:
+			   .reveal-up, .reveal-left, .reveal-right, .reveal-fade
+			   + .reveal-delay-1…4  → se vuelven .revealed al entrar en viewport */
+			var els = document.querySelectorAll(
+				'.reveal-up, .reveal-left, .reveal-right, .reveal-fade'
+			);
+
+			if (!('IntersectionObserver' in window)) {
+				els.forEach(function (el) { el.classList.add('revealed'); });
+				return;
+			}
+
+			var obs = new IntersectionObserver(function (entries) {
+				entries.forEach(function (e) {
+					if (e.isIntersecting) {
+						e.target.classList.add('revealed');
+						obs.unobserve(e.target);
+					}
+				});
+			}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+			els.forEach(function (el) { obs.observe(el); });
+		})();
+		</script>
 	</body>
 </html>

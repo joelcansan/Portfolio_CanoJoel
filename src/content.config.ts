@@ -21,13 +21,12 @@ const project = defineCollection({
 	// Load Markdown and MDX files in the `src/content/projects/` directory.
 	loader: glob({ base: './src/content/projects', pattern: '**/*.{md,mdx}' }),
 	// Type-check frontmatter using a schema
-	schema: ({ image }) =>
-		z.object({
+	schema: z.object({
 			name: z.string(),
-			nameEs: z.string().optional(),
+			nameEn: z.string().optional(),
 			description: z.string(),
-			descriptionEs: z.string().optional(),
-			heroImage: z.optional(image()),
+			descriptionEn: z.string().optional(),
+			heroImage: z.string().optional(),
 			techs: z.array(z.string()).optional().default([]),
 			github: z.string().optional(),
 			demo: z.string().optional(),
