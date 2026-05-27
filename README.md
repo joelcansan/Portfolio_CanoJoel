@@ -1,63 +1,38 @@
-# Astro Starter Kit: Blog
+# Portfolio Cano Joel
 
-```sh
-npm create astro@latest -- --template blog
-```
+Este proyecto es un **portfolio personal creado con Astro**. Está diseñado como un sitio web **estático** y optimizado para mostrar proyectos, experiencia y una sección de contacto funcional.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## ✨ Tecnologías usadas
 
-Features:
+- **Astro** para generar el sitio estático
+- **HTML avanzado** para construir la estructura y contenido
+- **CSS avanzado** para el diseño responsivo, animaciones y estilos personalizados
+- **JavaScript** para interactividad y pequeños componentes dinámicos
+- **Formspree** para recibir correos desde el formulario de contacto directamente en el email
 
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and Open Graph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
+## 🧩 Cómo funciona el portfolio
 
-## 🚀 Project Structure
+El portfolio se compone de páginas estáticas generadas por Astro a partir de archivos y componentes en `src/`. La estructura principal incluye:
 
-Inside of your Astro project, you'll see the following folders and files:
+- `src/pages/`: rutas públicas del sitio, como la página de inicio y el apartado de proyectos
+- `src/components/`: componentes reutilizables para cabeceras, pie de página, formulario y efectos visuales
+- `src/content/`: contenido en Markdown para entradas del blog y descripciones de proyectos
+- `public/`: recursos estáticos como imágenes y configuraciones públicas
 
-```text
-├── public/
-├── src/
-│   ├── assets/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
-```
+La página de contacto usa un formulario que envía los datos a **Formspree**, lo que permite recibir los mensajes directamente en el correo sin necesidad de backend propio.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## 🚀 Resumen general
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Este portfolio es un sitio web estático creado con Astro, donde cada página se construye a partir de componentes y contenido bien estructurado. El resultado es un sitio rápido, accesible y moderno, con soporte para proyectos, blog y contacto. Además de Astro, el proyecto incluye trabajo con JavaScript, CSS y HTML avanzado para mejorar la experiencia de usuario.
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+## 🧞 Comandos
 
-Any static assets, like images, can be placed in the `public/` directory.
+Desde la raíz del proyecto, utiliza estos comandos:
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
+| Comando                   | Acción                                           |
 | :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
-
-## Credit
-
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+| `npm install`             | Instala dependencias                             |
+| `npm run dev`             | Inicia el servidor local en `localhost:4321`    |
+| `npm run build`           | Genera el sitio de producción en `./dist/`       |
+| `npm run preview`         | Previsualiza el sitio de producción              |
+| `npm run astro -- --help` | Muestra ayuda del CLI de Astro                   |
