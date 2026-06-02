@@ -4,7 +4,7 @@ nameEn: "InfluStats — Social Media Manager"
 description: "Aplicación web para gestores de contenido: centraliza estadísticas de Instagram, YouTube, TikTok y Twitch en un solo panel, con gráficos interactivos y comparativa entre perfiles."
 descriptionEn: "Web app for content creators: centralises Instagram, YouTube, TikTok and Twitch stats in one dashboard, with interactive charts and cross-profile comparisons."
 techs: ["Next.js", "React", "Recharts", "Tailwind CSS", "Node.js", "Express", "Supabase", "Prisma"]
-github: "https://github.com/joelcansan"
+github: "https://github.com/joelcansan/InfluStats_Frontend"
 heroImage: "/images/influstats.png"
 demo: "https://influstats.vercel.app/"
 pubDate: "2025-06-01"
