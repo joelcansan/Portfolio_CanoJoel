@@ -7,7 +7,7 @@ techs: ["Next.js", "React", "Recharts", "Tailwind CSS", "Node.js", "Express", "S
 github: "https://github.com/joelcansan/InfluStats_Frontend"
 heroImage: "/images/influstats.png"
 demo: "https://influstats.vercel.app/"
-pubDate: "2025-06-01"
+pubDate: "2026-05-25"
 ---
 
 <div class="lang-es">

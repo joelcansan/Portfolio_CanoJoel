@@ -7,7 +7,7 @@ techs: ["React", "Node.js", "Express", "REST API", "Tailwind CSS", "Vite"]
 github: "https://github.com/joelcansan/Vinacoteca"
 heroImage: "/images/vinacoteca.png"
 demo: "https://cano-joel-frontend-express.vercel.app/"
-pubDate: "2025-05-01"
+pubDate: "2026-04-16"
 ---
 
 <div class="lang-es">
