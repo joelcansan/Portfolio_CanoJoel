@@ -1,0 +1,28 @@
+{
+  "name": "Joel Cano Sánchez — JCS",
+  "short_name": "JCS",
+  "description": "Portfolio de Joel Cano Sánchez, desarrollador full-stack junior.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#07090b",
+  "theme_color": "#07090b",
+  "icons": [
+    {
+      "src": "/images/Jcs.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/Jcs.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/Jcs.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -268,6 +268,7 @@ window.setLanguage = function (lang) {
   updateLangButtons(lang);
   updateTicker(lang);
   updateProjectDetail(lang);
+  updateCvLinks(lang);
 
   /* Restaurar aria-label del ticker con el valor ya traducido */
   if (ticker) {
@@ -336,6 +337,18 @@ function updateTicker(lang) {
   if (roleEl && t['hero.role']) roleEl.textContent = t['hero.role'];
 }
 
+/* ── Cambiar el PDF del CV según idioma ──
+   Cualquier enlace con data-cv-es (y opcionalmente data-cv-en)
+   actualiza su href/download al idioma activo. Si no hay versión
+   en inglés, se mantiene la de español como fallback. */
+function updateCvLinks(lang) {
+  document.querySelectorAll('[data-cv-es]').forEach(function (el) {
+    var href = el.getAttribute('data-cv-' + lang) || el.getAttribute('data-cv-es');
+    el.setAttribute('href', href);
+    el.setAttribute('download', href.split('/').pop());
+  });
+}
+
 /* ── Actualizar detalle de proyecto (ProjectPost.astro) ── */
 function updateProjectDetail(lang) {
   var title = document.getElementById('proj-title');
@@ -371,4 +384,5 @@ document.addEventListener('DOMContentLoaded', function () {
   updateLangButtons(lang);
   updateTicker(lang);
   updateProjectDetail(lang);
+  updateCvLinks(lang);
 });
