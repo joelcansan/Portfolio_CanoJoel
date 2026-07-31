@@ -19,6 +19,9 @@ window.I18N = {
   ═══════════════════════════════════════ */
   es: {
 
+    /* ── Header ── */
+    'header.status': 'Buscando trabajo',
+
     /* ── Navegación ── */
     'nav.home':     'Home',
     'nav.projects': 'Proyectos',
@@ -129,6 +132,9 @@ window.I18N = {
      ENGLISH
   ═══════════════════════════════════════ */
   en: {
+
+    /* ── Header ── */
+    'header.status': 'Searching for work',
 
     /* ── Navegación ── */
     'nav.home':     'Home',
