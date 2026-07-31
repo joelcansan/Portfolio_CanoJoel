@@ -8,9 +8,9 @@
 <div class="contact-wrap">
 
   <div class="cf-header reveal-up" data-reveal>
-    <p class="section-label">// Contacto</p>
-    <h2 class="cf-title" id="sec-contacto">¿Hablamos?</h2>
-    <p class="cf-subtitle">
+    <p class="section-label" data-i18n="contact.label">// Contacto</p>
+    <h2 class="cf-title" id="sec-contacto" data-i18n="contact.title">¿Hablamos?</h2>
+    <p class="cf-subtitle" data-i18n="contact.subtitle">
       ¿Tienes un proyecto, una oferta o quieres saludar?
       Escríbeme y te respondo en menos de 24h.
     </p>
@@ -20,38 +20,38 @@
 
     <!-- ── Formulario ── -->
     <form class="cf-form reveal-up reveal-delay-1" data-reveal id="contact-form" novalidate
-      action="https://formspree.io/f/mzdwrbbw" method="POST" aria-label="Formulario de contacto">
+      action="https://formspree.io/f/mzdwrbbw" method="POST" aria-label="Formulario de contacto" data-i18n-aria-label="contact.form.ariaLabel">
       <div id="form-status" class="form-status" role="alert" aria-live="polite" aria-atomic="true"></div>
 
       <div class="form-row">
         <div class="form-group">
-          <label for="cf-name" class="form-label"><span class="lbl-num" aria-hidden="true">01</span> Nombre <span class="req-mark" aria-hidden="true">*</span><span class="sr-only">(obligatorio)</span></label>
-          <input type="text" id="cf-name" name="from_name" class="form-input" placeholder="Tu nombre" required autocomplete="name" aria-required="true" aria-describedby="err-cf-name" />
+          <label for="cf-name" class="form-label"><span class="lbl-num" aria-hidden="true">01</span> <span data-i18n="contact.label.name">Nombre</span> <span class="req-mark" aria-hidden="true">*</span><span class="sr-only" data-i18n="contact.required">(obligatorio)</span></label>
+          <input type="text" id="cf-name" name="from_name" class="form-input" placeholder="Tu nombre" data-i18n-placeholder="contact.placeholder.name" required autocomplete="name" aria-required="true" aria-describedby="err-cf-name" />
           <span class="field-err" id="err-cf-name" data-for="cf-name" role="alert"></span>
         </div>
         <div class="form-group">
-          <label for="cf-email" class="form-label"><span class="lbl-num" aria-hidden="true">02</span> Email <span class="req-mark" aria-hidden="true">*</span><span class="sr-only">(obligatorio)</span></label>
-          <input type="email" id="cf-email" name="reply_to" class="form-input" placeholder="tu@email.com" required autocomplete="email" aria-required="true" aria-describedby="err-cf-email" />
+          <label for="cf-email" class="form-label"><span class="lbl-num" aria-hidden="true">02</span> <span data-i18n="contact.label.email">Email</span> <span class="req-mark" aria-hidden="true">*</span><span class="sr-only" data-i18n="contact.required">(obligatorio)</span></label>
+          <input type="email" id="cf-email" name="reply_to" class="form-input" placeholder="tu@email.com" data-i18n-placeholder="contact.placeholder.email" required autocomplete="email" aria-required="true" aria-describedby="err-cf-email" />
           <span class="field-err" id="err-cf-email" data-for="cf-email" role="alert"></span>
         </div>
       </div>
 
       <div class="form-group">
-        <label for="cf-subject" class="form-label"><span class="lbl-num" aria-hidden="true">03</span> Asunto <span class="req-mark" aria-hidden="true">*</span><span class="sr-only">(obligatorio)</span></label>
-        <input type="text" id="cf-subject" name="subject" class="form-input" placeholder="¿De qué va?" required aria-required="true" aria-describedby="err-cf-subject" />
+        <label for="cf-subject" class="form-label"><span class="lbl-num" aria-hidden="true">03</span> <span data-i18n="contact.label.subject">Asunto</span> <span class="req-mark" aria-hidden="true">*</span><span class="sr-only" data-i18n="contact.required">(obligatorio)</span></label>
+        <input type="text" id="cf-subject" name="subject" class="form-input" placeholder="¿De qué va?" data-i18n-placeholder="contact.placeholder.subject" required aria-required="true" aria-describedby="err-cf-subject" />
         <span class="field-err" id="err-cf-subject" data-for="cf-subject" role="alert"></span>
       </div>
 
       <div class="form-group">
-        <label for="cf-message" class="form-label"><span class="lbl-num" aria-hidden="true">04</span> Mensaje <span class="req-mark" aria-hidden="true">*</span><span class="sr-only">(obligatorio)</span></label>
-        <textarea id="cf-message" name="message" class="form-input form-textarea" placeholder="Cuéntame..." rows="5" required aria-required="true" aria-describedby="err-cf-message"></textarea>
+        <label for="cf-message" class="form-label"><span class="lbl-num" aria-hidden="true">04</span> <span data-i18n="contact.label.message">Mensaje</span> <span class="req-mark" aria-hidden="true">*</span><span class="sr-only" data-i18n="contact.required">(obligatorio)</span></label>
+        <textarea id="cf-message" name="message" class="form-input form-textarea" placeholder="Cuéntame..." data-i18n-placeholder="contact.placeholder.message" rows="5" required aria-required="true" aria-describedby="err-cf-message"></textarea>
         <span class="field-err" id="err-cf-message" data-for="cf-message" role="alert"></span>
       </div>
 
       <!-- Botones -->
       <div class="cf-actions">
         <button type="submit" class="cf-btn" id="form-submit" aria-describedby="form-status">
-          <span class="btn-text">Enviar mensaje</span>
+          <span class="btn-text" data-i18n="contact.submit">Enviar mensaje</span>
           <span class="btn-ico" aria-hidden="true">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
@@ -65,12 +65,13 @@
           href="mailto:joelcanosan@gmail.com?subject=Contacto%20desde%20portfolio"
           class="cf-mailto"
           title="Abrir cliente de correo"
+          data-i18n-title="contact.mailto.title"
         >
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <rect x="2" y="4" width="20" height="16" rx="2"/>
             <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
           </svg>
-          Abrir en mi correo
+          <span data-i18n="contact.mailto">Abrir en mi correo</span>
         </a>
       </div>
     </form>
@@ -79,7 +80,7 @@
     <aside class="cf-aside reveal-right reveal-delay-2" data-reveal>
 
       <div class="aside-block">
-        <p class="aside-label">// Email directo</p>
+        <p class="aside-label" data-i18n="contact.aside.emailLabel">// Email directo</p>
         <a href="mailto:joelcanosan@gmail.com" class="aside-val aside-email">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <rect x="2" y="4" width="20" height="16" rx="2"/>
@@ -90,24 +91,24 @@
       </div>
 
       <div class="aside-block">
-        <p class="aside-label">// GitHub</p>
+        <p class="aside-label" data-i18n="contact.aside.githubLabel">// GitHub</p>
         <a href="https://github.com/joelcansan" target="_blank" rel="noopener noreferrer" class="aside-val">
           github.com/joelcansan
         </a>
       </div>
 
       <div class="aside-block">
-        <p class="aside-label">// LinkedIn</p>
+        <p class="aside-label" data-i18n="contact.aside.linkedinLabel">// LinkedIn</p>
         <a href="https://www.linkedin.com/in/joel-cano-sanchez-95198b2b4/" target="_blank" rel="noopener noreferrer" class="aside-val">
           Joel Cano Sánchez
         </a>
       </div>
 
       <div class="aside-block">
-        <p class="aside-label">// Estado</p>
+        <p class="aside-label" data-i18n="contact.aside.statusLabel">// Estado</p>
         <p class="aside-val availability">
           <span class="avail-dot"></span>
-          Disponible para proyectos
+          <span data-i18n="hero.available">Disponible para proyectos</span>
         </p>
       </div>
 
@@ -133,11 +134,19 @@
   var submitBtn = document.getElementById('form-submit');
   var statusBox = document.getElementById('form-status');
 
+  function currentI18n() {
+    var lang = (window.getLanguage && window.getLanguage()) || 'es';
+    return (window.I18N && window.I18N[lang]) || {};
+  }
+
   function validateField(input) {
     var err = document.querySelector('[data-for="' + input.id + '"]');
     if (!err) return true;
+    var t = currentI18n();
     if (!input.validity.valid) {
-      err.textContent = input.type === 'email' ? 'Email inv\u00e1lido' : 'Campo obligatorio';
+      err.textContent = input.type === 'email'
+        ? (t['contact.err.email'] || 'Email inv\u00e1lido')
+        : (t['contact.err.required'] || 'Campo obligatorio');
       input.classList.add('has-error');
       return false;
     }
@@ -173,21 +182,23 @@
       headers: { 'Accept': 'application/json' }
     })
     .then(function (res) {
+      var t = currentI18n();
       if (res.ok) {
         statusBox.className = 'form-status status-ok';
         statusBox.innerHTML =
           '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>' +
-          '\u00a1Mensaje enviado! Te responderé pronto.';
+          (t['contact.success'] || '\u00a1Mensaje enviado! Te responderé pronto.');
         form.reset();
       } else {
         return res.json().then(function (json) { throw json; });
       }
     })
     .catch(function () {
+      var t = currentI18n();
       statusBox.className = 'form-status status-err';
       statusBox.innerHTML =
         '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>' +
-        'Error al enviar. Prueba el bot\u00f3n de abajo.';
+        (t['contact.error'] || 'Error al enviar. Prueba el bot\u00f3n de abajo.');
     })
     .finally(function () {
       submitBtn.classList.remove('loading');

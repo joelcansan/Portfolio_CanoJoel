@@ -123,6 +123,32 @@ window.I18N = {
 
     'about.quote': 'Mi objetivo es seguir creciendo como desarrollador, aportar valor en cada proyecto y rodearme de personas que me reten a mejorar. Cada línea de código me motiva a construir cosas cada vez más sólidas, útiles y profesionales.',
 
+    /* ── Contacto ── */
+    'contact.label':            '// Contacto',
+    'contact.title':            '¿Hablamos?',
+    'contact.subtitle':         '¿Tienes un proyecto, una oferta o quieres saludar? Escríbeme y te respondo en menos de 24h.',
+    'contact.form.ariaLabel':   'Formulario de contacto',
+    'contact.label.name':       'Nombre',
+    'contact.label.email':      'Email',
+    'contact.label.subject':    'Asunto',
+    'contact.label.message':    'Mensaje',
+    'contact.required':         '(obligatorio)',
+    'contact.placeholder.name':    'Tu nombre',
+    'contact.placeholder.email':   'tu@email.com',
+    'contact.placeholder.subject': '¿De qué va?',
+    'contact.placeholder.message': 'Cuéntame...',
+    'contact.submit':           'Enviar mensaje',
+    'contact.mailto':           'Abrir en mi correo',
+    'contact.mailto.title':     'Abrir cliente de correo',
+    'contact.aside.emailLabel':    '// Email directo',
+    'contact.aside.githubLabel':   '// GitHub',
+    'contact.aside.linkedinLabel': '// LinkedIn',
+    'contact.aside.statusLabel':   '// Estado',
+    'contact.err.required':     'Campo obligatorio',
+    'contact.err.email':        'Email inválido',
+    'contact.success':          '¡Mensaje enviado! Te responderé pronto.',
+    'contact.error':            'Error al enviar. Prueba el botón de abajo.',
+
     /* ── Footer ── */
     'footer.cv':        'Descargar CV',
     'footer.copyright': '©',
@@ -237,6 +263,32 @@ window.I18N = {
 
     'about.quote': 'My goal is to keep growing as a developer, add value to every project, and surround myself with people who challenge me to improve. Every line of code motivates me to build things that are increasingly solid, useful and professional.',
 
+    /* ── Contact ── */
+    'contact.label':            '// Contact',
+    'contact.title':            "Let's talk?",
+    'contact.subtitle':         'Got a project, an offer, or just want to say hi? Drop me a line and I\'ll get back to you within 24h.',
+    'contact.form.ariaLabel':   'Contact form',
+    'contact.label.name':       'Name',
+    'contact.label.email':      'Email',
+    'contact.label.subject':    'Subject',
+    'contact.label.message':    'Message',
+    'contact.required':         '(required)',
+    'contact.placeholder.name':    'Your name',
+    'contact.placeholder.email':   'you@email.com',
+    'contact.placeholder.subject': "What's it about?",
+    'contact.placeholder.message': 'Tell me...',
+    'contact.submit':           'Send message',
+    'contact.mailto':           'Open in my email client',
+    'contact.mailto.title':     'Open email client',
+    'contact.aside.emailLabel':    '// Direct email',
+    'contact.aside.githubLabel':   '// GitHub',
+    'contact.aside.linkedinLabel': '// LinkedIn',
+    'contact.aside.statusLabel':   '// Status',
+    'contact.err.required':     'Required field',
+    'contact.err.email':        'Invalid email',
+    'contact.success':          "Message sent! I'll get back to you soon.",
+    'contact.error':            'Something went wrong. Try the button below.',
+
     /* ── Footer ── */
     'footer.cv':        'Download CV',
     'footer.copyright': '©',
@@ -312,6 +364,12 @@ function applyTranslations(lang) {
   document.querySelectorAll('[data-i18n-aria-label]').forEach(function (el) {
     var key = el.getAttribute('data-i18n-aria-label');
     if (t[key] !== undefined) el.setAttribute('aria-label', t[key]);
+  });
+
+  /* data-i18n-title → atributo title (tooltips) */
+  document.querySelectorAll('[data-i18n-title]').forEach(function (el) {
+    var key = el.getAttribute('data-i18n-title');
+    if (t[key] !== undefined) el.title = t[key];
   });
 
   /* Contador de proyectos dinámico */
